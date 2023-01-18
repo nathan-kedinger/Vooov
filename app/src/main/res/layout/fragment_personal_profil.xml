@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        />
+    <ImageView
+        android:id="@+id/personal_profil_my_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/fond_ampli"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_my_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_page_title"
+        style="@style/HomeSub"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_informations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_informations"
+        style="@style/HomeSub"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_mail"
+        style="@style/HomeSub"
+        />
+
+    <Button
+        android:id="@+id/personal_profil_modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_modify"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_biographie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_biographie"
+        style="@style/HomeSub"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_biographie_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_biographie_text"
+        />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/personal_profil_my_records"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_my_records" />
+
+    <Button
+        android:id="@+id/personal_profil_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/burger_logout"
+        />
+
+    <Button
+        android:id="@+id/personal_profil_delete_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_delete_profil"
+        />
+
+</LinearLayout>

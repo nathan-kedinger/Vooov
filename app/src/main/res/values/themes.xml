@@ -1,0 +1,105 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Vooov" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_gold</item>
+        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/strong_gold</item>
+        <item name="colorSecondaryVariant">@color/brown</item>
+        <item name="colorOnSecondary">@color/light_gold</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+
+        <!--SPINNER THEMES-->
+        <item name="android:spinnerItemStyle">@style/BasicTextBlack</item>
+        <item name="android:spinnerDropDownItemStyle">@style/BasicText</item>
+
+    </style>
+
+    <!-- APP TITLE -->
+    <style name="TitleApp">
+        <item name="android:textColor">@color/brown</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:fontFamily">@font/bungeeinline_regular</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">-10dp</item>
+    </style>
+
+    <!-- DEFAULT TEXT -->
+    <style name="DefaultTextStyle" parent="TitleApp"> <!-- parent évite de répéter   plusieur fois le meme style-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- PAGE TITLE -->
+    <style name="PageTitle" parent="DefaultTextStyle">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- STUDIO TEXT -->
+    <style name="StudioText" parent="TitleApp">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="HomeMain" parent="StudioText">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="HomeSub" parent="StudioText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- MAIN RECCORD TEXT -->
+    <style name="MainRecord" parent="StudioText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- SUBRECORD TEXT -->
+    <style name="SubRecord" parent="StudioText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- BASIC TEXT -->
+    <style name="BasicText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/gravity_light</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--BASIC TEXT BLACK -->
+    <style name="BasicTextBlack" parent="BasicText">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- COMPLETION TEXT -->
+    <style name="CompletionText" parent="SmallText">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <!-- SMALL TEXT -->
+    <style name="SmallText" parent="BasicText">
+        <item name="android:textSize">14sp </item>
+    </style>
+
+    <style name="Button">
+        <item name="android:gravity">center</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- TOOLBAR THEME-->
+
+</resources>

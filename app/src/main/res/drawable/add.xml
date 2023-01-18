@@ -1,0 +1,53 @@
+<vector android:height="50dp" android:viewportHeight="32"
+    android:viewportWidth="32" android:width="50dp"
+    xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#fac53f" android:fillType="evenOdd"
+        android:pathData="m30.504,16.179a13.532,14.016 0,0 1,-13.724 13.77,13.532 14.016,0 0,1 -13.337,-14.172 13.532,14.016 0,0 1,13.642 -13.857,13.532 14.016,0 0,1 13.422,14.086l-13.532,-0.071z"
+        android:strokeColor="#b67f23" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="2.4"/>
+    <path android:fillColor="#fcc357" android:fillType="evenOdd"
+        android:pathData="m29.329,15.562a13.662,13.662 0,0 1,-13.738 13.579,13.662 13.662,0 0,1 -13.585,-13.732 13.662,13.662 0,0 1,13.726 -13.591,13.662 13.662,0 0,1 13.597,13.72l-13.662,-0.058z"
+        android:strokeColor="#fff" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="2.4"/>
+    <path android:fillColor="#fac53f" android:fillType="evenOdd"
+        android:pathData="m29.375,15.697a13.662,13.662 45,0 1,-13.738 13.579,13.662 13.662,135 0,1 -13.586,-13.732 13.662,13.662 0,0 1,13.725 -13.591,13.662 13.662,45 0,1 13.597,13.72l-13.662,-0.058z"
+        android:strokeColor="#e0a432" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="2.282"/>
+    <path android:fillType="evenOdd" android:pathData="m29.375,15.697a13.662,13.662 45,0 1,-13.738 13.579,13.662 13.662,135 0,1 -13.586,-13.732 13.662,13.662 0,0 1,13.725 -13.591,13.662 13.662,45 0,1 13.597,13.72l-13.662,-0.058z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:endX="29.758" android:endY="27.927"
+                android:startX="8.169" android:startY="7.74" android:type="linear">
+                <item android:color="#FFF5B32D" android:offset="0"/>
+                <item android:color="#00FAC53F" android:offset="1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:fillColor="#e1a83c" android:fillType="evenOdd"
+        android:pathData="M17.174,7.325l0.453,0l0,18.58l-0.453,0z"
+        android:strokeColor="#e1a83c" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#e1a83c" android:fillType="evenOdd"
+        android:pathData="M8.111,16.842l0,-0.453l18.58,-0l0,0.453z"
+        android:strokeColor="#e1a83c" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#fff" android:fillType="evenOdd"
+        android:pathData="M16.178,6.646l0.453,0l0,18.58l-0.453,0z"
+        android:strokeColor="#ababab" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#fff" android:fillType="evenOdd"
+        android:pathData="M6.916,16.118l0,-0.453l18.58,-0l0,0.453z"
+        android:strokeColor="#ababab" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#fff" android:fillType="evenOdd"
+        android:pathData="M15.486,6.075l0.453,0l0,18.58l-0.453,0z"
+        android:strokeColor="#fff" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#fff" android:fillType="evenOdd"
+        android:pathData="M6.423,15.592l0,-0.453l18.58,-0l0,0.453z"
+        android:strokeColor="#fff" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="1.214"/>
+    <path android:fillColor="#00000000"
+        android:pathData="m28.475,15.611a12.787,12.785 89.984,0 1,-12.862 12.706,12.787 12.785,89.984 0,1 -12.709,-12.859 12.787,12.785 89.984,0 1,12.854 -12.714,12.787 12.785,89.984 0,1 12.717,12.852l-12.785,-0.065z"
+        android:strokeColor="#fff" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="0.095"/>
+</vector>

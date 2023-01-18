@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".activity.HomeActivity">
+
+
+    <!--<androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </androidx.appcompat.widget.Toolbar>-->
+
+
+    <ImageButton
+        android:id="@+id/home_main_research"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_research"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_main_profil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_profil"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        app:layout_constraintStart_toEndOf="@+id/home_main_research"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_main_messages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_mail"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_options"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_main_options"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_main_to_recycler"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/ic_down_to_records"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<FrameLayout
+        android:id="@+id/home_main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginVertical="@dimen/icons_margin"
+        android:layout_marginHorizontal="@dimen/icons_padding"
+        android:elevation="-30dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/home_main_record_stop"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_to_recycler"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" >
+    </FrameLayout>-->
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/home_main_record_stop"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <ImageButton
+        android:id="@+id/home_main_record_rewind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_rewind"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_record_record"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_record_play" />
+
+    <ImageButton
+        android:id="@+id/home_main_record_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_play"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_record_record"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_record_record" />
+
+    <ImageButton
+        android:id="@+id/home_main_record_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_stop"
+        android:src="@drawable/ic_stop"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_record_record"
+        app:layout_constraintStart_toEndOf="@+id/home_main_record_record" />
+
+    <ImageButton
+        android:id="@+id/home_main_record_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_record"
+        android:src="@drawable/ic_record"
+        app:layout_constraintBottom_toTopOf="@+id/home_main_progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/home_main_record_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_forward"
+        android:src="@drawable/ic_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_record_record"
+        app:layout_constraintStart_toEndOf="@+id/home_main_record_stop" />
+
+    <Chronometer
+        android:id="@+id/home_main_passing_time"
+        style="@style/BasicText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_progressBar" />
+
+    <Chronometer
+        android:id="@+id/home_main_total_time"
+        style="@style/BasicText"
+        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/home_main_passing_time"
+        app:layout_constraintStart_toEndOf="@+id/home_main_progressBar" />
+
+    <ProgressBar
+        android:id="@+id/home_main_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="12dp"
+        android:layout_margin="@dimen/icons_margin"
+        android:background="@color/orange"
+        android:padding="@dimen/icons_margin"
+        app:layout_constraintBottom_toTopOf="@+id/home_main_record_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_main_record_artist_name"
+        style="@style/MainRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/icons_margin"
+        android:text="@string/home_record_artist_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_main_record_title"
+        style="@style/MainRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/icons_margin"
+        android:text="@string/home_record_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/home_main_record_artist_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/home_record_headphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/icons_padding"
+        android:src="@drawable/ic_headphone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style" />
+
+    <ImageView
+        android:id="@+id/home_record_moon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/icons_padding"
+        android:src="@drawable/ic_moon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style" />
+
+    <ImageButton
+        android:id="@+id/home_record_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_add"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_number_of_moons"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_number_of_moons" />
+
+    <ImageButton
+        android:id="@+id/home_record_send_message"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/ic_chat_buble"
+        app:layout_constraintStart_toStartOf="@+id/home_record_number_of_play"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_number_of_play" />
+
+    <TextView
+        android:id="@+id/home_record_artist_name"
+        style="@style/HomeMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_record_artist_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/home_record_title"
+        style="@style/HomeSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_record_title"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_artist_name"
+        app:layout_constraintStart_toStartOf="@+id/home_record_artist_name"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_artist_name" />
+
+
+    <TextView
+        android:id="@+id/home_record_kind"
+        style="@style/HomeSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="-100dp"
+        android:text="@string/home_record_kind"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_title"
+        app:layout_constraintStart_toStartOf="@+id/home_record_title"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_title" />
+
+    <TextView
+        android:id="@+id/home_record_voice_style"
+        style="@style/HomeSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_record_voice"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_kind"
+        app:layout_constraintStart_toStartOf="@+id/home_record_kind"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_kind" />
+
+
+    <TextView
+        android:id="@+id/home_record_number_of_play"
+        style="@style/HomeSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/base_number"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_headphone"
+        app:layout_constraintStart_toStartOf="@+id/home_record_headphone"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_headphone" />
+
+    <TextView
+        android:id="@+id/home_record_number_of_moons"
+        style="@style/HomeSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/base_number"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_moon"
+        app:layout_constraintStart_toStartOf="@+id/home_record_moon"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_moon" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

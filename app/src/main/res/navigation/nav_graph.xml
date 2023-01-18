@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.offo.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="currentRecord"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_homeFragment_to_personalProfilFragment"
+            app:destination="@id/personalProfilFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recordPageFragment"
+            app:destination="@id/recordPageFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchUserFragment"
+            app:destination="@id/searchUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recyclerRecordFragment"
+            app:destination="@id/recyclerRecordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recordPageFragment"
+        android:name="com.example.offo.fragments.RecordPageFragment"
+        android:label="RecordPageFragment"
+        tools:layout="@layout/fragment_record_page">
+        <action
+            android:id="@+id/action_recordPageFragment_to_artistProfilFragment"
+            app:destination="@id/artistProfilFragment" />
+        <argument
+            android:name="recordID"
+            app:argType="string"
+            android:defaultValue="0" />
+        <argument
+            android:name="artistUUID"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistProfilFragment"
+        android:name="com.example.offo.fragments.ArtistProfilFragment"
+        android:label="ArtistProfilFragment"
+        tools:layout="@layout/fragment_artist_profil"/>
+
+    <fragment
+        android:id="@+id/personalProfilFragment"
+        android:name="com.example.offo.fragments.PersonalProfilFragment"
+        android:label="PersonalProfilFragment"
+        tools:layout="@layout/fragment_personal_profil"/>
+    <fragment
+        android:id="@+id/searchUserFragment"
+        android:name="com.example.offo.fragments.SearchUserFragment"
+        android:label="SearchUserFragment"
+        tools:layout="@layout/fragment_research_person">
+        <action
+            android:id="@+id/action_searchUserFragment_to_searchRecordFragment"
+            app:destination="@id/searchRecordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchRecordFragment"
+        android:name="com.example.offo.fragments.SearchRecordFragment"
+        android:label="SearchRecordFragment"
+        tools:layout="@layout/fragment_research_record">
+        <action
+            android:id="@+id/action_searchRecordFragment_to_searchUserFragment"
+            app:destination="@id/searchUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recyclerRecordFragment"
+        android:name="com.example.offo.fragments.recyclerRecordFragment"
+        android:label="recyclerRecordFragment"
+        tools:layout="@layout/fragment_recycler_record">
+        <action
+            android:id="@+id/action_recyclerRecordFragment_to_recordPageFragment"
+            app:destination="@id/recordPageFragment" />
+    </fragment>
+</navigation>

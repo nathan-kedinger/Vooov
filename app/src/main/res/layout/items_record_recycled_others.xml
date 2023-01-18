@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark">
+
+    <ImageButton
+        android:id="@+id/record_recycled_items_others_play"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_play"
+        android:backgroundTint="@color/dark"
+        android:padding="@dimen/icons_padding"
+        android:layout_weight="1"
+        android:contentDescription="Bouton play"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="5"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/record_page_record_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/record_artist_name"
+            style="@style/MainRecord"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/record_record_title"
+            style="@style/SubRecord"
+            android:gravity="center"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/record_kind"
+            android:gravity="center"
+            style="@style/SubRecord"
+            />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/record_recycled_items_others_download"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_download"
+        android:padding="@dimen/icons_padding"
+        android:backgroundTint="@color/dark"
+        android:layout_weight="1"
+        android:contentDescription="Bouton télécharger"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/record_page_headphone_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_headphone"
+            style="@style/MainRecord"
+            android:gravity="center"
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/base_number"
+            style="@style/SubRecord"
+            android:gravity="center"
+
+
+            />
+
+        <ImageView
+            android:id="@+id/record_page_moon_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_moon"
+            style="@style/MainRecord"
+            android:gravity="center"
+
+            />
+
+        <TextView
+            android:id="@+id/record_page_moon_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/base_number"
+            style="@style/SubRecord"
+            android:gravity="center"
+
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

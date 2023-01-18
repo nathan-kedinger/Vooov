@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/burger_home" />
+
+        <item
+            android:id="@+id/nav_studio"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/burger_studio" />
+
+        <item
+            android:id="@+id/nav_my_records"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/burger_my_records" />
+
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/burger_wallet" />
+
+        <item
+            android:id="@+id/nav_offeurs"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/burger_offos" />
+
+        <item
+            android:id="@+id/nav_comunity"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/burger_friends" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_mail"
+            android:title="@string/burger_logout" />
+    </group>
+</menu>

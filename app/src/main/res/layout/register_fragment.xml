@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+            android:id="@+id/register_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_mail"
+            style="@style/BasicText"
+            />
+
+        <EditText
+            android:id="@+id/register_mail_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/register_mail_text_input"
+            style="@style/CompletionText"
+            android:inputType="textEmailAddress"
+            />
+
+        <TextView
+            android:id="@+id/register_pseudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_pseudo"
+            style="@style/BasicText"
+            android:layout_marginTop="@dimen/default_margin"
+            />
+
+        <EditText
+            android:id="@+id/register_pseudo_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/register_pseudo_text_input"
+            style="@style/CompletionText"
+            android:inputType="textPersonName"
+            />
+
+        <TextView
+            android:id="@+id/register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_password"
+            style="@style/BasicText"
+            android:layout_marginTop="@dimen/default_margin"
+
+            />
+
+        <EditText
+            android:id="@+id/register_password_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/register_confirm_password_text_input"
+            style="@style/CompletionText"
+            android:inputType="textPassword"
+            />
+
+        <TextView
+            android:id="@+id/regiter_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_confirm_password"
+            style="@style/BasicText"
+            android:layout_marginTop="@dimen/default_margin"
+            />
+
+        <EditText
+            android:id="@+id/register_password_confirm_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/register_confirm_password_text_input"
+            style="@style/CompletionText"
+            android:inputType="textPassword"
+            />
+
+        <TextView
+            android:id="@+id/register_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_phone_number"
+            style="@style/BasicText"
+            android:layout_marginTop="@dimen/default_margin"
+            />
+
+        <EditText
+            android:id="@+id/register_phone_number_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/register_phone_number_text_input"
+            style="@style/CompletionText"
+            android:inputType="phone"
+            />
+
+        <Button
+            android:id="@+id/register_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_register"
+            android:layout_marginTop="@dimen/default_margin"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

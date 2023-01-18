@@ -1,0 +1,269 @@
+<resources>
+    <string name="app_name">Vooov</string>
+
+    <string name="base_number">0</string>
+
+
+    <!-- IMAGE DESCRIPTIONS -->
+    <string name="image_description_profile_logo">Logo du profil</string>
+
+    <!-- PERSONAL INFORMATIONS -->
+    <integer name="my_moons">0</integer>
+    <integer name="my_friends">0</integer>
+    <integer name="my_offos">0</integer>
+    <integer name="my_followers">0</integer>
+
+    <!-- BURGER LEFT NAV -->
+    <string name="burger_account">MON COMPTE</string>
+    <integer name="burger_moons">@integer/my_moons</integer>
+    <integer name="burger_friends">@integer/my_friends</integer>
+    <integer name="burger_offos">@integer/my_offos</integer>
+    <integer name="burger_followers">@integer/my_followers</integer>
+    <string name="burger_home">PAGE D\'ACCUEIL</string>
+    <string name="burger_studio">STUDIO</string>
+    <string name="burger_my_records">MES ENREGISTREMENTS</string>
+    <string name="burger_wallet">PORTE MOON</string>
+    <string name="burger_offos">OFFO\'S</string>
+    <string name="burger_friends">COMMUNAUTÉ</string>
+    <!--<string name="burger_room">SALLES</string>-->
+    <string name="burger_logout">DÉCONNEXION</string>
+
+    <!-- TOP NAVBAR -->
+
+    <string name="top_settings">Settings</string>
+
+
+    <!-- CONNEXION PAGE -->
+    <string name="connexion_page_title">@string/app_name</string>
+    <string name="connexion_mail">Email</string>
+    <string name="connexion_mail_text_input">Votre email</string>
+    <string name="connexion_password">Mot de passe</string>
+    <string name="connexion_password_text_input">passe</string>
+    <string name="connexion_login">Connexion</string>
+    <string name="connexion_continue_without_conexion">Continuer sans me connecter</string>
+    <string name="connexion_dont_have_account">Vous n\'avez pas de compte?</string>
+    <string name="connexion_inscription_link">Inscrivez vous</string>
+
+    <!-- REGISTER PAGE -->
+    <string name="register_page_title">@string/app_name</string>
+    <string name="register_mail">Email</string>
+    <string name="register_mail_text_input">Entrez votre email</string>
+    <string name="register_password">Mot de passe</string>
+    <string name="register_password_text_input">Choisissez un mot de passe</string>
+    <string name="register_confirm_password">Confirmation du mot de passe</string>
+    <string name="register_pseudo">Choisissez un mot pseudo</string>
+    <string name="register_pseudo_text_input">Entrez votre pseudo</string>
+    <string name="register_confirm_password_text_input">Confirmez votre mot de passe</string>
+    <string name="register_phone_number">Numéro de téléphone</string>
+    <string name="register_phone_number_text_input">Entrez un numéro de téléphone</string>
+    <string name="register_register">S\'inscrire</string>
+
+    <!-- HOMEPAGE -->
+    <string name="home_record_artist_name">Name</string>
+    <string name="home_record_title">Title</string>
+    <string name="home_record_voice">Voice Type</string>
+    <string name="home_record_kind">Genre</string>
+    <integer name="home_record_listen_count">0</integer>
+    <integer name="home_record_given_token">0</integer>
+
+    <!-- POPUP WINDOW SEND MOONS -->
+    <string name="send_moons_titlel">ENVOYER DES MOONS</string>
+    <integer name="send_moons_titlel">0</integer>
+    <string name="send_moons_send">Envoyer</string>
+    <string name="send_moons_go_to_record">Se rendre sur la fiche</string>
+
+
+    <!-- RECORD PAGE -->
+    <string name="record_artist_name">@string/home_record_artist_name</string>
+    <string name="record_add_offo">AJOUTER LE OFFO</string>
+    <string name="record_send_moons">envoyer des moons</string>
+    <integer name="record_number_of_moons">0</integer>
+    <string name="record_send_button">Envoyer</string>
+    <string name="record_page_record_date">01/01/2023</string>
+    <string name="record_page_go_to_artist">Voire l\'artiste</string>
+    <string name="record_ask_voice_over">DEMANDE DE VOIX OFF</string>
+    <string name="record_record_title">@string/home_record_title</string>
+    <integer name="record_listen_count">@integer/home_record_listen_count</integer>
+    <integer name="record_given_token">@integer/home_record_given_token</integer>
+    <string name="record_kind">@string/home_record_kind</string>
+
+
+    <!-- MESSAGES PAGE -->
+    <string name="message_page_title">MESSAGERIE</string>
+    <string name="message_sender">PSEUDO</string>
+    <string name="message_date">00/00/0000 00:00</string>
+    <string name="message_text">Corps de texte du message</string>
+    <string name="message_search_bar">Rechercher dans mes message</string>
+
+    <!-- RESEARCH PERSON PAGE -->
+    <string name="research_person_page_title">RECHERCHE</string>
+    <string name="research_person_search_bar">Trouver un ami</string>
+    <string name="research_person_user">Utilisateurs</string>
+    <string name="research_person_record">enregistrement</string>
+    <string name="research_person_categories">CATÉGORIES</string>
+    <string name="research_person_voice_over">Voix-off</string>
+    <string name="research_person_culture">Culture</string>
+    <string name="research_person_Sing">Chant</string>
+    <string name="research_person_fun">Humour</string>
+    <string name="research_person_actuality">Actualités</string>
+    <string name="research_person_stranger">Accent étranger</string>
+    <string name="research_person_covers">Reprises</string>
+    <string name="research_person_voice_type">TYPE DE VOIX</string>
+    <string name="research_person_soprano">Soprano</string>
+    <string name="research_person_mezzo_soprano">Mezzo-Soprano</string>
+    <string name="research_person_contralto">Contralto</string>
+    <string name="research_person_contre_tenor">Contre-Ténor</string>
+    <string name="research_person_tenor">Ténor</string>
+    <string name="research_person_baryton">Baryton</string>
+    <string name="research_person_basse">Basse</string>
+
+    <!-- SETTINGS -->
+    <string name="settings_page_title">PARAMETRES</string>
+
+    <!-- PERSONAL PROFIL -->
+    <string name="personal_profil_page_title">MY NAME</string>
+    <string name="personal_profil_informations">MES INFORMATIONS</string>
+    <string name="personal_profil_mail">MAIL</string>
+    <string name="personal_profil_modify">MODIFIER</string>
+    <string name="personal_profil_biographie">BIOGRAPHIE</string>
+    <string name="personal_profil_biographie_text">Texte de présentation</string>
+    <integer name="personal_profil_moons">@integer/my_moons</integer>
+    <integer name="personal_profil_friends">@integer/my_friends</integer>
+    <integer name="personal_profil_offos">@integer/my_offos</integer>
+    <integer name="personal_profil_followers">@integer/my_followers</integer>
+    <string name="personal_profil_my_records">MES ENREGISTREMENTS</string>
+    <string name="personal_profil_artist_name">@string/home_record_artist_name</string>
+    <string name="personal_profil_record_title">@string/home_record_title</string>
+    <string name="personal_profil_record_kind">@string/home_record_kind</string>
+    <string name="personal_profil_record_voice_style">@string/home_record_voice</string>
+    <integer name="personal_profil_record_listen_count">@integer/home_record_listen_count</integer>
+    <integer name="personal_profil_record_given_token">@integer/home_record_listen_count</integer>
+    <string name="personal_profil_delete_profil">Supprimer le profil</string>
+
+
+    <!-- ARTIST PROFIL -->
+    <string name="artist_profil_name">@string/home_record_artist_name</string>
+    <string name="artist_profil_add_offo">Se Connecter</string>
+    <string name="artist_profil_add_to_listen">Ecouter</string>
+    <string name="artist_profil_ask_for_voice_over">DEMANDE DE VOIX OFF</string>
+    <string name="artist_profil_friends">Nombre d\'amis</string>
+    <string name="artist_profil_followers">Nombre de spectateurs</string>
+    <integer name="artist_profil_numer_of_friends">0</integer>
+    <integer name="artist_profil_followers">0</integer>
+    <string name="artist_profil_record_list">LISTE DES ENREGISTREMENTS</string>
+    <string name="artist_profil_record_title">@string/home_record_title</string>
+    <string name="artist_profil_record_kind">@string/home_record_kind</string>
+    <string name="artist_profil_record_voice_style">@string/home_record_voice</string>
+    <integer name="artist_profil_record_listen_count">@integer/home_record_listen_count</integer>
+    <integer name="artist_profil_record_given_token">@integer/home_record_listen_count</integer>
+
+    <!-- STUDIO -->
+    <string name="studio_page_title">STUDIO</string>
+    <integer name="studio_actual_time">0</integer>
+    <integer name="studio_total_length">0</integer>
+    <string name="studio_record_name">Nom de l\'enregistrement</string>
+
+    <!-- CATEGORY  -->
+    <string name="category_page_title">MODIFIER</string>
+    <string name="category_title">Title</string>
+    <string name="category_price">prix : </string>
+    <integer name="category_price">0</integer>
+    <string-array name="category_category">CATÉGORIES
+        <item name="category_category_item_voice_over">Voix-Off</item>
+        <item name="category_category_item_culture">Culture</item>
+        <item name="category_category_item_sing">Chant</item>
+        <item name="category_category_item_Humour">Humour</item>
+        <item name="category_category_item_news">Actualités</item>
+        <item name="category_category_item_foreigner_accent">Accent Étranger</item>
+        <item name="category_category_item_cover">Reprise</item>
+    </string-array>
+    <string-array name="category_voice_type">TYPE DE VOIX
+        <item name="category_voice_type_item_soprano">Soprano</item>
+        <item name="category_voice_type_item_mezzo_soprano">Mezzo-Soprano</item>
+        <item name="category_voice_type_item_contralto">Contralto</item>
+        <item name="category_voice_type_item_contre_tenor">Contre-Ténor</item>
+        <item name="category_voice_type_item_tenor">Ténor</item>
+        <item name="category_voice_type_item_baryton">Baryton</item>
+        <item name="category_voice_type_item_basse">Basse</item>
+    </string-array>
+    <string name="category_throw_inline">Mettre en ligne</string>
+
+    <!-- COMUNITY LIST -->
+    <string name="comuntity_list_page_title">MA COMMUNAUTÉ</string>
+    <string name="comuntity_list_friends_name">NOM</string>
+    <integer name="community_list_number_of_friends">0</integer>
+    <integer name="community_list_number_followers">0</integer>
+
+    <!-- OFFO'S LIST-->
+    <string name="offos_list_page_title">MES OFFOS</string>
+    <string name="offos_list_offos_name">NOM</string>
+    <integer name="offos_list_number_of_friends">0</integer>
+    <integer name="offos_list_number_followers">0</integer>
+
+    <!-- WALLET -->
+    <string name="wallet_page_title">PORTE MOON</string>
+    <string name="wallet_edited_moons_number_title">NOMBRE DE MOONS ÉDITÉES</string>
+    <integer name="wallet_one_euro">1</integer>
+    <integer name="wallet_one_moon">1</integer>
+    <integer name="wallet_actual_euro_price">0</integer>
+    <integer name="wallet_actual_moon_price">0</integer>
+    <string name="wallet_futur_fork_title">PROCHAIN FORK</string>
+    <integer name="wallet_futur_fork">0</integer>
+    <integer name="wallet_futur_euro_price">0</integer>
+    <integer name="wallet_futur_moon_price">0</integer>
+    <string name="wallet_my_wallet_title">MON PORTE MOON</string>
+    <integer name="wallet_my_moon_pocessed">0</integer>
+    <integer name="wallet_my_euro_value">0</integer>
+
+    <!--ITEMS USER-->
+    <string name="items_users_user_name">Name</string>
+
+    <!-- POPUP MODIFY MY RECORD  -->
+    <string name="modify_my_record_page_title">MODIFIER</string>
+    <string name="modify_my_record_title">Title</string>
+    <string name="modify_my_record_price">prix : </string>
+    <integer name="modify_my_record_number_price">0</integer>
+    <string-array name="modify_my_record_category">CATÉGORIES
+        <item name="modify_my_record_category_item_voice_over">Voix-Off</item>
+        <item name="modify_my_record_category_item_culture">Culture</item>
+        <item name="modify_my_record_category_item_sing">Chant</item>
+        <item name="modify_my_record_category_item_Humour">Humour</item>
+        <item name="modify_my_record_category_item_news">Actualités</item>
+        <item name="modify_my_record_category_item_foreigner_accent">Accent Étranger</item>
+        <item name="modify_my_record_category_item_cover">Reprise</item>
+    </string-array>
+    <string-array name="modify_my_record_voice_type">TYPE DE VOIX
+        <item name="modify_my_record_voice_type_item_soprano">Soprano</item>
+        <item name="modify_my_record_voice_type_item_mezzo_soprano">Mezzo-Soprano</item>
+        <item name="modify_my_record_voice_type_item_contralto">Contralto</item>
+        <item name="modify_my_record_voice_type_item_contre_tenor">Contre-Ténor</item>
+        <item name="modify_my_record_voice_type_item_tenor">Ténor</item>
+        <item name="modify_my_record_voice_type_item_baryton">Baryton</item>
+        <item name="modify_my_record_voice_type_item_basse">Basse</item>
+    </string-array>
+    <string name="modify_my_record_delete">supprimer</string>
+
+    <!-- POPUP DELETE PROFILE-->
+    <string name="popup_delete_profil_warning">Souhaitez-vous définitivement supprimer votre compte ? (Une fois votre compte supprimé, vous perdrez tous vos enregistrement, contacts et informations)</string>
+    <string name="popup_delete_profil_yes">Oui</string>
+    <string name="popup_delete_profil_no">No</string>
+    <string name="popup_delete_profil_title">Supprimer votre profil</string>
+    <string name="popup_delete_profil_confirmation">Votre profil a bien été supprimé. Nous sommes tristes de vous voir partir et espérons vous revoir très vite.</string>
+
+    <!-- POPUP REQUIRE LOGIN-->
+    <string name="popup_require_login_title">Connexion requise</string>
+    <string name="popup_require_login_conexion">Se connecter</string>
+    <string name="popup_require_login_close">Fermer</string>
+    <string name="popup_require_login_message">Vous devez être connecté pour accéder à cette partie de l\'application</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+
+</resources>

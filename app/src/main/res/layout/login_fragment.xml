@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:padding="@dimen/default_padding"
+    >
+
+    <TextView
+        android:id="@+id/Connexion_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_mail"
+        style="@style/BasicText"
+        android:layout_marginTop="@dimen/default_margin"
+        />
+
+    <EditText
+        android:id="@+id/Connexion_mail_text_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="@string/connexion_mail_text_input"
+        style="@style/CompletionText"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="@dimen/default_margin"
+        />
+
+    <TextView
+        android:id="@+id/Connexion_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_password"
+        style="@style/BasicText"
+        />
+
+    <EditText
+        android:id="@+id/Connexion_password_text_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="@string/connexion_password_text_input"
+        style="@style/CompletionText"
+        android:inputType="textPassword"
+        />
+
+    <Button
+        android:id="@+id/login_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_login"
+        android:layout_marginTop="@dimen/default_margin"
+        />
+
+    <Button
+        android:id="@+id/connexion_continue_without_conexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_continue_without_conexion"
+        />
+
+    <TextView
+        android:id="@+id/ConnexionDontHaveAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_dont_have_account"
+        android:layout_marginTop="@dimen/default_margin"
+        style="@style/SmallText"
+        />
+
+    <TextView
+        android:id="@+id/LinkToRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/connexion_inscription_link"
+        style="@style/SmallText"
+        />
+
+</LinearLayout>

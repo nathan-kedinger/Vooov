@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/artist_profil_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_profil_name"
+        style="@style/HomeSub"
+        />
+    <ImageView
+        android:id="@+id/artist_profil_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logo"
+        android:contentDescription="@string/image_description_profile_logo"/>
+
+    <TextView
+        android:id="@+id/artist_profil_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BasicText"
+        android:text="@string/artist_profil_friends"/>
+
+    <TextView
+        android:id="@+id/artist_profil_number_of_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BasicText"
+        android:text="@string/base_number"/>
+
+    <Button
+        android:id="@+id/artist_profil_friends_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_profil_add_offo"
+        />
+
+    <TextView
+        android:id="@+id/artist_profil_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BasicText"
+        android:text="@string/artist_profil_followers"/>
+
+    <TextView
+        android:id="@+id/artist_profil_number_of_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BasicText"
+        android:text="@string/base_number"/>
+
+    <Button
+        android:id="@+id/artist_profil_followers_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_profil_add_to_listen"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_profil_ask_for_voice_over"
+        />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_profil_record_list"
+        />
+
+
+</LinearLayout>

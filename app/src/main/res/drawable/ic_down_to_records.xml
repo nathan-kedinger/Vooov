@@ -1,0 +1,53 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+  <path
+      android:pathData="m0,0l48,0l-13,25.001l-22,0z"
+      android:strokeWidth="39.192"
+      android:fillColor="#f4cb25"
+      android:fillType="evenOdd"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="m0,0l48,0l-13,25.001l-22,0z"
+      android:strokeWidth="39.192"
+      android:fillType="evenOdd"
+      android:strokeLineCap="round">
+    <aapt:attr name="android:fillColor">
+      <gradient 
+          android:centerX="24"
+          android:centerY="12.5"
+          android:gradientRadius="17.007"
+          android:type="radial">
+        <item android:offset="0" android:color="#FFF8C235"/>
+        <item android:offset="1" android:color="#99FFEF00"/>
+      </gradient>
+    </aapt:attr>
+  </path>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m23.92,23 l-3.175,-5.5h6.351z"
+      android:strokeWidth="3"
+      android:fillType="evenOdd"
+      android:strokeLineCap="round"/>
+  <path
+      android:strokeWidth="1"
+      android:pathData="m18.347,14a6.668,7.047 0,0 1,1.549 -8.916,6.668 7.047,0 0,1 8.576,0.073 6.668,7.047 0,0 1,1.413 8.941"
+      android:fillColor="#00000000"
+      android:strokeColor="#000"
+      android:strokeLineCap="square"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m19.699,17.064a3.503,2 90,0 1,-1.733 -1.835,3.503 2,90 0,1 0.07,-3.545 3.503,2 90,0 1,1.802 -1.62l-0.113,3.497z"
+      android:fillAlpha="0.91372"
+      android:fillType="evenOdd"
+      android:strokeLineCap="square"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="m28.4,10.099a3.503,2 90,0 1,1.733 1.835,3.503 2,90 0,1 -0.07,3.545 3.503,2 90,0 1,-1.802 1.62l0.113,-3.497z"
+      android:fillAlpha="0.91372"
+      android:fillType="evenOdd"
+      android:strokeLineCap="square"/>
+</vector>
