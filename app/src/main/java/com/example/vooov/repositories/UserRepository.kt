@@ -10,7 +10,7 @@ import java.io.IOException
 class UserRepository {
 
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
-        .baseUrl("https://bts-sio-kedinger.fr/vooov-api/")
+        .baseUrl("https://vooov-api.fr/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -20,7 +20,7 @@ class UserRepository {
         return try{
             create.postUser(user)
         } catch (e: Exception) {
-            throw IOException("Error creating record",e)
+            throw IOException("Error creating user",e)
         }
     }
 
@@ -30,7 +30,7 @@ class UserRepository {
         return try {
             read.getUsers()
         } catch(e: Exception){
-            throw IOException("Error fetching record", e)
+            throw IOException("Error fetching user", e)
         }
     }
 
@@ -40,7 +40,17 @@ class UserRepository {
         return try {
             readOne.getOneUser(userUuid)
         } catch (e: Exception) {
-            throw IOException("Error fetching record", e)
+            throw IOException("Error fetching user", e)
+        }
+    }
+
+    private val readOneByMail: UsersRetrofitInterface = retrofit.create(UsersRetrofitInterface::class.java)
+
+    suspend fun readOneUserDataByMail(userMail: String): Response<UserModel> {
+        return try {
+            readOneByMail.getOneUserByMail(userMail)
+        } catch (e: Exception) {
+            throw IOException("Error fetching user", e)
         }
     }
 
@@ -50,7 +60,7 @@ class UserRepository {
         return try {
             update.updateUser(record)
         } catch (e: Exception) {
-            throw IOException("Error updating record", e)
+            throw IOException("Error updating user", e)
         }
     }
 
@@ -60,6 +70,6 @@ class UserRepository {
         return try {
             delete.deleteUser(recordUuid)
         } catch (e: Exception) {
-            throw IOException("Error updating record", e)
+            throw IOException("Error deleting user", e)
         }
     }}

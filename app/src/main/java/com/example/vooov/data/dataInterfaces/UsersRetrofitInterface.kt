@@ -11,8 +11,11 @@ interface UsersRetrofitInterface {
         @GET("users/read.php")
         suspend fun getUsers(): Response<MutableList<UserModel>>
 
-        @GET("users/readOne.php")
+        @GET("users/readOneByUuid.php")
         suspend fun getOneUser(@Query("uuid") uuid: String): Response<UserModel>
+
+        @GET("users/readOneByMail.php")
+        suspend fun getOneUserByMail(@Query("email") email: String): Response<UserModel>
 
         @PUT("users/update.php")
         suspend fun updateUser(@Body record: UserModel): Response<UserModel>

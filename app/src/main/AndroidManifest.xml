@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,24 +15,23 @@
         android:theme="@style/Theme.Vooov"
         tools:targetApi="31">
         <activity
-            android:name="LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login">
+            android:name=".TestActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>/>
-        <meta-data
-            android:name="android.app.lib_name"
-            android:value="" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SignInActivity"
             android:exported="false" />
         <activity
+            android:name=".LoginActivity"
+            android:exported="false"/>
+        <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"/>
     </application>
 
 </manifest>

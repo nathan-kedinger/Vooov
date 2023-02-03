@@ -34,7 +34,7 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating record", e)
+                Log.e(ContentValues.TAG, "Error creating user", e)
             }
         }
     }
@@ -59,10 +59,10 @@ class UserViewModel: ViewModel() {
                         Log.i(ContentValues.TAG, "Une autre erreur")
                     }
                 }
-                throw IOException("Error fetching record")
+                throw IOException("Error fetching user")
             }
         } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Error fetching record", e)
+            Log.e(ContentValues.TAG, "Error fetching user", e)
         }
     }
 
@@ -70,7 +70,7 @@ class UserViewModel: ViewModel() {
     val user = MutableLiveData<UserModel>()
 
     suspend fun fetchOneUser(userUuid: String) {
-        //try {
+        try {
             val response = repository.readOneUserData(userUuid)
             if (response.isSuccessful) {
                 val responseData = response.body()
@@ -87,11 +87,35 @@ class UserViewModel: ViewModel() {
                         Log.i(ContentValues.TAG, "Une autre erreur")
                     }
                 }}
-                /*throw IOException("Error fetching record")
-            }
         } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Error fetching record", e)
-        }*/
+            Log.e(ContentValues.TAG, "Error fetching user", e)
+        }
+    }
+
+    val userByMail = MutableLiveData<UserModel>()
+
+    suspend fun fetchOneUserByMail(userMail: String) {
+        try {
+            val response = repository.readOneUserDataByMail(userMail)
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                userByMail.value = responseData ?: UserModel()
+            } else {
+                when (response.code()) {
+                    in 400..499 -> {
+                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
+                    }
+                    in 500..599 -> {
+                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
+                    }
+                    else -> {
+                        Log.i(ContentValues.TAG, "Une autre erreur")
+                    }
+                }}
+
+        } catch (e: Exception) {
+            Log.e(ContentValues.TAG, "Message: ${e.message}")
+        }
     }
 
     fun updateUser(user: UserModel) {
@@ -114,7 +138,7 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating record", e)
+                Log.e(ContentValues.TAG, "Error creating user", e)
             }
         }
     }
@@ -139,7 +163,7 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating record", e)
+                Log.e(ContentValues.TAG, "Error creating user", e)
             }
         }
     }

@@ -46,14 +46,19 @@
 
     <!-- REGISTER PAGE -->
     <string name="register_page_title">@string/app_name</string>
+    <string name="register_page_name">Inscription</string>
     <string name="register_mail">Email</string>
     <string name="register_mail_text_input">Entrez votre email</string>
     <string name="register_password">Mot de passe</string>
     <string name="register_password_text_input">Choisissez un mot de passe</string>
     <string name="register_confirm_password">Confirmation du mot de passe</string>
-    <string name="register_pseudo">Choisissez un mot pseudo</string>
-    <string name="register_pseudo_text_input">Entrez votre pseudo</string>
+    <string name="register_name">Nom</string>
+    <string name="register_name_text_input">Entrez votre nom</string>
+    <string name="register_firstname">Prénom</string>
+    <string name="register_firstname_text_input">Entrez votre prénom</string>
     <string name="register_confirm_password_text_input">Confirmez votre mot de passe</string>
+    <string name="register_birthday">Age</string>
+    <string name="register_birthday_text_input">Votre date de naissance</string>
     <string name="register_phone_number">Numéro de téléphone</string>
     <string name="register_phone_number_text_input">Entrez un numéro de téléphone</string>
     <string name="register_register">S\'inscrire</string>

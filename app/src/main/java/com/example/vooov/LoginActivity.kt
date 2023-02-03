@@ -3,6 +3,7 @@ package com.example.vooov
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -22,10 +23,15 @@ import com.example.vooov.data.model.LoggedInUserView
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
 import com.example.vooov.viewModels.UserViewModel
+import com.lambdapioneer.argon2kt.Argon2Kt
+import com.lambdapioneer.argon2kt.Argon2Mode
+import de.mkammerer.argon2.Argon2Factory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
+import org.mindrot.jbcrypt.BCrypt
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,14 +56,11 @@ class LoginActivity : AppCompatActivity() {
         val getCurrentUserConnected = sharedPreferences.getBoolean("userConnected", false)
         val getCurrentUserName = sharedPreferences.getString("name", "Anonyme" )
 
-        if ( getCurrentUserConnected == true){
+        /*if ( getCurrentUserConnected != false && getCurrentUserConnected == false ){
             login.isEnabled
             Toast.makeText(this, getCurrentUserName, Toast.LENGTH_LONG).show()
-            login.setOnClickListener{
-                preferencesEditor.putBoolean("userConnected", false)
 
-            }
-        } else {
+        } else {*/
 
             loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -125,43 +128,56 @@ class LoginActivity : AppCompatActivity() {
                     false
                 }
             }
-
-            login.setOnClickListener {
-                CoroutineScope(Dispatchers.Main).launch {
-                    userViewModel.fetchOneUser(username.text.toString())
-
-                }
-
-                userViewModel.user.observe(this@LoginActivity, Observer { user ->
-
-                    if (user != null) {
-                        if (user.password == password.text.toString()) {
-                            preferencesEditor.putString("email", user.email)
-                            preferencesEditor.putString("name", user.name)
-                            preferencesEditor.putString("firstname", user.firstname)
-                            preferencesEditor.putString("phone", user.phone)
-                            preferencesEditor.putString("description", user.description)
-                            preferencesEditor.putString("url_profile_picture", user.url_profile_picture)
-                            preferencesEditor.putString("uuid", user.uuid)
-                            preferencesEditor.putBoolean("userConnected", true)
-                            preferencesEditor.apply()
-
-                            loading.visibility = View.VISIBLE
-                            loginViewModel.login(username.text.toString(), password.text.toString())
-                            Toast.makeText(applicationContext, user.toString(), Toast.LENGTH_LONG).show()
-
-                            Toast.makeText(applicationContext, "ça marche", Toast.LENGTH_LONG)
-                                .show()
-                        }
-                    } else {
-                        Toast.makeText(applicationContext, "pas bon", Toast.LENGTH_LONG).show()
+            try {
+                login.setOnClickListener {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        userViewModel.fetchOneUserByMail(username.text.toString())
 
                     }
-                })
+
+                    userViewModel.user.observe(this@LoginActivity, Observer {
+                        val user = it ?:return@Observer
+
+                        Toast.makeText(this@LoginActivity,"coucou", Toast.LENGTH_LONG).show()
+                        Log.e(ContentValues.TAG, "Message:")
+                        if (user.password != null) {
+
+                            val argon2Kt = Argon2Kt()
+                            val verificationResult: Boolean = argon2Kt.verify(Argon2Mode.ARGON2_I, user.password, password.text.toString().toByteArray())
+                            if (verificationResult) {
+                                // Code pour enregistrer les informations de l'utilisateur dans les préférences
+                                preferencesEditor.putString("email", user.email)
+                                preferencesEditor.putString("name", user.name)
+                                preferencesEditor.putString("firstname", user.firstname)
+                                preferencesEditor.putString("phone", user.phone)
+                                preferencesEditor.putString("description", user.description)
+                                preferencesEditor.putString("url_profile_ picture", user.url_profile_picture)
+                                preferencesEditor.putString("uuid", user.uuid)
+                                preferencesEditor.putBoolean("userConnected", true)
+                                preferencesEditor.apply()
+
+                                // Code pour démarrer une nouvelle activité et afficher un message de confirmation
+                                startActivity(Intent(this, SignInActivity::class.java))
+                                loading.visibility = View.VISIBLE
+                                loginViewModel.login(username.text.toString(), password.text.toString())
+                                Toast.makeText(applicationContext, "Connexion réussie!", Toast.LENGTH_LONG).show()
+                            } else {
+                                // Afficher un message d'erreur si la vérification échoue
+                                Toast.makeText(applicationContext, "Identifiants incorrects!", Toast.LENGTH_LONG).show()
+                            }
+                            Toast.makeText(applicationContext, "Utilisateur !", Toast.LENGTH_LONG).show()
+
+                        } else {
+                            // Afficher un message d'erreur si l'utilisateur n'est pas trouvé
+                            Toast.makeText(applicationContext, "Utilisateur non trouvé!", Toast.LENGTH_LONG).show()
+                        }
+                    })
+                }
+            } catch (e: Exception) {
+                Log.e(ContentValues.TAG, "Message: ${e.message}")
             }
 
-
-        }
+        //}
 
     }
 
@@ -179,19 +195,19 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+    /**
+     * Extension function to simplify setting an afterTextChanged action to EditText components.
+     */
+    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        })
+    }
 }
 
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
-}
