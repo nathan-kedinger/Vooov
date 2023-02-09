@@ -4,23 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@drawable/background_app"
     tools:context="HomeActivity">
 
-
-    <!--<androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="120dp"
+        android:background="@color/backgrounds"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/home_main_title"
+        style="@style/PageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_to_recycler"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-    </androidx.appcompat.widget.Toolbar>-->
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/home_main_research"
@@ -30,30 +33,50 @@
         android:background="@drawable/ic_research"
         android:minWidth="40dp"
         android:minHeight="40dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_main_options"
+        app:layout_constraintStart_toEndOf="@+id/home_main_to_recycler"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/home_main_profil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/ic_profil"
         android:minWidth="40dp"
         android:minHeight="40dp"
-        app:layout_constraintStart_toEndOf="@+id/home_main_research"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/home_main_to_recycler"
+        app:layout_constraintTop_toTopOf="@+id/home_main_home" />
 
     <ImageButton
         android:id="@+id/home_main_messages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/ic_mail"
         android:minWidth="40dp"
         android:minHeight="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/home_main_options"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/home_main_research"
+        app:layout_constraintTop_toTopOf="@+id/home_main_home" />
+
+    <ImageButton
+        android:id="@+id/home_main_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_home"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        app:layout_constraintStart_toStartOf="@+id/home_main_title"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_title" />
+
+    <ImageButton
+        android:id="@+id/home_main_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_notifications"
+        android:minWidth="40dp"
+        android:minHeight="40dp"
+        app:layout_constraintStart_toEndOf="@+id/home_main_to_recycler"
+        app:layout_constraintTop_toTopOf="@+id/home_main_home" />
 
     <ImageButton
         android:id="@+id/home_main_options"
@@ -99,7 +122,7 @@
         app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_main_profil"
         app:navGraph="@navigation/nav_graph" />
 
     <ImageButton
@@ -164,8 +187,8 @@
         android:id="@+id/home_main_total_time"
         style="@style/BasicText"
         android:layout_width="wrap_content"
-        android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/home_main_passing_time"
         app:layout_constraintStart_toEndOf="@+id/home_main_progressBar" />
 
@@ -175,7 +198,7 @@
         android:layout_width="250dp"
         android:layout_height="12dp"
         android:layout_margin="@dimen/icons_margin"
-        android:background="@color/orange"
+        android:background="@color/white"
         android:padding="@dimen/icons_margin"
         app:layout_constraintBottom_toTopOf="@+id/home_main_record_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,5 +224,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/home_main_record_artist_name" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

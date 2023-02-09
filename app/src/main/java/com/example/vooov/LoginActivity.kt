@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
 
             userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-            loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+           /* loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
                 val loginState = it ?: return@Observer
 
                 // disable login button unless both username / password is valid
@@ -79,9 +79,9 @@ class LoginActivity : AppCompatActivity() {
                 if (loginState.passwordError != null) {
                     password.error = getString(loginState.passwordError)
                 }
-            })
+            })*/
 
-            loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+            /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
                 val loginResult = it ?: return@Observer
 
                 loading.visibility = View.GONE
@@ -127,11 +127,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                     false
                 }
-            }
+            }*/
+
             try {
                 login.setOnClickListener {
                     CoroutineScope(Dispatchers.Main).launch {
                         userViewModel.fetchOneUserByMail(username.text.toString())
+                        Log.e(ContentValues.TAG, username.text.toString())
 
                     }
 
@@ -147,6 +149,7 @@ class LoginActivity : AppCompatActivity() {
                             if (verificationResult) {
                                 // Code pour enregistrer les informations de l'utilisateur dans les préférences
                                 preferencesEditor.putString("email", user.email)
+                                preferencesEditor.putString("pseudo", user.pseudo)
                                 preferencesEditor.putString("name", user.name)
                                 preferencesEditor.putString("firstname", user.firstname)
                                 preferencesEditor.putString("phone", user.phone)

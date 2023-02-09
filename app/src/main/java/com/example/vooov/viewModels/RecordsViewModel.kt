@@ -1,23 +1,24 @@
 package com.example.vooov.viewModels
 
 import android.content.ContentValues
+import android.icu.text.AlphabeticIndex.Record
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.vooov.data.model.RecordModel
 import com.example.vooov.data.model.UserModel
-import com.example.vooov.repositories.UserRepository
+import com.example.vooov.repositories.RecordRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class UserViewModel: ViewModel() {
-    private val repository = UserRepository()
+class RecordsViewModel {
+    private val repository = RecordRepository()
 
-    fun createUser(user: UserModel) {
+    fun createRecord(record: RecordModel) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = repository.createUserData(user)
+                val response = repository.createRecordData(record)
                 if (response.isSuccessful) {
                     // Handle response
                 } else {
@@ -34,19 +35,19 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating user", e)
+                Log.e(ContentValues.TAG, "Error creating record", e)
             }
         }
     }
 
 
-    var userList = MutableLiveData<MutableList<UserModel>>()
+    var recordList = MutableLiveData<MutableList<RecordModel>>()
 
-    suspend fun fetchUser(){
+    suspend fun fetchRecord(){
         try{
-            val response = repository.readUserData()
+            val response = repository.readRecordData()
             if (response.isSuccessful){
-                userList.value = response.body()// value need a MutableLiveData instead of a simple mutableList
+                recordList.value = response.body()// value need a MutableLiveData instead of a simple mutableList
             } else {
                 when (response.code()) {
                     in 400..499 -> {
@@ -59,22 +60,22 @@ class UserViewModel: ViewModel() {
                         Log.i(ContentValues.TAG, "Une autre erreur")
                     }
                 }
-                throw IOException("Error fetching user")
+                throw IOException("Error fetching record")
             }
         } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Error fetching user", e)
+            Log.e(ContentValues.TAG, "Error fetching record", e)
         }
     }
 
 
-    val user = MutableLiveData<UserModel>()
+    val record = MutableLiveData<RecordModel>()
 
-    suspend fun fetchOneUser(userUuid: String) {
+    suspend fun fetchOneRecord(recordUuid: String) {
         try {
-            val response = repository.readOneUserData(userUuid)
+            val response = repository.readOneRecordData(recordUuid)
             if (response.isSuccessful) {
                 val responseData = response.body()
-                user.value = responseData ?: UserModel()
+                record.value = responseData ?: RecordModel()
             } else {
                 when (response.code()) {
                     in 400..499 -> {
@@ -89,40 +90,14 @@ class UserViewModel: ViewModel() {
                 }
             }
         } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Error fetching user", e)
+            Log.e(ContentValues.TAG, "Error fetching record", e)
         }
     }
 
-    val userByMail = MutableLiveData<UserModel>()
-
-    suspend fun fetchOneUserByMail(userMail: String) {
-        try {
-            val response = repository.readOneUserDataByMail(userMail)
-            if (response.isSuccessful) {
-                val responseData = response.body()
-                userByMail.value = responseData ?: UserModel()
-            } else {
-                when (response.code()) {
-                    in 400..499 -> {
-                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
-                    }
-                    in 500..599 -> {
-                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
-                    }
-                    else -> {
-                        Log.i(ContentValues.TAG, "Une autre erreur")
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Message: ${e.message}")
-        }
-    }
-
-    fun updateUser(user: UserModel) {
+    fun updateRecord(record: RecordModel) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = repository.updateUserData(user)
+                val response = repository.updateRecordData(record)
                 if (response.isSuccessful) {
                     // handle successful response
                 } else {
@@ -139,15 +114,15 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating user", e)
+                Log.e(ContentValues.TAG, "Error creating record", e)
             }
         }
     }
 
-    fun deleteUser(userUuid: String) {
+    fun deleteRecord(recordUuid: String) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = repository.deleteUserData(userUuid)
+                val response = repository.deleteRecordData(recordUuid)
                 if (response.isSuccessful) {
                     // handle successful response
                 } else {
@@ -164,9 +139,8 @@ class UserViewModel: ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(ContentValues.TAG, "Error creating user", e)
+                Log.e(ContentValues.TAG, "Error creating record", e)
             }
         }
     }
-
 }

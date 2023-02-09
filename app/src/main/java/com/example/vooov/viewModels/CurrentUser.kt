@@ -1,13 +1,12 @@
 package com.example.vooov.viewModels
 
 import android.content.Context
-import android.content.SharedPreferences
-import com.example.vooov.LoginActivity
 
-class CurentUser(context: Context){
+class CurrentUser(context: Context){
 
     val sharedPreferences = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
 
+    val pseudo = sharedPreferences.getString("pseudo", "Anonymus" )
     val name = sharedPreferences.getString("name", "Anonyme" )
     val firstname = sharedPreferences.getString("firstname", "" )
     val email = sharedPreferences.getString("email", "email" )

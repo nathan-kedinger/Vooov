@@ -44,26 +44,44 @@ class PicturesRepository {
         }
     }
 
-    private val download = retrofit.create(PicturesRetrofitInterface::class.java)
-    var picture: String? = null
+    // Constant for the log tag
+    private val LOG_TAG = "PictureDownloader"
+
+    // Service interface for downloading images
+    private val downloadService = retrofit.create(PicturesRetrofitInterface::class.java)
+
+    // Variable to store the downloaded picture
+    private var picture: String? = null
+
+    // Suspend function to download the image with the given file name
     suspend fun downloadImage(fileName: String): Bitmap? {
         try {
-            val response = download.downloadImage(fileName)
+            // Make the HTTP request to download the image
+            val response = downloadService.downloadImage(fileName)
+
+            // Check if the request was successful
             if (response.isSuccessful) {
-                 picture = response.body()?.string()
+                picture = response.body()?.string()
+                // Check if the picture data is not null and not an empty string
                 if (picture != null && Base64.decode( picture, Base64.NO_PADDING).isNotEmpty()) {
                     val imageBytes = Base64.decode( picture, Base64.NO_PADDING)
 
+                    // Convert the byte array to a Bitmap and return it
                     return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                 } else {
-                    Log.i(ContentValues.TAG, "Base64 string is empty or invalid")
+                    // Log an error if the picture data is invalid
+                    Log.i(LOG_TAG, "Base64 string is empty or invalid")
                 }
             } else {
-                Log.i(ContentValues.TAG, "HTTP response code: ${response.code()}")
+                // Log an error if the HTTP request was not successful
+                Log.i(LOG_TAG, "HTTP response code: ${response.code()}")
             }
-        } catch (e: Exception){
-            Log.i(ContentValues.TAG, "Message: ${e.message}")
+        } catch (e: Exception) {
+            // Log an error if an exception was thrown
+            Log.i(LOG_TAG, "Message: ${e.message}")
         }
+
+        // Return null if the image could not be downloaded
         return null
     }
 

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +17,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.databinding.ActivitySignInBinding
+import com.example.vooov.viewModelFactories.LoginViewModelFactory
+import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModels.UserViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.lambdapioneer.argon2kt.Argon2Kt
@@ -34,7 +37,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 class SignInActivity : AppCompatActivity() {
-
+    private lateinit var loginViewModel: LoginViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var binding: ActivitySignInBinding
 
@@ -46,9 +49,34 @@ class SignInActivity : AppCompatActivity() {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        val signInButton = binding.registerRegister
+
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+            .get(LoginViewModel::class.java)
+
+
+
+       /* loginViewModel.loginFormState.observe(this@SignInActivity, Observer {
+            val loginState = it ?: return@Observer
+
+            // disable login button unless all fields are valid
+            signInButton.isEnabled = loginState.isDataValid
+
+            if (loginState.usernameError != null) {
+                username.error = getString(loginState.usernameError)
+            }
+            if (loginState.passwordError != null) {
+                password.error = getString(loginState.passwordError)
+            }
+        })*/
+
+
+
         //CREATE USER
-        binding.registerRegister.setOnClickListener {
+         signInButton.setOnClickListener {
             try {
+
+
 
                 // Check for password confirmation
                 if (binding.registerPasswordTextInput.text.toString() == binding.registerPasswordConfirmTextInput.text.toString()){
@@ -71,8 +99,6 @@ class SignInActivity : AppCompatActivity() {
 
                             } else {
                                 // Generate password salt and hash
-                                /*val salt = BCrypt.gensalt()
-                                val hash = BCrypt.hashpw(password, salt)*/
                                 val password = binding.registerPasswordTextInput.text.toString()
                                 val salt = SecureRandom.getInstanceStrong().generateSeed(16)
                                 val argon2Kt = Argon2Kt()
@@ -83,6 +109,7 @@ class SignInActivity : AppCompatActivity() {
                                 val newUser = UserModel(
                                     UUID.randomUUID().toString(),
                                     binding.registerNameTextInput.text.toString(),
+                                    binding.registerPseudoTextInput.text.toString(),
                                     binding.registerFirstnameTextInput.text.toString(),
                                     binding.registerMailTextInput.text.toString(),
                                     hash,

@@ -26,7 +26,7 @@ class TestActivity : AppCompatActivity() {
         val repo = PicturesRepository()
         binding.testButton.setOnClickListener {
 
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, StudioActivity::class.java))
 
             }
 

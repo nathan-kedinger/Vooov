@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Vooov" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_gold</item>
-        <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/buttons</item>
+        <item name="colorPrimaryVariant">@color/buttons</item>
+        <item name="colorOnPrimary">@color/genaral_texts</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/strong_gold</item>
-        <item name="colorSecondaryVariant">@color/brown</item>
-        <item name="colorOnSecondary">@color/light_gold</item>
+        <item name="colorSecondary">@color/buttons</item>
+        <item name="colorSecondaryVariant">@color/buttons</item>
+        <item name="colorOnSecondary">@color/genaral_texts</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -21,44 +21,45 @@
 
     <!-- APP TITLE -->
     <style name="TitleApp">
-        <item name="android:textColor">@color/brown</item>
+        <item name="android:textColor">@color/blue_texts</item>
         <item name="android:textSize">48sp</item>
-        <item name="android:fontFamily">@font/bungeeinline_regular</item>
+        <item name="android:fontFamily">@font/monoton_regular</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">-10dp</item>
     </style>
 
     <!-- DEFAULT TEXT -->
-    <style name="DefaultTextStyle" parent="TitleApp"> <!-- parent évite de répéter   plusieur fois le meme style-->
-        <item name="android:textColor">@color/white</item>
+    <style name="DefaultTextStyle">
+        <item name="android:textColor">@color/genaral_texts</item>
+        <item name="android:fontFamily">@font/biryani_regular</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <!-- PAGE TITLE -->
-    <style name="PageTitle" parent="DefaultTextStyle">
-        <item name="android:textSize">24sp</item>
+    <style name="PageTitle" parent="TitleApp"> <!-- parent évite de répéter plusieur fois le meme style-->
+        <item name="android:textSize">28sp</item>
     </style>
 
     <!-- STUDIO TEXT -->
     <style name="StudioText" parent="TitleApp">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/genaral_texts</item>
     </style>
 
-    <style name="HomeMain" parent="StudioText">
+    <style name="HomeMain" parent="DefaultTextStyle">
         <item name="android:textSize">32sp</item>
     </style>
 
-    <style name="HomeSub" parent="StudioText">
+    <style name="HomeSub" parent="DefaultTextStyle">
         <item name="android:textSize">20sp</item>
     </style>
 
     <!-- MAIN RECCORD TEXT -->
-    <style name="MainRecord" parent="StudioText">
+    <style name="MainRecord" parent="DefaultTextStyle">
         <item name="android:textSize">14sp</item>
     </style>
 
     <!-- SUBRECORD TEXT -->
-    <style name="SubRecord" parent="StudioText">
+    <style name="SubRecord" parent="DefaultTextStyle">
         <item name="android:textSize">12sp</item>
     </style>
 

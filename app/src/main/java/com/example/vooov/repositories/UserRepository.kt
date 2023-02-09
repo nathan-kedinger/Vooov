@@ -72,4 +72,5 @@ class UserRepository {
         } catch (e: Exception) {
             throw IOException("Error deleting user", e)
         }
-    }}
+    }
+}

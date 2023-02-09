@@ -2,6 +2,7 @@ package com.example.vooov.data.model
 
 data class UserModel(
     val uuid: String = "null",
+    val pseudo: String = "Do",
     val name: String = "Doe",
     val firstname: String = "Jon",
     val email: String = "a@gt.fr",

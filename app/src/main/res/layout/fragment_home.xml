@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,7 +9,20 @@
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        android:background="@color/backgrounds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/home_record_profile_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo_vooov"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,8 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/icons_padding"
         android:src="@drawable/ic_headphone"
+        app:layout_constraintEnd_toStartOf="@+id/home_record_artist_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style" />
+        app:layout_constraintTop_toBottomOf="@+id/home_record_profile_picture" />
 
     <ImageView
         android:id="@+id/home_record_moon"
@@ -29,7 +44,8 @@
         android:layout_margin="@dimen/icons_padding"
         android:src="@drawable/ic_moon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style" />
+        app:layout_constraintStart_toEndOf="@+id/home_record_artist_name"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_profile_picture" />
 
     <ImageButton
         android:id="@+id/home_record_plus"
@@ -37,6 +53,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="@+id/home_record_number_of_moons"
+        app:layout_constraintStart_toStartOf="@+id/home_record_number_of_moons"
         app:layout_constraintTop_toBottomOf="@+id/home_record_number_of_moons" />
 
     <ImageButton
@@ -44,6 +61,7 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:background="@drawable/ic_chat_buble"
+        app:layout_constraintEnd_toEndOf="@+id/home_record_number_of_play"
         app:layout_constraintStart_toStartOf="@+id/home_record_number_of_play"
         app:layout_constraintTop_toBottomOf="@+id/home_record_number_of_play" />
 
@@ -55,7 +73,7 @@
         android:text="@string/home_record_artist_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintTop_toBottomOf="@+id/home_record_profile_picture" />
 
     <TextView
         android:id="@+id/home_record_title"
@@ -89,7 +107,6 @@
         app:layout_constraintStart_toStartOf="@+id/home_record_kind"
         app:layout_constraintTop_toBottomOf="@+id/home_record_kind" />
 
-
     <TextView
         android:id="@+id/home_record_number_of_play"
         style="@style/HomeSub"
@@ -109,6 +126,32 @@
         app:layout_constraintEnd_toEndOf="@+id/home_record_moon"
         app:layout_constraintStart_toStartOf="@+id/home_record_moon"
         app:layout_constraintTop_toBottomOf="@+id/home_record_moon" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/home_record_description"
+                style="@style/HomeSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_record_description"
+                app:layout_constraintEnd_toEndOf="@+id/home_record_kind"
+                app:layout_constraintStart_toStartOf="@+id/home_record_kind"
+                app:layout_constraintTop_toBottomOf="@+id/home_record_voice_style" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_brown"
-    tools:context=".activity.StudioActivity">
+    tools:context=".StudioActivity">
 
     <TextView
         android:id="@+id/studio_page_title"
@@ -118,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/studio_record_button" />
 
     <Chronometer
-        android:id="@+id/studio_chronometer_reading_time"
+        android:id="@+id/studio_meter_reading_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -127,7 +126,7 @@
         app:layout_constraintEnd_toStartOf="@+id/studio_progress_bar" />
 
     <Chronometer
-        android:id="@+id/studio_chronometer_total_time"
+        android:id="@+id/studio_meter_total_time"
         android:layout_width="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_height="wrap_content"
@@ -144,7 +143,6 @@
         app:layout_constraintEnd_toStartOf="@+id/studio_progress_bar"
         app:layout_constraintStart_toStartOf="@+id/studio_page_title"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
