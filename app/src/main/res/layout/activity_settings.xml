@@ -1,9 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SettingsActivity">
+    android:gravity="center_horizontal"
+    tools:context=".SettingsActivity"
+    android:background="@color/studio_background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_home"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            style="@style/PageTitle"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/settings_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_page_title"
+        android:layout_marginTop="10dp"
+        style="@style/HomeSub"
+        />
+
+    <TextView
+        android:id="@+id/settings_my_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_page_title"
+        android:layout_marginTop="10dp"
+        style="@style/HomeSub"
+        />
+
+    <ImageView
+        android:id="@+id/settings_my_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_vooov"
+        />
+
+    <TextView
+        android:id="@+id/settings_informations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_informations"
+        android:layout_marginTop="5dp"
+        style="@style/HomeSub"
+        />
+
+    <TextView
+        android:id="@+id/settings_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_mail"
+        style="@style/HomeSub"
+        />
+
+    <EditText
+        android:id="@+id/settings_pseudo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_pseudo"
+        android:background="@color/genaral_texts"
+        android:layout_marginHorizontal="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="15dp"/>
+    <EditText
+        android:id="@+id/settings_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_name"
+        android:background="@color/genaral_texts"
+        android:layout_marginHorizontal="15dp"
+        android:elevation="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:id="@+id/settings_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_firstname"
+        android:background="@color/genaral_texts"
+        android:layout_marginHorizontal="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:id="@+id/settings_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/settings_password"
+        android:inputType="textPassword"
+        android:background="@color/genaral_texts"
+        android:layout_marginHorizontal="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:id="@+id/settings_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/settings_confirm_password"
+        android:background="@color/genaral_texts"
+        android:layout_marginHorizontal="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:id="@+id/settings_modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_modify"
+        android:layout_marginTop="15dp"
+        />
+
+    <Button
+        android:id="@+id/settings_legals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_legal"
+    />
+
+    <Button
+        android:id="@+id/settings_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_logout"
+    />
+
+    <Button
+        android:id="@+id/settings_delete_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_delete_account"
+    />
+</LinearLayout>

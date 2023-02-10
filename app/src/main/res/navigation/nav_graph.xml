@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.offo.fragments.HomeFragment"
+        android:name="com.example.vooov.fragments.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <argument
@@ -15,28 +15,22 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_homeFragment_to_personalProfilFragment"
-            app:destination="@id/personalProfilFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_recordPageFragment"
             app:destination="@id/recordPageFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_homeFragment_to_searchUserFragment"
-            app:destination="@id/searchUserFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_recyclerRecordFragment"
-            app:destination="@id/recyclerRecordFragment" />
+            android:id="@+id/action_homeFragment_to_messageFragment"
+            app:destination="@id/messageFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/recordPageFragment"
-        android:name="com.example.offo.fragments.RecordPageFragment"
+        android:name="com.example.vooov.fragments.RecordFragment"
         android:label="RecordPageFragment"
-        tools:layout="@layout/fragment_record_page">
+        tools:layout="@layout/fragment_record">
         <action
             android:id="@+id/action_recordPageFragment_to_artistProfilFragment"
-            app:destination="@id/artistProfilFragment" />
+            app:destination="@id/artistProfileFragment" />
         <argument
             android:name="recordID"
             app:argType="string"
@@ -48,41 +42,94 @@
     </fragment>
 
     <fragment
-        android:id="@+id/artistProfilFragment"
-        android:name="com.example.offo.fragments.ArtistProfilFragment"
+        android:id="@+id/artistProfileFragment"
+        android:name="com.example.vooov.fragments.ArtistProfileFragment"
         android:label="ArtistProfilFragment"
-        tools:layout="@layout/fragment_artist_profil"/>
+        tools:layout="@layout/fragment_artist_profile">
+        <action
+            android:id="@+id/action_artistProfileFragment_to_messageFragment"
+            app:destination="@id/messageFragment" />
+        <action
+            android:id="@+id/action_artistProfileFragment_to_recyclerRecordFragment"
+            app:destination="@id/recordListFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/personalProfilFragment"
-        android:name="com.example.offo.fragments.PersonalProfilFragment"
+        android:id="@+id/personalProfileFragment"
+        android:name="com.example.vooov.fragments.PersonalProfileFragment"
         android:label="PersonalProfilFragment"
-        tools:layout="@layout/fragment_personal_profil"/>
+        tools:layout="@layout/fragment_personal_profile">
+        <action
+            android:id="@+id/action_personalProfileFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+        <action
+            android:id="@+id/action_personalProfileFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_personalProfileFragment_to_recyclerRecordFragment"
+            app:destination="@id/recordListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchUserFragment"
-        android:name="com.example.offo.fragments.SearchUserFragment"
+        android:name="com.example.vooov.fragments.ResearchUserFragment"
         android:label="SearchUserFragment"
-        tools:layout="@layout/fragment_research_person">
+        tools:layout="@layout/fragment_research_user">
         <action
             android:id="@+id/action_searchUserFragment_to_searchRecordFragment"
             app:destination="@id/searchRecordFragment" />
+        <action
+            android:id="@+id/action_searchUserFragment_to_artistProfileFragment"
+            app:destination="@id/artistProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchRecordFragment"
-        android:name="com.example.offo.fragments.SearchRecordFragment"
+        android:name="com.example.vooov.fragments.ResearchRecordFragment"
         android:label="SearchRecordFragment"
         tools:layout="@layout/fragment_research_record">
         <action
             android:id="@+id/action_searchRecordFragment_to_searchUserFragment"
             app:destination="@id/searchUserFragment" />
+        <action
+            android:id="@+id/action_searchRecordFragment_to_recordPageFragment"
+            app:destination="@id/recordPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/recyclerRecordFragment"
-        android:name="com.example.offo.fragments.recyclerRecordFragment"
+        android:id="@+id/recordListFragment"
+        android:name="com.example.vooov.fragments.RecordListFragment"
         android:label="recyclerRecordFragment"
-        tools:layout="@layout/fragment_recycler_record">
+        tools:layout="@layout/fragment_record_list">
         <action
             android:id="@+id/action_recyclerRecordFragment_to_recordPageFragment"
             app:destination="@id/recordPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.vooov.fragments.CommunityFragment"
+        android:label="communityFragment"
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_communityFragment_to_artistProfilFragment"
+            app:destination="@id/artistProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.vooov.fragments.MessageFragment"
+        android:label="messageFragment"
+        tools:layout="@layout/fragment_message">
+    </fragment>
+    <fragment
+        android:id="@+id/conversationsFragment"
+        android:name="com.example.vooov.fragments.ConversationsFragment"
+        android:label="conversationsFragment"
+        tools:layout="@layout/fragment_conversations">
+        <action
+            android:id="@+id/action_conversationsFragment_to_messageFragment"
+            app:destination="@id/messageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.example.vooov.fragments.WalletFragment"
+        android:label="walletFragment"
+        tools:layout="@layout/fragment_wallet">
     </fragment>
 </navigation>

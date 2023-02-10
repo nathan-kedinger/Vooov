@@ -110,7 +110,6 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
         app:layout_constraintBottom_toTopOf="@+id/studio_play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

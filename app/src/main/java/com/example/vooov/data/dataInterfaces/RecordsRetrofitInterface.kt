@@ -24,7 +24,7 @@ interface RecordsRetrofitInterface {
     suspend fun deleteRecord(@Query("uuid") uuid: String): Response<RecordModel>
 
     @POST("record_files/record_upload.php")
-    suspend fun uploadRecordFile(@Part file: MultipartBody.Part): Response<ResponseBody>
+    fun uploadRecordFile(@Part file: MultipartBody.Part): Response<ResponseBody>
 
     @GET("record_files/record_download.php")
     suspend fun downloadRecordFile(@Query("file") filename: String): Response<ResponseBody>

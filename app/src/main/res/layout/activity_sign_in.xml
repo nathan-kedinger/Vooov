@@ -124,6 +124,25 @@
             android:inputType="textPassword"
             />
 
+        <TextView
+            android:id="@+id/register_birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_birthday"
+            style="@style/BasicText"
+            android:layout_marginTop="@dimen/default_margin"
+            />
+
+        <EditText
+            android:id="@+id/register_password_birthday_text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/register_birthday_text_input"
+            style="@style/CompletionText"
+            android:inputType="date"
+            />
+
         <Button
             android:id="@+id/register_register"
             android:layout_width="wrap_content"

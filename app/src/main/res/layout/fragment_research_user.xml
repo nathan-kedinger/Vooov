@@ -22,7 +22,6 @@
         android:queryHint="@string/research_person_search_bar"
         app:layout_constraintTop_toBottomOf="@+id/research_person_record" />
 
-
     <Button
         android:id="@+id/research_person_user"
         android:layout_width="wrap_content"

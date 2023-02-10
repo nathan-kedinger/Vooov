@@ -22,6 +22,7 @@ import com.example.vooov.databinding.ActivityLoginBinding
 import com.example.vooov.data.model.LoggedInUserView
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
+import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.UserViewModel
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2Mode
@@ -54,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
         val preferencesEditor = sharedPreferences.edit()
 
         val getCurrentUserConnected = sharedPreferences.getBoolean("userConnected", false)
-        val getCurrentUserName = sharedPreferences.getString("name", "Anonyme" )
+        val getCurrentUserName = sharedPreferences.getString("name", "null")
 
         /*if ( getCurrentUserConnected != false && getCurrentUserConnected == false ){
             login.isEnabled
@@ -132,37 +133,35 @@ class LoginActivity : AppCompatActivity() {
             try {
                 login.setOnClickListener {
                     CoroutineScope(Dispatchers.Main).launch {
-                        userViewModel.fetchOneUserByMail(username.text.toString())
-                        Log.e(ContentValues.TAG, username.text.toString())
+                        userViewModel.fetchOneUser(username.text.toString())
+                        Log.i(ContentValues.TAG, username.text.toString())
 
                     }
 
                     userViewModel.user.observe(this@LoginActivity, Observer {
                         val user = it ?:return@Observer
 
-                        Toast.makeText(this@LoginActivity,"coucou", Toast.LENGTH_LONG).show()
-                        Log.e(ContentValues.TAG, "Message:")
                         if (user.password != null) {
 
                             val argon2Kt = Argon2Kt()
                             val verificationResult: Boolean = argon2Kt.verify(Argon2Mode.ARGON2_I, user.password, password.text.toString().toByteArray())
                             if (verificationResult) {
                                 // Code pour enregistrer les informations de l'utilisateur dans les préférences
-                                preferencesEditor.putString("email", user.email)
-                                preferencesEditor.putString("pseudo", user.pseudo)
-                                preferencesEditor.putString("name", user.name)
-                                preferencesEditor.putString("firstname", user.firstname)
-                                preferencesEditor.putString("phone", user.phone)
-                                preferencesEditor.putString("description", user.description)
-                                preferencesEditor.putString("url_profile_ picture", user.url_profile_picture)
-                                preferencesEditor.putString("uuid", user.uuid)
-                                preferencesEditor.putBoolean("userConnected", true)
-                                preferencesEditor.apply()
+                                CurrentUser(this).saveString("email", user.email)
+                                CurrentUser(this).saveString("pseudo", user.pseudo)
+                                CurrentUser(this).saveString("name", user.name)
+                                CurrentUser(this).saveString("firstname", user.firstname)
+                                CurrentUser(this).saveString("phone", user.phone)
+                                CurrentUser(this).saveString("description", user.description)
+                                CurrentUser(this).saveString("url_profile_ picture", user.url_profile_picture)
+                                CurrentUser(this).saveString("uuid", user.uuid)
+                                CurrentUser(this).saveConnection("userConnected", true)
+
 
                                 // Code pour démarrer une nouvelle activité et afficher un message de confirmation
-                                startActivity(Intent(this, SignInActivity::class.java))
-                                loading.visibility = View.VISIBLE
-                                loginViewModel.login(username.text.toString(), password.text.toString())
+                                startActivity(Intent(this, HomeActivity::class.java))
+                                //loading.visibility = View.VISIBLE
+                                //loginViewModel.login(username.text.toString(), password.text.toString())
                                 Toast.makeText(applicationContext, "Connexion réussie!", Toast.LENGTH_LONG).show()
                             } else {
                                 // Afficher un message d'erreur si la vérification échoue

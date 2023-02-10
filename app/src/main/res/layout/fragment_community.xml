@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/comuntity_list_page_title"
-        style="@style/PageTitle"
+        style="@style/DefaultTextStyle"
+        android:gravity="center"
         />
 
     <androidx.recyclerview.widget.RecyclerView

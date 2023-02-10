@@ -1,6 +1,7 @@
 package com.example.vooov
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -18,6 +19,10 @@ import com.example.vooov.databinding.ActivityStudioBinding
 import com.example.vooov.repositories.RecordRepository
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -38,7 +43,6 @@ class StudioActivity : AppCompatActivity() {
     private var mStartPlaying = true
 
     val randomId = UUID.randomUUID().toString()
-    var recordUri : Uri = Uri.fromFile(File(fileName))
 
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
@@ -64,7 +68,7 @@ class StudioActivity : AppCompatActivity() {
 
                 binding.studioBackHome.setOnClickListener{
                     startActivity(Intent(this, HomeActivity::class.java))
-
+                    finish()
                 }
                 // Record to the external cache directory for visibility
                 //fileName = "${externalCacheDir?.absolutePath}/ ${randomId}.3gp"
@@ -100,16 +104,15 @@ class StudioActivity : AppCompatActivity() {
 
                 val publishButton: ImageButton = binding.studioPublishButton
                 publishButton.setOnClickListener {
-                    //publish()
+                    publish()
                 }
             }
 
-            /*fun publish(){
+            fun publish(){
                 val repo = RecordsViewModel()
-                recordUri = Uri.fromFile(File(fileName))
-                val recordArtistUUID = CurrentUser(this).uuid
+                val recordArtistUUID  = CurrentUser(this).uuid
                 val recordTitle = binding.studioRecordName.text.toString()
-                val length =
+                val length = 5
                 val recordVoiceType = binding.studioVoiceType.selectedItem.toString()
                 val recordKind = binding.studioCategorie.selectedItem.toString()
                 val description = ""
@@ -129,10 +132,14 @@ class StudioActivity : AppCompatActivity() {
                     updated_at
                 )
 
-                repo.uploadRecordFile(recordUri, randomId)
-                repo.saveRecordDataIntDatabase(record)
+                //repo.createRecord(record)
+                CoroutineScope(Dispatchers.Main).launch {
+                    withContext(Dispatchers.IO) {
+                        RecordRepository().uploadRecord(fileName)
+                    }
+                }
 
-            }*/
+            }
 
             private fun onRecord(start: Boolean) = if (start) {
                 startRecording()

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:id="@+id/personal_profil_my_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_page_title"
+        android:layout_marginTop="10dp"
+        style="@style/HomeSub"
+        android:gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/personal_profil_my_picture"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo_vooov"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_informations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_informations"
+        android:layout_marginTop="5dp"
+        style="@style/HomeSub"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/personal_profil_mail"
+        style="@style/DefaultTextStyle"
+        />
+
+    <TextView
+        android:id="@+id/personal_profil_pseudo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register_pseudo"
+        android:layout_marginHorizontal="15dp"
+        style="@style/DefaultTextStyle"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/personal_profil_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_artist_name"
+        android:layout_marginHorizontal="15dp"
+        style="@style/DefaultTextStyle"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/personal_profil_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_firstname"
+        android:layout_marginHorizontal="15dp"
+        style="@style/DefaultTextStyle"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/personal_profil_biographie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/personal_profil_biographie"
+        style="@style/HomeSub"
+        />
+
+    <EditText
+        android:id="@+id/personal_profil_biographie_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/genaral_texts"
+        android:text="@string/personal_profil_biographie_text"
+        />
+
+    <Button
+        android:id="@+id/personal_profil_modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_modify"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/personal_profil_moons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:background="@drawable/ic_moon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/personal_profil_number_of_moons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/base_number"
+            app:layout_constraintEnd_toEndOf="@+id/personal_profil_moons"
+            app:layout_constraintStart_toStartOf="@+id/personal_profil_moons"
+            app:layout_constraintTop_toBottomOf="@+id/personal_profil_moons" />
+
+        <ImageView
+            android:id="@+id/personal_profil_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/ic_friends"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/personal_profil_number_of_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/base_number"
+            app:layout_constraintEnd_toEndOf="@+id/personal_profil_friends"
+            app:layout_constraintStart_toStartOf="@+id/personal_profil_friends"
+            app:layout_constraintTop_toBottomOf="@+id/personal_profil_friends" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/personal_profil_my_records"
+        style="@style/Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_my_records" />
+
+    <Button
+        android:id="@+id/personal_profil_wallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_wallet"
+        />
+
+    <Button
+        android:id="@+id/personal_profil_community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_profil_community"
+        />
+
+</LinearLayout>

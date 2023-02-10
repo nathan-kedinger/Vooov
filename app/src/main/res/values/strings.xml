@@ -94,13 +94,14 @@
     <integer name="record_listen_count">@integer/home_record_listen_count</integer>
     <integer name="record_given_token">@integer/home_record_given_token</integer>
     <string name="record_kind">@string/home_record_kind</string>
+    <string name="record_page_voice_style">@string/home_record_voice</string>
 
 
     <!-- MESSAGES PAGE -->
     <string name="message_page_title">MESSAGERIE</string>
     <string name="message_sender">PSEUDO</string>
     <string name="message_date">00/00/0000 00:00</string>
-    <string name="message_text">Corps de texte du message</string>
+    <string name="message_text">Message</string>
     <string name="message_search_bar">Rechercher dans mes message</string>
 
     <!-- RESEARCH PERSON PAGE -->
@@ -127,26 +128,34 @@
 
     <!-- SETTINGS -->
     <string name="settings_page_title">PARAMETRES</string>
+    <string name="settings_informations">Mes informations</string>
+    <string name="settings_mail">Email</string>
+    <string name="settings_pseudo">Pseudo</string>
+    <string name="settings_name">Nom</string>
+    <string name="settings_firstname">Prénom</string>
+    <string name="settings_password">Mot de passe</string>
+    <string name="settings_legal">Mentions légales</string>
+    <string name="settings_confirm_password">Confirmation du mot de passe</string>
+    <string name="settings_logout">Déconnexion</string>
+    <string name="settings_modify">Modifier</string>
+    <string name="settings_delete_account">Supprimer le compte</string>
 
     <!-- PERSONAL PROFIL -->
-    <string name="personal_profil_page_title">MY NAME</string>
+    <string name="personal_profil_page_title">MON NOM</string>
     <string name="personal_profil_informations">MES INFORMATIONS</string>
     <string name="personal_profil_mail">MAIL</string>
     <string name="personal_profil_modify">MODIFIER</string>
     <string name="personal_profil_biographie">BIOGRAPHIE</string>
+    <string name="personal_profil_pseudo">Pseudo</string>
+    <string name="personal_profil_firstname">Prénom</string>
     <string name="personal_profil_biographie_text">Texte de présentation</string>
-    <integer name="personal_profil_moons">@integer/my_moons</integer>
-    <integer name="personal_profil_friends">@integer/my_friends</integer>
-    <integer name="personal_profil_offos">@integer/my_offos</integer>
-    <integer name="personal_profil_followers">@integer/my_followers</integer>
+    <string name="personal_profil_wallet">Porte-moon</string>
+    <string name="personal_profil_community">Communauté</string>
     <string name="personal_profil_my_records">MES ENREGISTREMENTS</string>
     <string name="personal_profil_artist_name">@string/home_record_artist_name</string>
     <string name="personal_profil_record_title">@string/home_record_title</string>
     <string name="personal_profil_record_kind">@string/home_record_kind</string>
     <string name="personal_profil_record_voice_style">@string/home_record_voice</string>
-    <integer name="personal_profil_record_listen_count">@integer/home_record_listen_count</integer>
-    <integer name="personal_profil_record_given_token">@integer/home_record_listen_count</integer>
-    <string name="personal_profil_delete_profil">Supprimer le profil</string>
 
 
     <!-- ARTIST PROFIL -->
@@ -201,6 +210,9 @@
     <string name="comuntity_list_friends_name">NOM</string>
     <integer name="community_list_number_of_friends">0</integer>
     <integer name="community_list_number_followers">0</integer>
+
+    <!-- CONVERSATIONS -->
+    <string name="conversations_research_hint">Rechercher une conversation</string>
 
     <!-- OFFO'S LIST-->
     <string name="offos_list_page_title">MES OFFOS</string>
