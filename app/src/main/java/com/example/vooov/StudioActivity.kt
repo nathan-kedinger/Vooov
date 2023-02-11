@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +22,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.io.IOException
 import java.util.*
 
@@ -34,7 +32,7 @@ class StudioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStudioBinding
 
-    private var fileName: String = ""
+    private var fileFullPath: String = ""
 
     private var recorder: MediaRecorder? = null
     private var mStartRecording = false
@@ -72,8 +70,9 @@ class StudioActivity : AppCompatActivity() {
                 }
                 // Record to the external cache directory for visibility
                 //fileName = "${externalCacheDir?.absolutePath}/ ${randomId}.3gp"
-                fileName = "${filesDir.absolutePath}/${randomId}.mp4"
-                Toast.makeText(this, fileName, Toast.LENGTH_LONG).show()
+                fileFullPath = "${filesDir.absolutePath}/${randomId}.mp3"
+                Toast.makeText(this, fileFullPath, Toast.LENGTH_LONG).show()
+                Log.i(ContentValues.TAG, "file path: $fileFullPath")
 
 
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
@@ -132,10 +131,10 @@ class StudioActivity : AppCompatActivity() {
                     updated_at
                 )
 
-                //repo.createRecord(record)
+                repo.createRecord(record)
                 CoroutineScope(Dispatchers.Main).launch {
                     withContext(Dispatchers.IO) {
-                        RecordRepository().uploadRecord(fileName)
+                        RecordRepository().uploadRecord(fileFullPath, randomId)
                     }
                 }
 
@@ -155,7 +154,7 @@ class StudioActivity : AppCompatActivity() {
             private fun startPlaying() {
                 player = MediaPlayer().apply {
                     try {
-                        setDataSource(fileName)
+                        setDataSource(fileFullPath)
                         prepare()
                         start()
 
@@ -182,9 +181,9 @@ class StudioActivity : AppCompatActivity() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     recorder = MediaRecorder(this).apply {
                         setAudioSource(MediaRecorder.AudioSource.MIC)
-                        setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-                        setOutputFile(fileName)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                        setOutputFile(fileFullPath)
+                        setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
                         binding.studioMeterReading
                         binding.studioMeterTotalTime
                         try {
@@ -197,10 +196,10 @@ class StudioActivity : AppCompatActivity() {
                     }
                 } else {
                     recorder = MediaRecorder().apply {
-                        setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+                        setAudioSource(MediaRecorder.AudioSource.MIC)
                         setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                        setOutputFile(fileName)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+                        setOutputFile(fileFullPath)
+                        setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
                         binding.studioMeterReading
                         binding.studioMeterTotalTime
                         try {

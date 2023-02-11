@@ -82,23 +82,27 @@ class RecordRepository {
     private val upload = retrofit.create(RecordsRetrofitInterface::class.java)
 
 
-    suspend fun uploadRecord(pathToRecord: String) {
+    suspend fun uploadRecord(pathToRecord: String, fileFullName: String) {
         val file = File(pathToRecord)
 
         // Create a RequestBody object from the file to be uploaded
-        val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        val fileName = RequestBody.create(MediaType.parse("text/plain"), "${fileFullName}.mp3")
+        val mimeType = RequestBody.create(MediaType.parse("text/plain"), "audio/mpeg")
+        val fileSize = RequestBody.create(MediaType.parse("text/plain"), file.length().toString())
 
         // Create a MultipartBody.Part object to hold the file
-        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
+        val filepart = MultipartBody.Part.createFormData("file", file.name, RequestBody.create(MediaType.parse("audio/mpg"), file))
+
 
         try {
             // Call the uploadRecordFile method on the interface created by Retrofit
-            val response = upload.uploadRecordFile(part)
+            val response = upload.uploadRecordFile(fileName, mimeType, fileSize, filepart)
 
             if (response.isSuccessful) {
-                // Upload the record data if the response was successful
+                Log.d(TAG, "File uploaded successfully")
             } else {
-                // Handle error
+                val responseCode = response.code()
+                Log.d(TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
             }
         } catch (e: IOException) {
             // Handle failure due to a network error, such as a timeout or a lost connection
@@ -108,8 +112,10 @@ class RecordRepository {
             // Handle any other failures that may occur
         }
     }
+
+
     // Constant for the log tag
-    private val LOG_TAG = "PictureDownloader"
+    private val LOG_TAG = "RecordDownloader"
 
     // Service interface for downloading record
     private val downloadService = retrofit.create(RecordsRetrofitInterface::class.java)
