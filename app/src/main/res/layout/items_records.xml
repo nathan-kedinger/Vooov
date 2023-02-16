@@ -12,12 +12,11 @@
         android:id="@+id/record_recycled_base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgrounds"
-        >
+        android:background="@color/backgrounds">
 
 
         <ImageView
-            android:id="@+id/record_page_profile_picture"
+            android:id="@+id/record_item_profile_picture"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_weight="1"
@@ -29,100 +28,100 @@
 
 
         <TextView
-            android:id="@+id/record_page_artist"
+            android:id="@+id/record_item_artist_name"
             style="@style/MainRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="@dimen/icons_margin"
             android:text="@string/record_artist_name"
-            app:layout_constraintStart_toStartOf="@+id/record_page_record_title"
+            app:layout_constraintStart_toStartOf="@+id/record_item_record_title"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <TextView
-            android:id="@+id/record_page_record_title"
+            android:id="@+id/record_item_record_title"
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginStart="5dp"
             android:text="@string/record_record_title"
-            app:layout_constraintStart_toEndOf="@+id/record_page_profile_picture"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_artist" />
+            app:layout_constraintStart_toEndOf="@+id/record_item_profile_picture"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_artist_name" />
 
         <TextView
-            android:id="@+id/record_page_kind"
+            android:id="@+id/record_item_kind"
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/record_kind"
-            app:layout_constraintStart_toStartOf="@+id/record_page_record_title"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_record_title" />
+            app:layout_constraintStart_toStartOf="@+id/record_item_record_title"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_record_title" />
 
         <TextView
-            android:id="@+id/record_page_voice_style"
+            android:id="@+id/record_item_voice_style"
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/home_record_voice"
-            app:layout_constraintStart_toStartOf="@+id/record_page_record_title"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_kind" />
+            app:layout_constraintStart_toStartOf="@+id/record_item_record_title"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_kind" />
 
         <ImageButton
-            android:id="@+id/record_page_add_button"
+            android:id="@+id/record_item_add_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/ic_add"
             android:layout_margin="@dimen/icons_padding"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/record_page_headphone_icon"
+            app:layout_constraintEnd_toStartOf="@+id/record_item_headphone_icon"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <ImageView
-            android:id="@+id/record_page_headphone_icon"
+            android:id="@+id/record_item_headphone_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/icons_padding"
             android:padding="@dimen/icons_margin"
             android:src="@drawable/ic_headphone"
-            app:layout_constraintBottom_toTopOf="@+id/record_page_number_of_play"
+            app:layout_constraintBottom_toTopOf="@+id/record_item_number_of_play"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <TextView
-            android:id="@+id/record_page_number_of_play"
+            android:id="@+id/record_item_number_of_play"
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/base_number"
-            app:layout_constraintEnd_toEndOf="@+id/record_page_headphone_icon"
-            app:layout_constraintStart_toStartOf="@+id/record_page_headphone_icon"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_headphone_icon" />
+            app:layout_constraintEnd_toEndOf="@+id/record_item_headphone_icon"
+            app:layout_constraintStart_toStartOf="@+id/record_item_headphone_icon"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_headphone_icon" />
 
         <ImageView
-            android:id="@+id/record_page_moon_icon"
+            android:id="@+id/record_item_moon_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/icons_margin"
             android:src="@drawable/ic_moon"
-            app:layout_constraintEnd_toEndOf="@+id/record_page_moon_number"
-            app:layout_constraintStart_toStartOf="@+id/record_page_moon_number"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_number_of_play" />
+            app:layout_constraintEnd_toEndOf="@+id/record_item_moon_number"
+            app:layout_constraintStart_toStartOf="@+id/record_item_moon_number"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_number_of_play" />
 
         <TextView
-            android:id="@+id/record_page_moon_number"
+            android:id="@+id/record_item_moon_number"
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/base_number"
-            app:layout_constraintEnd_toEndOf="@+id/record_page_headphone_icon"
-            app:layout_constraintStart_toStartOf="@+id/record_page_headphone_icon"
-            app:layout_constraintTop_toBottomOf="@+id/record_page_moon_icon" />
+            app:layout_constraintEnd_toEndOf="@+id/record_item_headphone_icon"
+            app:layout_constraintStart_toStartOf="@+id/record_item_headphone_icon"
+            app:layout_constraintTop_toBottomOf="@+id/record_item_moon_icon" />
 
         <View
             android:id="@+id/view"

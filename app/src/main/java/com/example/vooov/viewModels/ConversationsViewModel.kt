@@ -1,0 +1,78 @@
+package com.example.vooov.viewModels
+
+import android.content.ContentValues
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.data.model.UserModel
+import com.example.vooov.repositories.ConversationsRepository
+import com.example.vooov.repositories.UserRepository
+import retrofit2.Response
+import java.util.*
+
+class ConversationsViewModel : ViewModel() {
+    private val repository = ConversationsRepository()
+
+    suspend fun createConversation(contactUuid: String, selfUuid: String) {
+        val randomUuid = UUID.randomUUID().toString()
+        val user1: Response<UserModel> = UserRepository().readOneUserData(selfUuid)
+        val user2: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
+
+        val conversation = ConversationsModel(
+            randomUuid,
+            selfUuid,
+            contactUuid,
+            "${user1.body()?.pseudo} ${user2.body()?.pseudo}",
+            Date().toString(),
+            Date().toString()
+        )
+        val response = repository.createConversationData(conversation)
+        if (response.isSuccessful) {
+            Log.i(ContentValues.TAG, "Conversation créée avec succès")
+        } else {
+            Log.e(ContentValues.TAG, "Erreur lors de la création de la conversation")
+            Log.i(ContentValues.TAG, "$conversation")
+            Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
+
+        }
+    }
+
+    val conversationList = MutableLiveData<MutableList<ConversationsModel>>()
+    val conversation = MutableLiveData<ConversationsModel>()
+
+    suspend fun fetchConversations(selfUuid: String) {
+        val response = repository.readConversationData(selfUuid)
+        if (response.isSuccessful) {
+            conversationList.value = response.body()
+        }
+    }
+
+    suspend fun fetchOneConversation(contactUuid: String, selfUuid: String) {
+        // Récupérer la liste de conversations
+        fetchConversations(selfUuid)
+
+        // Trouver la conversation qui correspond à contactUuid
+        conversationList.value?.let { list ->
+            val filteredList = list.filter { conversation ->
+                (conversation.sender == contactUuid || conversation.receiver == contactUuid)
+            }
+
+            if (filteredList.isNotEmpty()) {
+                conversation.value = filteredList[0] // Récupérer la première conversation correspondante
+            } else {
+                createConversation(contactUuid, selfUuid)
+            }
+        }
+    }
+
+    val conversationSelected = MutableLiveData<ConversationsModel>()
+
+    suspend fun fetchConversationByUuid(conversationUuid: String){
+        val response = repository.readOneConversationData(conversationUuid)
+        if(response.isSuccessful){
+            conversationSelected.value = response.body()
+        }
+    }
+}
+

@@ -15,8 +15,8 @@ interface RecordsRetrofitInterface {
     @GET("records/read.php")
     suspend fun getRecords(): Response<MutableList<RecordModel>>
 
-    @GET("records/readOneByUuid.php")
-    suspend fun getOneRecord(@Query("uuid") uuid: String): Response<RecordModel>
+    @GET("records/readOne.php")
+    suspend fun getOneRecord(@Query("id") id: Int): Response<RecordModel>
 
     @PUT("records/update.php")
     suspend fun updateRecord(@Body record: RecordModel): Response<RecordModel>

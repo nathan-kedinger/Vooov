@@ -2,6 +2,7 @@ package com.example.vooov.data.model
 
 data class RecordModel(
     val uuid: String = "null",
+    val id:  Int? = null,
     val artist_uuid: String? = "Doe",
     val title: String = "Jon",
     val length: Int = 0,

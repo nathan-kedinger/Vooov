@@ -1,9 +1,9 @@
 package com.example.vooov.viewModels
 
 import android.content.ContentValues
-import android.icu.text.AlphabeticIndex.Record
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.vooov.data.model.RecordModel
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.RecordRepository
@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class RecordsViewModel {
+class RecordsViewModel: ViewModel() {
     private val repository = RecordRepository()
 
     fun createRecord(record: RecordModel) {
@@ -70,9 +70,9 @@ class RecordsViewModel {
 
     val record = MutableLiveData<RecordModel>()
 
-    suspend fun fetchOneRecord(recordUuid: String) {
+    suspend fun fetchOneRecord(recordId: Int) {
         try {
-            val response = repository.readOneRecordData(recordUuid)
+            val response = repository.readOneRecordData(recordId)
             if (response.isSuccessful) {
                 val responseData = response.body()
                 record.value = responseData ?: RecordModel()

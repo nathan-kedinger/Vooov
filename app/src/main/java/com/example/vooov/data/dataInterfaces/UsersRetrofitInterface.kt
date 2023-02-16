@@ -12,13 +12,13 @@ interface UsersRetrofitInterface {
         suspend fun getUsers(): Response<MutableList<UserModel>>
 
         @GET("users/readOneByUuid.php")
-        suspend fun getOneUser(@Query("uuid") uuid: String): Response<UserModel>
+        suspend fun getOneUser(@Query("uuid") uuid: String?): Response<UserModel>
 
         @GET("users/readOneByMail.php")
         suspend fun getOneUserByMail(@Query("email") email: String): Response<UserModel>
 
-        @PUT("users/update.php")
-        suspend fun updateUser(@Body record: UserModel): Response<UserModel>
+        @PUT("users/update.php/{uuid}")
+        suspend fun updateUser(@Path("uuid") uuid: String?, @Body user: UserModel): Response<UserModel>
 
         @DELETE("users/delete.php")
         suspend fun deleteUser(@Query("uuid") uuid: String): Response<UserModel>

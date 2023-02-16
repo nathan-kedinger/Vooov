@@ -70,7 +70,7 @@ class StudioActivity : AppCompatActivity() {
                 }
                 // Record to the external cache directory for visibility
                 //fileName = "${externalCacheDir?.absolutePath}/ ${randomId}.3gp"
-                fileFullPath = "${filesDir.absolutePath}/${randomId}.mp3"
+                fileFullPath = "${filesDir.absolutePath}/${randomId}.mp4"
                 Toast.makeText(this, fileFullPath, Toast.LENGTH_LONG).show()
                 Log.i(ContentValues.TAG, "file path: $fileFullPath")
 
@@ -119,6 +119,7 @@ class StudioActivity : AppCompatActivity() {
                 val updated_at = Date().toString()
                 val record = RecordModel(
                     randomId,
+                    null,
                     recordArtistUUID,
                     recordTitle,
                     length,
@@ -176,7 +177,7 @@ class StudioActivity : AppCompatActivity() {
                                                         visuel de bouton de déclanchement
                                                         arrêt de la lecture du son si toujours en cours
 
-                                                        enregistrement bloqué quand  téléchargemetns lancés
+                                                        enregistrement bloqué quand  téléchargements lancés
                 */
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     recorder = MediaRecorder(this).apply {

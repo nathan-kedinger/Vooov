@@ -2,8 +2,10 @@ package com.example.vooov.viewModels
 
 import android.content.ContentValues
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -69,7 +71,7 @@ class UserViewModel: ViewModel() {
 
     val user = MutableLiveData<UserModel>()
 
-    suspend fun fetchOneUser(userUuid: String) {
+    suspend fun fetchOneUser(userUuid: String?) {
         try {
             val response = repository.readOneUserData(userUuid)
             if (response.isSuccessful) {
@@ -119,10 +121,10 @@ class UserViewModel: ViewModel() {
         }
     }
 
-    fun updateUser(user: UserModel) {
+    fun updateUser(userUuid: String?, userModel: UserModel) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = repository.updateUserData(user)
+                val response = repository.updateUserData(userUuid, userModel)
                 if (response.isSuccessful) {
                     // handle successful response
                 } else {

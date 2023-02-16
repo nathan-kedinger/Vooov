@@ -2,13 +2,13 @@ package com.example.vooov.repositories
 
 import com.example.vooov.data.dataInterfaces.UsersRetrofitInterface
 import com.example.vooov.data.model.UserModel
+import com.google.gson.GsonBuilder
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 class UserRepository {
-
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
         .baseUrl("https://vooov-api.fr/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -36,7 +36,7 @@ class UserRepository {
 
     private val readOne: UsersRetrofitInterface = retrofit.create(UsersRetrofitInterface::class.java)
 
-    suspend fun readOneUserData(userUuid: String): Response<UserModel> {
+    suspend fun readOneUserData(userUuid: String?): Response<UserModel> {
         return try {
             readOne.getOneUser(userUuid)
         } catch (e: Exception) {
@@ -56,9 +56,9 @@ class UserRepository {
 
     private val update: UsersRetrofitInterface = retrofit.create(UsersRetrofitInterface::class.java)
 
-    suspend fun updateUserData(record: UserModel): Response<UserModel> {
+    suspend fun updateUserData(userUuid: String?, userModel: UserModel): Response<UserModel> {
         return try {
-            update.updateUser(record)
+            update.updateUser(userUuid, userModel)
         } catch (e: Exception) {
             throw IOException("Error updating user", e)
         }

@@ -51,9 +51,9 @@ class RecordRepository {
 
     private val readOne: RecordsRetrofitInterface = retrofit.create(RecordsRetrofitInterface::class.java)
 
-    suspend fun readOneRecordData(userUuid: String): Response<RecordModel> {
+    suspend fun readOneRecordData(recordId: Int): Response<RecordModel> {
         return try {
-            readOne.getOneRecord(userUuid)
+            readOne.getOneRecord(recordId)
         } catch (e: Exception) {
             throw IOException("Error fetching record", e)
         }
@@ -123,24 +123,22 @@ class RecordRepository {
     // Variable to store the downloaded record
     private var picture: String? = null
 
-    // Suspend function to download the image with the given file name
-    suspend fun downloadRecord(fileName: String): Bitmap? {
+    // Suspend function to download the record with the given file name
+    suspend fun downloadAudioRecord(fileName: String): ByteArray? {
         try {
-            // Make the HTTP request to download the record
+            // Make the HTTP request to download the audio record
             val response = downloadService.downloadRecordFile(fileName)
 
             // Check if the request was successful
             if (response.isSuccessful) {
-                picture = response.body()?.string()
-                // Check if the record data is not null and not an empty string
-                if (picture != null && Base64.decode( picture, Base64.NO_PADDING).isNotEmpty()) {
-                    val imageBytes = Base64.decode( picture, Base64.NO_PADDING)
-
-                    // Convert the byte array to a Bitmap and return it
-                    return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                val audioData = response.body()?.bytes()
+                // Check if the audio data is not null
+                if (audioData != null && audioData.isNotEmpty()) {
+                    // Return the audio data as a byte array
+                    return audioData
                 } else {
-                    // Log an error if the record data is invalid
-                    Log.i(LOG_TAG, "Base64 string is empty or invalid")
+                    // Log an error if the audio data is invalid
+                    Log.i(LOG_TAG, "Audio data is empty or invalid")
                 }
             } else {
                 // Log an error if the HTTP request was not successful
@@ -151,7 +149,7 @@ class RecordRepository {
             Log.i(LOG_TAG, "Message: ${e.message}")
         }
 
-        // Return null if the record could not be downloaded
+        // Return null if the audio record could not be downloaded
         return null
     }
 }

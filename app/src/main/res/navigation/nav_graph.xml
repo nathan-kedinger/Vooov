@@ -116,6 +116,9 @@
         android:name="com.example.vooov.fragments.MessageFragment"
         android:label="messageFragment"
         tools:layout="@layout/fragment_message">
+        <action
+            android:id="@+id/action_messageFragment_self"
+            app:destination="@id/messageFragment" />
     </fragment>
     <fragment
         android:id="@+id/conversationsFragment"
