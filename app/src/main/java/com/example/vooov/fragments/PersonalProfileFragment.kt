@@ -45,7 +45,7 @@ class PersonalProfileFragment (
         val personalProfileFirstname = binding.personalProfilFirstname
         val personalProfileBiography =binding.personalProfilBiographieText
         val context = requireContext()
-        val currentUser = CurrentUser(context).readString("uuid")
+        val currentUser = CurrentUser(requireContext()).readString("uuid")
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
 

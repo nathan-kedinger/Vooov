@@ -18,8 +18,8 @@ interface RecordsRetrofitInterface {
     @GET("records/readOne.php")
     suspend fun getOneRecord(@Query("id") id: Int): Response<RecordModel>
 
-    @PUT("records/update.php")
-    suspend fun updateRecord(@Body record: RecordModel): Response<RecordModel>
+    @PUT("records/update.php/{uuid}")
+    suspend fun updateRecord(@Path("uuid") uuid: String?,@Body record: RecordModel): Response<RecordModel>
 
     @DELETE("records/delete.php")
     suspend fun deleteRecord(@Query("uuid") uuid: String): Response<RecordModel>

@@ -1,6 +1,7 @@
 package com.example.vooov.viewModels
 
 import android.content.Context
+import com.example.vooov.fragments.ConversationsFragment
 
 class CurrentUser(context: Context){
 

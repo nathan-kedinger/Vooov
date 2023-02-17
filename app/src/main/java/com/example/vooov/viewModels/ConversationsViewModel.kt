@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.data.model.MessagesModel
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.ConversationsRepository
 import com.example.vooov.repositories.UserRepository
@@ -39,7 +40,6 @@ class ConversationsViewModel : ViewModel() {
     }
 
     val conversationList = MutableLiveData<MutableList<ConversationsModel>>()
-    val conversation = MutableLiveData<ConversationsModel>()
 
     suspend fun fetchConversations(selfUuid: String) {
         val response = repository.readConversationData(selfUuid)
@@ -47,6 +47,8 @@ class ConversationsViewModel : ViewModel() {
             conversationList.value = response.body()
         }
     }
+
+    val conversation = MutableLiveData<ConversationsModel>()
 
     suspend fun fetchOneConversation(contactUuid: String, selfUuid: String) {
         // Récupérer la liste de conversations
@@ -73,6 +75,16 @@ class ConversationsViewModel : ViewModel() {
         if(response.isSuccessful){
             conversationSelected.value = response.body()
         }
+    }
+
+    val messageList = MutableLiveData<MutableList<MessagesModel>>()
+
+    suspend fun showAllUserConversations(selfUuid: String){
+        val response = repository.readOneConversationMessagesData(selfUuid)
+        if(response.isSuccessful){
+            messageList.value = response.body()
+        }
+
     }
 }
 

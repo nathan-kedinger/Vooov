@@ -61,9 +61,9 @@ class RecordRepository {
 
     private val update: RecordsRetrofitInterface = retrofit.create(RecordsRetrofitInterface::class.java)
 
-    suspend fun updateRecordData(record: RecordModel): Response<RecordModel> {
+    suspend fun updateRecordData(recordUuid: String?, recordModel: RecordModel): Response<RecordModel> {
         return try {
-            update.updateRecord(record)
+            update.updateRecord(recordUuid, recordModel)
         } catch (e: Exception) {
             throw IOException("Error updating record", e)
         }

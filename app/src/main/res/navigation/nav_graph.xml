@@ -39,6 +39,10 @@
             android:name="artistUUID"
             app:argType="string"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_recordPageFragment_self"
+            app:destination="@id/recordPageFragment" />
+
     </fragment>
 
     <fragment

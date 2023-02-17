@@ -7,7 +7,7 @@ data class RecordModel(
     val title: String = "Jon",
     val length: Int = 0,
     val number_of_plays: Int = 0,
-    val number_of_moons: Int = 0,
+    var number_of_moons: Int = 0,
     val voice_style: String = "",
     var kind: String = "",
     val description: String = "",

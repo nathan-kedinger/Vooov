@@ -1,6 +1,7 @@
 package com.example.vooov.data.dataInterfaces
 
 import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.data.model.MessagesModel
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -13,6 +14,9 @@ interface ConversationsRetrofitInterface {
 
     @GET("conversations/readOne.php")
     suspend fun getOneConversation(@Query("uuid") uuid: String?): Response<ConversationsModel>
+
+    @GET("conversations/readPlural.php")
+    suspend fun getUserConversations(@Query("uuid") uuid: String?): Response<MutableList<MessagesModel>>
 
     @PUT("conversations/update.php/{uuid}")
     suspend fun updateConversation(@Path("uuid") uuid: String?, @Body conversations: ConversationsModel): Response<ConversationsModel>

@@ -2,6 +2,7 @@ package com.example.vooov.repositories
 
 import com.example.vooov.data.dataInterfaces.ConversationsRetrofitInterface
 import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.data.model.MessagesModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,6 +41,16 @@ class ConversationsRepository {
             readOne.getOneConversation(conversation)
         } catch (e: Exception) {
             throw IOException("Error fetching user", e)
+        }
+    }
+
+    private val readConversations: ConversationsRetrofitInterface = retrofit.create(ConversationsRetrofitInterface::class.java)
+
+    suspend fun readOneConversationMessagesData(conversationUuid: String?): Response<MutableList<MessagesModel>>  {
+        return try {
+            readConversations.getUserConversations(conversationUuid)
+        } catch (e: Exception) {
+            throw IOException("Error fetching messages", e)
         }
     }
 

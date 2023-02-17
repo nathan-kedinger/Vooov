@@ -36,6 +36,9 @@ class MessageViewModel: ViewModel() {
 
     suspend fun showAllConversationMessages(conversationUuid: String){
         val response = repository.readOneConversationMessagesData(conversationUuid)
+        if(response.isSuccessful){
+            messageList.value = response.body()
+        }
 
     }
 

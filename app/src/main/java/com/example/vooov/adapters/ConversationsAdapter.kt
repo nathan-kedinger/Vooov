@@ -3,27 +3,28 @@ package com.example.vooov.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vooov.R
-import com.example.vooov.data.model.MessagesModel
-import com.example.vooov.fragments.MessageFragment
-import com.example.vooov.viewModels.UserViewModel
+import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.fragments.ConversationsFragment
+import com.example.vooov.viewModels.ConversationsViewModel
+import com.example.vooov.viewModels.CurrentUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MessageAdapter(
-    val context: MessageFragment,
-    val messageList: List<MessagesModel>,
+class ConversationsAdapter (
+    val context: ConversationsFragment,
+    val conversationList: List<ConversationsModel>,
     val layoutId: Int,
     val lifeCycleOwner: LifecycleOwner,
-    val userViewModel: UserViewModel
+    val conversationViewModel: ConversationsViewModel,
+    val currentUser: String
 
-    ) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ConversationsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val senderName = view.findViewById<TextView>(R.id.message_item_sender)
@@ -40,12 +41,13 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentMessage: MessagesModel = messageList [position]
+        val currentConversation: ConversationsModel = conversationList[position]
+
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentMessage.sender)
+                conversationViewModel.fetchConversations(currentUser)
         }
-        userViewModel.user.observe(lifeCycleOwner, Observer { user ->
+        conversationViewModel.conversationList.observe(lifeCycleOwner, Observer { conversationList ->
             if (user != null) {
                 holder.senderName.text = user.pseudo
             }

@@ -11,7 +11,7 @@ interface MessagesRetrofitInterface {
     @GET("messages/read.php")
     suspend fun getMessages(): Response<MutableList<MessagesModel>>
 
-    @GET("messages/readOne.php")
+    @GET("messages/readPlural.php")
     suspend fun getOneConversationMessages(@Query("conversation_uuid") conversation_uuid: String?): Response<MutableList<MessagesModel>>
 
     @PUT("messages/update.php/{uuid}")

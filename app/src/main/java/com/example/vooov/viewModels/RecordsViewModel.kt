@@ -94,10 +94,10 @@ class RecordsViewModel: ViewModel() {
         }
     }
 
-    fun updateRecord(record: RecordModel) {
+    fun updateRecord(recordUuid: String?, recordModel: RecordModel) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = repository.updateRecordData(record)
+                val response = repository.updateRecordData(recordUuid, recordModel)
                 if (response.isSuccessful) {
                     // handle successful response
                 } else {

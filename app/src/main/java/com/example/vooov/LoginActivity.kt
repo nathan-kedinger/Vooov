@@ -1,6 +1,5 @@
 package com.example.vooov
 
-import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -12,11 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.example.vooov.data.model.LoggedInUser
 import com.example.vooov.databinding.ActivityLoginBinding
 
 import com.example.vooov.data.model.LoggedInUserView
@@ -26,13 +22,9 @@ import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.UserViewModel
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2Mode
-import de.mkammerer.argon2.Argon2Factory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import org.mindrot.jbcrypt.BCrypt
-import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 

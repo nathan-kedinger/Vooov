@@ -12,13 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
 import com.example.vooov.adapters.MessageAdapter
-import com.example.vooov.data.model.MessagesModel
 import com.example.vooov.databinding.FragmentMessageBinding
-import com.example.vooov.databinding.FragmentWalletBinding
-import com.example.vooov.repositories.MessagesRepository
 import com.example.vooov.viewModels.ConversationsViewModel
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.MessageViewModel
+import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,6 +29,7 @@ class MessageFragment (
     // ViewModels
     private lateinit var conversationViewModel: ConversationsViewModel
     private lateinit var messageViewModel: MessageViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +42,7 @@ class MessageFragment (
         val recycler = binding.messageFragmentRecycler
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
         messageViewModel = ViewModelProvider(this).get(MessageViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val conversationUuid: String = arguments?.getString("toSendMessageFragment")!!
         val contactUuid: String = arguments?.getString("toSendMessageContactUuid")!!
@@ -55,13 +55,16 @@ class MessageFragment (
 
         messageViewModel.messageList.observe(viewLifecycleOwner, Observer { messageList ->
             if(messageList != null){
+                val sortedMessages = messageList.sortedBy { it.send_at }
                 recycler.adapter = MessageAdapter(
                     this@MessageFragment,
-                    messageList,
-                    R.layout.item_message
+                    sortedMessages,
+                    R.layout.item_message,
+                    viewLifecycleOwner,
+                    userViewModel,
                 )
+                recycler.scrollToPosition(messageList.size-1)
             }
-
         })
 
         binding.messageFragmentSendButton.setOnClickListener {
