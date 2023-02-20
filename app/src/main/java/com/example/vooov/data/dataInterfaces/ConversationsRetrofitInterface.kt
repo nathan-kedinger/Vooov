@@ -16,7 +16,7 @@ interface ConversationsRetrofitInterface {
     suspend fun getOneConversation(@Query("uuid") uuid: String?): Response<ConversationsModel>
 
     @GET("conversations/readPlural.php")
-    suspend fun getUserConversations(@Query("uuid") uuid: String?): Response<MutableList<MessagesModel>>
+    suspend fun getUserConversations(@Query("sender") sender: String?, @Query("receiver") receiver: String?): Response<MutableList<ConversationsModel>>
 
     @PUT("conversations/update.php/{uuid}")
     suspend fun updateConversation(@Path("uuid") uuid: String?, @Body conversations: ConversationsModel): Response<ConversationsModel>

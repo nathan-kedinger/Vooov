@@ -51,6 +51,12 @@ class HomeActivity : AppCompatActivity() {
             mainFragmentOn = false
         }
 
+        // To conversations list fragment
+        binding.homeMainMessages.setOnClickListener{
+            this.findNavController(R.id.nav_host_fragment).navigate(R.id.conversationsFragment)
+            mainFragmentOn = false
+        }
+
         val currentUserId = CurrentUser(this).readString("uuid")
 
     }

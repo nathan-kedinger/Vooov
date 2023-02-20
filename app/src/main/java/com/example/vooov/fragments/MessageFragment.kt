@@ -21,8 +21,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MessageFragment (
-): Fragment() {
+class MessageFragment : Fragment() {
+
+    // Binding object instance for the fragment
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
 
@@ -36,25 +37,31 @@ class MessageFragment (
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment and initialize the binding object
         _binding = FragmentMessageBinding.inflate(layoutInflater, container, false)
 
         val view = binding.root
         val recycler = binding.messageFragmentRecycler
+
+        // Initialize ViewModels
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
         messageViewModel = ViewModelProvider(this).get(MessageViewModel::class.java)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        // Get conversation UUID, contact UUID, and self UUID from arguments
         val conversationUuid: String = arguments?.getString("toSendMessageFragment")!!
         val contactUuid: String = arguments?.getString("toSendMessageContactUuid")!!
         val selfUuid = CurrentUser(requireContext()).readString("uuid")
 
-
+        // Load all messages for the conversation
         CoroutineScope(Dispatchers.Main).launch {
             messageViewModel.showAllConversationMessages(conversationUuid)
         }
 
+        // Observe changes in the messageList LiveData and update the RecyclerView
         messageViewModel.messageList.observe(viewLifecycleOwner, Observer { messageList ->
             if(messageList != null){
+                // Sort messages by send time and set the adapter for the RecyclerView
                 val sortedMessages = messageList.sortedBy { it.send_at }
                 recycler.adapter = MessageAdapter(
                     this@MessageFragment,
@@ -67,6 +74,7 @@ class MessageFragment (
             }
         })
 
+        // Handle send button click and create a new message
         binding.messageFragmentSendButton.setOnClickListener {
             val bodyMessage = binding.messageFragmentMessageBody.text.toString()
             CoroutineScope(Dispatchers.Main).launch {
@@ -78,6 +86,7 @@ class MessageFragment (
                         bodyMessage,
                         conversationUuid
                     )
+                    // Navigate back to the MessageFragment with the same arguments
                     val toSendMessageArgs = Bundle()
                     toSendMessageArgs.putString(
                         "toSendMessageFragment",
@@ -97,11 +106,11 @@ class MessageFragment (
             }
 
         }
-        // To other fragments
         return view
     }
 
     override fun onDestroyView() {
+        // Destroy the binding when the view is destroyed
         super.onDestroyView()
         _binding = null
     }

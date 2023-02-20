@@ -77,12 +77,17 @@ class ConversationsViewModel : ViewModel() {
         }
     }
 
-    val messageList = MutableLiveData<MutableList<MessagesModel>>()
+    val conversationsUserList = MutableLiveData<MutableList<ConversationsModel>>()
 
-    suspend fun showAllUserConversations(selfUuid: String){
-        val response = repository.readOneConversationMessagesData(selfUuid)
+    suspend fun showAllUserConversations(selfUuid: String, selfUuidSame: String){
+        val response = repository.readUserConversationsData(selfUuid, selfUuidSame)
         if(response.isSuccessful){
-            messageList.value = response.body()
+            conversationsUserList.value = response.body()
+            Log.i(ContentValues.TAG, "conversations récupérées")
+        } else {
+            Log.e(ContentValues.TAG, "Erreur lors de la récupération des conversations")
+            Log.i(ContentValues.TAG, "$conversationList")
+            Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
         }
 
     }

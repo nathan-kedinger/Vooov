@@ -143,6 +143,7 @@ class RecordRepository {
             } else {
                 // Log an error if the HTTP request was not successful
                 Log.i(LOG_TAG, "HTTP response code: ${response.code()}")
+                Log.i(LOG_TAG, "HTTP response fileName: ${fileName}")
             }
         } catch (e: Exception) {
             // Log an error if an exception was thrown

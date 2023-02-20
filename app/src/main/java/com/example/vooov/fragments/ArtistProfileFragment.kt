@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
 import com.example.vooov.databinding.FragmentArtistProfileBinding
 import com.example.vooov.databinding.FragmentWalletBinding
+import com.example.vooov.viewModels.ConversationsViewModel
+import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
 import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -24,6 +26,7 @@ class ArtistProfileFragment (
 
     // view models
     private lateinit var userViewModel: UserViewModel
+    private lateinit var conversationViewModel: ConversationsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,7 @@ class ArtistProfileFragment (
         val view = binding.root
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
 
         val currentUserUuid: String = arguments?.getString("toArtistProfileFragment")!!
 
@@ -50,13 +54,56 @@ class ArtistProfileFragment (
         userViewModel.user.observe(viewLifecycleOwner, Observer{ user ->
             artistProfileName.text = user.pseudo
             artistProfileNumberOfFriends.text = user.number_of_friends.toString()
-        })
 
-        // To other fragments
-        binding.artistProfilAskForVooov.setOnClickListener{
-            //adding the arguments to match the conversation here
-            findNavController().navigate(R.id.action_artistProfileFragment_to_messageFragment)
-        }
+            // To other fragments
+            binding.artistProfilAskForVooov.setOnClickListener{
+                CoroutineScope(Dispatchers.Main).launch {
+                    conversationViewModel.fetchOneConversation(
+                        user.uuid,
+                        CurrentUser(requireContext()).readString("uuid")!!
+                    )
+                    // Attendre que la conversation soit récupérée
+                    conversationViewModel.conversation.observe(
+                        viewLifecycleOwner,
+                        Observer { conversation ->
+                            if (conversation != null) {
+                                // Si une conversation existe déjà, ouvrir la page de messages
+                                val toSendMessageArgs = Bundle()
+                                toSendMessageArgs.putString(
+                                    "toSendMessageFragment",
+                                    conversation.uuid
+                                )
+                                toSendMessageArgs.putString(
+                                    "toSendMessageContactUuid",
+                                    user.uuid
+                                )
+                                findNavController().navigate(
+                                    R.id.action_artistProfileFragment_to_messageFragment,
+                                    toSendMessageArgs
+                                )
+                            } else {
+                                // Sinon, créer une nouvelle conversation
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    conversationViewModel.createConversation(
+                                        user.uuid,
+                                        CurrentUser(requireContext()).readString("uuid")!!
+                                    )
+                                    // Ouvrir la page de messages
+                                    val toSendMessageArgs = Bundle()
+                                    toSendMessageArgs.putString(
+                                        "toSendMessageFragment",
+                                        user.uuid
+                                    )
+                                    findNavController().navigate(
+                                        R.id.action_artistProfileFragment_to_messageFragment,
+                                        toSendMessageArgs
+                                    )
+                                }
+                            }
+                        })
+                }
+            }
+        })
 
         binding.artistProfilRecordList.setOnClickListener{
             findNavController().navigate(R.id.action_artistProfileFragment_to_recyclerRecordFragment)

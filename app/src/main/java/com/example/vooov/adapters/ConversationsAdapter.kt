@@ -1,11 +1,15 @@
 package com.example.vooov.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vooov.R
 import com.example.vooov.data.model.ConversationsModel
@@ -20,16 +24,17 @@ class ConversationsAdapter (
     val context: ConversationsFragment,
     val conversationList: List<ConversationsModel>,
     val layoutId: Int,
+    val navController: NavController,
     val lifeCycleOwner: LifecycleOwner,
-    val conversationViewModel: ConversationsViewModel,
-    val currentUser: String
+    val conversationsViewModel: ConversationsViewModel,
+    val currentUserUuid: String
 
 ) : RecyclerView.Adapter<ConversationsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val senderName = view.findViewById<TextView>(R.id.message_item_sender)
-        val bodyMessage = view.findViewById<TextView>(R.id.message_item_body)
-        val sended_at = view.findViewById<TextView>(R.id.message_item_date)
+        val profilePicture = view.findViewById<ImageView  >(R.id.conversations_item_profile_picture)
+        val conversationName = view.findViewById<TextView>(R.id.conversations_item_name)
+        val lastMessage = view.findViewById<TextView>(R.id.conversations_item_last_update)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,22 +48,30 @@ class ConversationsAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentConversation: ConversationsModel = conversationList[position]
 
+        holder.conversationName.text = currentConversation.title
+        holder.lastMessage.text = currentConversation.updated_at
 
-        CoroutineScope(Dispatchers.Main).launch {
-                conversationViewModel.fetchConversations(currentUser)
+        val sender = currentConversation.sender
+        val receiver = currentConversation.receiver
+        lateinit var  contactUuid: String
+        if (sender == currentUserUuid){
+            contactUuid = receiver
+        } else {
+            contactUuid = sender
         }
-        conversationViewModel.conversationList.observe(lifeCycleOwner, Observer { conversationList ->
-            if (user != null) {
-                holder.senderName.text = user.pseudo
+
+        holder.itemView.setOnClickListener {
+            val selectedConversationToMessage = Bundle()
+            if (currentConversation.uuid != null){
+                selectedConversationToMessage.putString("toSendMessageFragment", currentConversation.uuid)
+                selectedConversationToMessage.putString("toSendMessageContactUuid", contactUuid)
+                navController.navigate(R.id.messageFragment, selectedConversationToMessage)
             }
-        })
+        }
 
-
-        holder.bodyMessage.text = currentMessage.body
-        holder.sended_at.text = currentMessage.send_at
     }
 
     override fun getItemCount(): Int {
-        return messageList.size
+        return conversationList.size
     }
 }

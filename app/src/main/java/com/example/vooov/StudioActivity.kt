@@ -182,11 +182,12 @@ class StudioActivity : AppCompatActivity() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     recorder = MediaRecorder(this).apply {
                         setAudioSource(MediaRecorder.AudioSource.MIC)
-                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                        setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
                         setOutputFile(fileFullPath)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
+                        setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
                         binding.studioMeterReading
                         binding.studioMeterTotalTime
+
                         try {
                             prepare()
                         } catch (e: IOException) {
@@ -197,10 +198,10 @@ class StudioActivity : AppCompatActivity() {
                     }
                 } else {
                     recorder = MediaRecorder().apply {
-                        setAudioSource(MediaRecorder.AudioSource.MIC)
+                        setAudioSource(MediaRecorder.AudioSource.DEFAULT)
                         setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
                         setOutputFile(fileFullPath)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
+                        setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
                         binding.studioMeterReading
                         binding.studioMeterTotalTime
                         try {
