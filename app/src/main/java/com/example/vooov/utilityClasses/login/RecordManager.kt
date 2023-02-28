@@ -29,7 +29,6 @@ class RecordManager {
             val file = File(context.filesDir, "$currentRecordUuid.mp4")
             file.writeBytes(audioRecord)
             Log.e("LOG_TAG", "le fichier existe-t-il? ${file.exists()}")
-
             Log.e("LOG_TAG", "$file")
 
             CoroutineScope(Dispatchers.Main).launch {
@@ -37,20 +36,12 @@ class RecordManager {
                 player = MediaPlayer().apply {
                     try {
                         setDataSource(file.absolutePath)
-
                         setOnPreparedListener {
                             start()
                         }
-
-                        setOnErrorListener { _, what, extra ->
-                            Log.e("LOG_TAG", "MediaPlayer error: what=$what, extra=$extra")
-                            false
-                        }
-
                         prepareAsync()
-                    } catch (e: IOException) {
-                        Log.e("LOG_TAG", e.fillInStackTrace().toString())
-                        Log.e("LOG_TAG", e.printStackTrace().toString())
+                    } catch (e: Exception) {
+                        throw IOException("Error reading record",e)
                     }
                 }
             }

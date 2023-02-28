@@ -34,9 +34,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="@dimen/icons_margin"
+            android:layout_marginLeft="10dp"
             android:text="@string/record_artist_name"
-            android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/conversations_item_profile_picture"
             app:layout_constraintStart_toEndOf="@+id/conversations_item_profile_picture"
             app:layout_constraintTop_toTopOf="@+id/conversations_item_profile_picture" />
 
@@ -45,13 +44,11 @@
             style="@style/SubRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:gravity="center"
+            android:layout_marginLeft="10dp"
             android:text="@string/message_date"
             app:layout_constraintBottom_toBottomOf="@+id/conversations_item_profile_picture"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/conversations_item_profile_picture" />
-
+            app:layout_constraintStart_toEndOf="@+id/conversations_item_profile_picture" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

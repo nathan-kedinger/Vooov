@@ -128,7 +128,6 @@ class RecordRepository {
         try {
             // Make the HTTP request to download the audio record
             val response = downloadService.downloadRecordFile(fileName)
-
             // Check if the request was successful
             if (response.isSuccessful) {
                 val audioData = response.body()?.bytes()
@@ -149,7 +148,6 @@ class RecordRepository {
             // Log an error if an exception was thrown
             Log.i(LOG_TAG, "Message: ${e.message}")
         }
-
         // Return null if the audio record could not be downloaded
         return null
     }

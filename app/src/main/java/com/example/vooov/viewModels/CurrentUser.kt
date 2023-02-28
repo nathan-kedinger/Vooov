@@ -17,8 +17,10 @@ class CurrentUser(context: Context){
     val uuid = sharedPreferences.getString("uuid", "000" )
     val connected = sharedPreferences.getBoolean("userConnected", false )
 
-
+    //allow to register a string value in sharedPreferences
     fun saveString(key: String, value: String) = sharedPreferences.edit().putString(key, value).apply()
+    //allow to register a value in sharedPreferences. here if user is connected or not
     fun saveConnection(key: String, value: Boolean) = sharedPreferences.edit().putBoolean(key, value).apply()
+    //allow to get back a string value from sharedPreferences
     fun readString(key: String) = sharedPreferences.getString(key, null)
 }

@@ -132,9 +132,14 @@ class StudioActivity : AppCompatActivity() {
                     updated_at
                 )
 
+                // Call the createRecord function of the repo object with the record parameter
                 repo.createRecord(record)
+
+                // Launch a coroutine with the main dispatcher
                 CoroutineScope(Dispatchers.Main).launch {
+                    // Switch to the IO dispatcher
                     withContext(Dispatchers.IO) {
+                        // Call the uploadRecord function of the RecordRepository object with the fileFullPath and randomId parameters
                         RecordRepository().uploadRecord(fileFullPath, randomId)
                     }
                 }
@@ -180,11 +185,17 @@ class StudioActivity : AppCompatActivity() {
                                                         enregistrement bloqué quand  téléchargements lancés
                 */
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    // Create a new instance of MediaRecorder with the current context as parameter
                     recorder = MediaRecorder(this).apply {
-                        setAudioSource(MediaRecorder.AudioSource.MIC)
-                        setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                        // Set the audio source to default
+                        setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+                        // Set the output format to MPEG-4
+                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                        // Set the output file path
                         setOutputFile(fileFullPath)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                        // Set the audio encoder to HE_AAC
+                        setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+                        // Bind the studio meter reading to the recorder
                         binding.studioMeterReading
                         binding.studioMeterTotalTime
 

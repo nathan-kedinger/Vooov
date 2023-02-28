@@ -55,6 +55,7 @@ class ConversationsFragment (
             }
         }
 
+        // Conversations recyclerView
         conversationViewModel.conversationsUserList.observe(viewLifecycleOwner, Observer { conversationsUserList ->
             if(conversationsUserList != null){
                 if(userUuid != null){
