@@ -1,5 +1,6 @@
 package com.example.vooov
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
@@ -35,14 +36,22 @@ class HomeActivity : AppCompatActivity() {
 
         // To home fragment
         binding.homeMainHome.setOnClickListener {
-            this.findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
+            val currentRecordId = PlayBlocFragment().currentRecordId
+            val toHomeFragment = Bundle()
+            toHomeFragment.putInt("mainFragment", currentRecordId)
+            this.findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment, toHomeFragment)
             mainFragmentOn = true
         }
 
         // To personal profile fragment
         binding.homeMainProfil.setOnClickListener {
-            this.findNavController(R.id.nav_host_fragment).navigate(R.id.personalProfileFragment)
-            mainFragmentOn = false
+            // Check if user is signed in.
+            if (!CurrentUser(this).connected) {
+                LoginPopup(this).show()
+            } else {
+                this.findNavController(R.id.nav_host_fragment).navigate(R.id.personalProfileFragment)
+                mainFragmentOn = false
+            }
         }
 
         // To record list fragment
@@ -53,10 +62,21 @@ class HomeActivity : AppCompatActivity() {
 
         // To conversations list fragment
         binding.homeMainMessages.setOnClickListener{
-            this.findNavController(R.id.nav_host_fragment).navigate(R.id.conversationsFragment)
-            mainFragmentOn = false
+            // Check if user is signed in.
+            if (!CurrentUser(this).connected) {
+                LoginPopup(this).show()
+            } else {
+                this.findNavController(R.id.nav_host_fragment).navigate(R.id.conversationsFragment)
+                mainFragmentOn = false
+            }
         }
 
+
+        // To research record list fragment
+        binding.homeMainToRecycler.setOnClickListener{
+            this.findNavController(R.id.nav_host_fragment).navigate(R.id.searchRecordFragment)
+            mainFragmentOn = false
+        }
         val currentUserId = CurrentUser(this).readString("uuid")
 
     }

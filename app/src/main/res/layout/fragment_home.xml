@@ -7,12 +7,12 @@
     android:layout_height="match_parent">
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/home_record_background_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="70dp"
-        android:background="@color/backgrounds"
+        android:background="@drawable/background_gradient_view_drawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,6 @@
         app:layout_constraintStart_toStartOf="@+id/home_record_artist_name"
         app:layout_constraintTop_toBottomOf="@+id/home_record_artist_name" />
 
-
     <TextView
         android:id="@+id/home_record_kind"
         style="@style/HomeSub"
@@ -127,7 +126,23 @@
         app:layout_constraintStart_toStartOf="@+id/home_record_moon"
         app:layout_constraintTop_toBottomOf="@+id/home_record_moon" />
 
+    <ProgressBar
+        android:id="@+id/home_record_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:max="100"
+        android:indeterminate="true"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:indeterminateDuration="650"
+        android:indeterminateDrawable="@drawable/custom_progress_bar_drawable"
+        app:layout_constraintBottom_toBottomOf="@+id/home_record_background_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/home_record_background_view" />
+
     <ScrollView
+        android:id="@+id/home_record_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -137,8 +152,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/home_record_description"
@@ -152,6 +167,8 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

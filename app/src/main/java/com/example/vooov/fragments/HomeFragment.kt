@@ -31,6 +31,7 @@ class HomeFragment (
     private lateinit var userViewModel: UserViewModel
     private lateinit var conversationViewModel: ConversationsViewModel
 
+    private var currentRecordId = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +46,11 @@ class HomeFragment (
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
 
-        val currentRecordId: Int = arguments?.getInt("mainFragment")!!
+        if (arguments?.getInt("mainFragment") != 0){
+            currentRecordId = arguments?.getInt("mainFragment")!!
+        } else {
+            currentRecordId = 0
+        }
 
         val artistName = binding.homeRecordArtistName
         val recordTitle = binding.homeRecordTitle
@@ -54,10 +59,18 @@ class HomeFragment (
         val recordNumberOfPlay = binding.homeRecordNumberOfPlay
         val recordNumberOfMoons = binding.homeRecordNumberOfMoons
         val recordDescription = binding.homeRecordDescription
+        val progressBar = binding.homeRecordProgressbar
+        val textViewsToHide = arrayListOf(artistName, recordTitle, recordKind, recordVoiceStyle, recordDescription)
+
+        progressBar.visibility = View.VISIBLE
+        for (textView in textViewsToHide){
+            textView.visibility = View.GONE
+        }
 
         // To other fragments
         CoroutineScope(Dispatchers.Main).launch {
             recordViewModel.fetchOneRecord(currentRecordId)
+
         }
 
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
@@ -74,10 +87,15 @@ class HomeFragment (
 
                 CoroutineScope(Dispatchers.Main).launch {
                     userViewModel.fetchOneUser(record.artist_uuid)
+                    progressBar.visibility = View.GONE
+                    for (textView in textViewsToHide){
+                        textView.visibility = View.VISIBLE
+                    }
                 }
 
                 userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
                     if(user !=null) {
+                        //artistName is in a different db table
                         artistName.text = user.pseudo
                         if(CurrentUser(context).readString("uuid") != "000"){
                             binding.homeRecordSendMessage.setOnClickListener{
@@ -86,12 +104,12 @@ class HomeFragment (
                                         user.uuid,
                                         CurrentUser(context).readString("uuid")!!
                                     )
-                                    // Attendre que la conversation soit récupérée
+                                    // Wait for conversation to be reached
                                     conversationViewModel.conversation.observe(
                                         viewLifecycleOwner,
                                         Observer { conversation ->
                                             if (conversation != null) {
-                                                // Si une conversation existe déjà, ouvrir la page de messages
+                                                // If conversation exist, open message fragment
                                                 val toSendMessageArgs = Bundle()
                                                 toSendMessageArgs.putString(
                                                     "toSendMessageFragment",
@@ -106,13 +124,13 @@ class HomeFragment (
                                                     toSendMessageArgs
                                                 )
                                             } else {
-                                                // Sinon, créer une nouvelle conversation
+                                                // Else create new conversation
                                                 CoroutineScope(Dispatchers.Main).launch {
                                                     conversationViewModel.createConversation(
                                                         user.uuid,
                                                         CurrentUser(context).readString("uuid")!!
                                                     )
-                                                    // Ouvrir la page de messages
+                                                    // Opening message fragment
                                                     val toSendMessageArgs = Bundle()
                                                     toSendMessageArgs.putString(
                                                         "toSendMessageFragment",

@@ -34,8 +34,8 @@ class PlayBlocFragment: Fragment() {
     private lateinit var recordViewModel: RecordsViewModel
 
     // The current selected record ID
-    private var currentRecordId: Int = 1
-    var selectedRecordFromRecycler: Int = -1
+    var currentRecordId: Int = 1
+    private var selectedRecordFromRecycler: Int = -1
 
     val mainFragmentOn = true
 
@@ -60,8 +60,6 @@ class PlayBlocFragment: Fragment() {
             // Check if user is signed in.
             if (!CurrentUser(requireContext()).connected) {
                 LoginPopup(requireContext()).show()
-
-
             } else {
                 startActivity(Intent(requireContext(), StudioActivity::class.java))
             }
