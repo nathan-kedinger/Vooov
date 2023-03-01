@@ -1,6 +1,7 @@
 package com.example.vooov.fragments
 
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -36,7 +37,7 @@ class PlayBlocFragment: Fragment() {
     // The current selected record ID
     var currentRecordId: Int = 1
     private var selectedRecordFromRecycler: Int = -1
-
+    var newCurrentRecord = 0
     val mainFragmentOn = true
 
     // Play bloc
@@ -53,6 +54,9 @@ class PlayBlocFragment: Fragment() {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         recordViewModel = ViewModelProvider(this).get(RecordsViewModel::class.java)
+
+
+
 
         // To other activities
 
@@ -131,6 +135,11 @@ class PlayBlocFragment: Fragment() {
         binding.homeMainRecordForward.setOnClickListener {
             currentRecordId++
 
+            //To share current record id with home activity
+            val toHomeActivity = Bundle()
+            toHomeActivity.putInt("currentRecordId", currentRecordId)
+            parentFragmentManager.setFragmentResult("currentRecordId", toHomeActivity)
+
             CoroutineScope(Dispatchers.Main).launch {
                 recordViewModel.fetchOneRecord(currentRecordId)
             }
@@ -168,6 +177,11 @@ class PlayBlocFragment: Fragment() {
         // To the previous record
         binding.homeMainRecordRewind.setOnClickListener {
             currentRecordId--
+
+            //To share current record id with home activity
+            val toHomeActivity = Bundle()
+            toHomeActivity.putInt("currentRecordId", currentRecordId)
+            parentFragmentManager.setFragmentResult("currentRecordId", toHomeActivity)
 
             CoroutineScope(Dispatchers.Main).launch {
                 recordViewModel.fetchOneRecord(currentRecordId)

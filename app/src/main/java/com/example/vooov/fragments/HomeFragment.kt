@@ -59,9 +59,10 @@ class HomeFragment (
         val recordNumberOfPlay = binding.homeRecordNumberOfPlay
         val recordNumberOfMoons = binding.homeRecordNumberOfMoons
         val recordDescription = binding.homeRecordDescription
+
+        // UI ProgressBar
         val progressBar = binding.homeRecordProgressbar
         val textViewsToHide = arrayListOf(artistName, recordTitle, recordKind, recordVoiceStyle, recordDescription)
-
         progressBar.visibility = View.VISIBLE
         for (textView in textViewsToHide){
             textView.visibility = View.GONE
@@ -70,7 +71,6 @@ class HomeFragment (
         // To other fragments
         CoroutineScope(Dispatchers.Main).launch {
             recordViewModel.fetchOneRecord(currentRecordId)
-
         }
 
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
@@ -87,6 +87,7 @@ class HomeFragment (
 
                 CoroutineScope(Dispatchers.Main).launch {
                     userViewModel.fetchOneUser(record.artist_uuid)
+                    // UI ProgressBar
                     progressBar.visibility = View.GONE
                     for (textView in textViewsToHide){
                         textView.visibility = View.VISIBLE
@@ -151,6 +152,10 @@ class HomeFragment (
                                 toRecordPageFragment.putInt("toRecordPageFragment", currentRecordId)
                                 // Adding argument to get to the good record here
                                 findNavController().navigate(R.id.action_homeFragment_to_recordPageFragment, toRecordPageFragment)
+                                val fragment = parentFragmentManager.findFragmentById(R.id.homeFragment)
+                                if (fragment != null) {
+                                    parentFragmentManager.beginTransaction().remove(fragment).commit()
+                                }
                             }
                         } else {
                             Toast.makeText(activity, "Vous n'êtes pas connecté", Toast.LENGTH_LONG).show()
@@ -171,6 +176,15 @@ class HomeFragment (
 
 
         return view
+
+    }
+    override fun onStop() {
+        super.onStop()
+        parentFragmentManager.clearFragmentResult("currentRecordId")
+    }
+    override  fun onDestroyView(){
+        super.onDestroyView()
+        parentFragmentManager.clearFragmentResult("currentRecordId")
 
     }
 }

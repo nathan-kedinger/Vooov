@@ -9,6 +9,9 @@ import com.example.vooov.fragments.PlayBlocFragment
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
 import com.example.vooov.viewModels.UserViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -27,7 +30,6 @@ class HomeActivity : AppCompatActivity() {
     // Play bloc
     private var mStartPlaying = true
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,12 +38,21 @@ class HomeActivity : AppCompatActivity() {
 
         // To home fragment
         binding.homeMainHome.setOnClickListener {
-            val currentRecordId = PlayBlocFragment().currentRecordId
-            val toHomeFragment = Bundle()
-            toHomeFragment.putInt("mainFragment", currentRecordId)
-            this.findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment, toHomeFragment)
-            mainFragmentOn = true
+            CoroutineScope(Dispatchers.Main).launch{
+                supportFragmentManager.setFragmentResultListener(
+                    "currentRecordId",
+                    this@HomeActivity
+                ) { _, result ->
+                    val newRecordId = result.getInt("currentRecordId")
+                    val toHomeFragment = Bundle()
+                    toHomeFragment.putInt("mainFragment", newRecordId)
+                    this@HomeActivity.findNavController(R.id.nav_host_fragment)
+                        .navigate(R.id.homeFragment, toHomeFragment)
+                    mainFragmentOn = true
+                }
+            }
         }
+
 
         // To personal profile fragment
         binding.homeMainProfil.setOnClickListener {
@@ -231,4 +242,5 @@ class HomeActivity : AppCompatActivity() {
 
 
     }
+
 }

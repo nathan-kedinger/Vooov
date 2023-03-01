@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@drawable/background_gradient_view_drawable"
         android:layout_marginBottom="40dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

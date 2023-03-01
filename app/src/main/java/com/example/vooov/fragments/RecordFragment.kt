@@ -59,6 +59,14 @@ class RecordFragment (
         val recordNumberOfMoons = binding.recordPageNumberOfMoon
         val recordDescription = binding.recordPageRecordDescription
 
+        // UI ProgressBar
+        val progressBar = binding.recordPageProgressbar
+        val textViewsToHide = arrayListOf(recordArtistName, recordTitle, recordKind, recordVoiceStyle, recordCreatedAt, recordDescription)
+        progressBar.visibility = View.VISIBLE
+        for (textView in textViewsToHide){
+            textView.visibility = View.GONE
+        }
+
         CoroutineScope(Dispatchers.Main).launch {
             recordViewModel.fetchOneRecord(currentRecordId)
         }
@@ -77,6 +85,11 @@ class RecordFragment (
 
                 CoroutineScope(Dispatchers.Main).launch {
                     userViewModel.fetchOneUser(record.artist_uuid)
+                    // UI ProgressBar
+                    progressBar.visibility = View.GONE
+                    for (textView in textViewsToHide) {
+                        textView.visibility = View.VISIBLE
+                    }
                 }
 
                 userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->

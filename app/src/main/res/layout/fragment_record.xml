@@ -5,17 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/record_page_background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_gradient_view_drawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/record_page_record_title"
         style="@style/BasicText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/record_record_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/record_page_background_view" />
 
     <TextView
         android:id="@+id/record_page_artist_name"
@@ -76,16 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record_page_record_date" />
 
-    <TextView
-        android:id="@+id/record_page_description"
-        style="@style/BasicText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_artist_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/record_page_record_title" />
-
     <ImageView
         android:id="@+id/record_page_moon_icon"
         android:layout_width="wrap_content"
@@ -120,6 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/record_send_moons"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record_page_moon_edit_text" />
@@ -140,6 +143,7 @@
         android:background="@color/white"
         android:hint="@string/record_send_moons"
         android:inputType="number"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record_page_artist_picture" />
@@ -159,6 +163,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/home_record_description"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_page_go_to_artist" />
+
+    <ProgressBar
+        android:id="@+id/record_page_progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/custom_progress_bar_drawable"
+        android:indeterminateDuration="650"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="@+id/record_page_background_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record_page_go_to_artist" />

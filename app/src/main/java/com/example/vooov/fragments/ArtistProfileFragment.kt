@@ -46,9 +46,21 @@ class ArtistProfileFragment (
         val artistProfileName = binding.artistProfilName
         val artistProfileNumberOfFriends = binding.artistProfilNumberOfFriends
 
+        // UI ProgressBar
+        val progressBar = binding.artistProfilProgressbar
+        val textViewsToHide = arrayListOf(artistProfileName, artistProfileNumberOfFriends)
+        progressBar.visibility = View.VISIBLE
+        for (textView in textViewsToHide){
+            textView.visibility = View.GONE
+        }
 
         CoroutineScope(Dispatchers.Main).launch {
             userViewModel.fetchOneUser(currentUserUuid)
+            // UI ProgressBar
+            progressBar.visibility = View.GONE
+            for (textView in textViewsToHide) {
+                textView.visibility = View.VISIBLE
+            }
         }
 
         userViewModel.user.observe(viewLifecycleOwner, Observer{ user ->
