@@ -31,7 +31,7 @@ class HomeFragment (
     private lateinit var userViewModel: UserViewModel
     private lateinit var conversationViewModel: ConversationsViewModel
 
-    private var currentRecordId = 0
+    private var currentRecordId = 1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,10 +46,10 @@ class HomeFragment (
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
 
-        if (arguments?.getInt("mainFragment") != 0){
-            currentRecordId = arguments?.getInt("mainFragment")!!
+        if (arguments?.getInt("mainFragment") == 0){
+            currentRecordId = 1
         } else {
-            currentRecordId = 0
+            currentRecordId = arguments?.getInt("mainFragment")!!
         }
 
         val artistName = binding.homeRecordArtistName
@@ -81,7 +81,6 @@ class HomeFragment (
                 recordNumberOfPlay.text = record.number_of_plays.toString()
                 recordNumberOfMoons.text = record.number_of_moons.toString()
                 recordDescription.text = record.description
-
 
                 val context = requireContext()
 
@@ -146,7 +145,6 @@ class HomeFragment (
                                         })
                                 }
                             }
-
                             binding.homeRecordPlus.setOnClickListener {
                                 val toRecordPageFragment = Bundle()
                                 toRecordPageFragment.putInt("toRecordPageFragment", currentRecordId)
@@ -161,30 +159,14 @@ class HomeFragment (
                             Toast.makeText(activity, "Vous n'êtes pas connecté", Toast.LENGTH_LONG).show()
                             //POPUP de connection
                         }
-
                     } else {
                         Log.i(ContentValues.TAG, "user null")
-
                     }
                 })
             } else {
                 Log.i(ContentValues.TAG, "record null")
-
             }
-
         })
-
-
         return view
-
-    }
-    override fun onStop() {
-        super.onStop()
-        parentFragmentManager.clearFragmentResult("currentRecordId")
-    }
-    override  fun onDestroyView(){
-        super.onDestroyView()
-        parentFragmentManager.clearFragmentResult("currentRecordId")
-
     }
 }

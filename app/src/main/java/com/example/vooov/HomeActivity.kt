@@ -82,9 +82,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-
         // To research record list fragment
-        binding.homeMainToRecycler.setOnClickListener{
+        binding.homeMainResearch.setOnClickListener{
             this.findNavController(R.id.nav_host_fragment).navigate(R.id.searchRecordFragment)
             mainFragmentOn = false
         }

@@ -37,11 +37,14 @@ class RecordAdapter(
     val lifeCycleOwner: LifecycleOwner,
     val navController: NavController,
     val userViewModel: UserViewModel,
-    val listener: RecordAdapterListener
+    var listener: RecordAdapterListener
 ) : RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
 
     interface RecordAdapterListener{
         fun onRecordItemSelected(recordId: Int)
+    }
+    fun setOnItemSelectedListener(listener: RecordAdapterListener) {
+        this.listener = listener
     }
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title = view.findViewById<TextView>(R.id.record_item_record_title)
@@ -91,10 +94,11 @@ class RecordAdapter(
             }
 
             holder.itemView.setOnClickListener {
-                val selectedRecordFromRecycler = Bundle()
                 if (currentRecord.id != null) {
+                    listener.onRecordItemSelected(currentRecord.id)
+                /*val selectedRecordFromRecycler = Bundle()
                     selectedRecordFromRecycler.putInt("selectedRecord", currentRecord.id)
-                    navController.navigate(R.id.play_bloc_fragment_container, selectedRecordFromRecycler)
+                    navController.navigate(R.id.play_bloc_fragment_container, selectedRecordFromRecycler)*/
                 }
             }
     }

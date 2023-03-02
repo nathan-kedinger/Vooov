@@ -9,19 +9,16 @@ import android.media.MediaRecorder
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.vooov.data.model.RecordModel
 import com.example.vooov.databinding.ActivityStudioBinding
 import com.example.vooov.repositories.RecordRepository
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.util.*
 
@@ -35,12 +32,18 @@ class StudioActivity : AppCompatActivity() {
     private var fileFullPath: String = ""
 
     private var recorder: MediaRecorder? = null
-    private var mStartRecording = false
+    private var mStartRecording = true
 
     private var player: MediaPlayer? = null
     private var mStartPlaying = true
 
     val randomId = UUID.randomUUID().toString()
+
+    // Time counting
+    private var startTime: Long = 0
+    private var stopTime: Long = 0
+
+
 
     // Requesting permission to RECORD_AUDIO
     private var permissionToRecordAccepted = false
@@ -71,9 +74,7 @@ class StudioActivity : AppCompatActivity() {
                 // Record to the external cache directory for visibility
                 //fileName = "${externalCacheDir?.absolutePath}/ ${randomId}.3gp"
                 fileFullPath = "${filesDir.absolutePath}/${randomId}.mp4"
-                Toast.makeText(this, fileFullPath, Toast.LENGTH_LONG).show()
                 Log.i(ContentValues.TAG, "file path: $fileFullPath")
-
 
                 ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION)
 
@@ -85,7 +86,6 @@ class StudioActivity : AppCompatActivity() {
                         true -> recordButton.setBackgroundResource(R.drawable.ic_record_pushed)
                         false -> recordButton.setBackgroundResource(R.drawable.ic_record)
                     }
-
                     mStartRecording = !mStartRecording
                 }
 
@@ -100,6 +100,10 @@ class StudioActivity : AppCompatActivity() {
                     mStartPlaying = !mStartPlaying
                 }
 
+                val rewindButton = binding.studioRewindButton
+                rewindButton.setOnClickListener {
+                    reinitializeMeterProgressTime()
+                }
 
                 val publishButton: ImageButton = binding.studioPublishButton
                 publishButton.setOnClickListener {
@@ -107,141 +111,218 @@ class StudioActivity : AppCompatActivity() {
                 }
             }
 
-            fun publish(){
-                val repo = RecordsViewModel()
-                val recordArtistUUID  = CurrentUser(this).uuid
-                val recordTitle = binding.studioRecordName.text.toString()
-                val length = 5
-                val recordVoiceType = binding.studioVoiceType.selectedItem.toString()
-                val recordKind = binding.studioCategorie.selectedItem.toString()
-                val description = ""
-                val created_at = Date().toString()
-                val updated_at = Date().toString()
-                val record = RecordModel(
-                    randomId,
-                    null,
-                    recordArtistUUID,
-                    recordTitle,
-                    length,
-                    0,
-                    0,
-                    recordVoiceType,
-                    recordKind,
-                    description,
-                    created_at,
-                    updated_at
-                )
+    fun publish(){
+        val repo = RecordsViewModel()
+        val recordArtistUUID  = CurrentUser(this).uuid
+        val recordTitle = binding.studioRecordName.text.toString()
+        val length = (getTotalRecordTimeLength() / 1000).toString().toInt()
+        val recordVoiceType = binding.studioVoiceType.selectedItem.toString()
+        val recordKind = binding.studioCategorie.selectedItem.toString()
+        val description = ""
+        val created_at = Date().toString()
+        val updated_at = Date().toString()
+        val record = RecordModel(
+            randomId,
+            null,
+            recordArtistUUID,
+            recordTitle,
+            length,
+            0,
+            0,
+            recordVoiceType,
+            recordKind,
+            description,
+            created_at,
+            updated_at
+        )
 
-                // Call the createRecord function of the repo object with the record parameter
-                repo.createRecord(record)
+        // Call the createRecord function of the repo object with the record parameter
+        repo.createRecord(record)
 
-                // Launch a coroutine with the main dispatcher
-                CoroutineScope(Dispatchers.Main).launch {
-                    // Switch to the IO dispatcher
-                    withContext(Dispatchers.IO) {
-                        // Call the uploadRecord function of the RecordRepository object with the fileFullPath and randomId parameters
-                        RecordRepository().uploadRecord(fileFullPath, randomId)
-                    }
-                }
+        // Launch a coroutine with the main dispatcher
+        CoroutineScope(Dispatchers.Main).launch {
+            // Switch to the IO dispatcher
+            withContext(Dispatchers.IO) {
+                // Call the uploadRecord function of the RecordRepository object with the fileFullPath and randomId parameters
+                RecordRepository().uploadRecord(fileFullPath, randomId)
+                startActivity(Intent(this@StudioActivity, StudioActivity::class.java))
 
-            }
-
-            private fun onRecord(start: Boolean) = if (start) {
-                startRecording()
-            } else {
-                stopRecording()
-            }
-
-            private fun onPlay(start: Boolean) = if (start) {
-                startPlaying()
-            } else {
-                stopPlaying()
-            }
-            private fun startPlaying() {
-                player = MediaPlayer().apply {
-                    try {
-                        setDataSource(fileFullPath)
-                        prepare()
-                        start()
-
-                    } catch (e: IOException) {
-                        Log.e(LOG_TAG, "prepare() failed")
-                    }
-                }
-            }
-
-            private fun stopPlaying() {
-                player?.release()
-                player = null
-            }
-
-            private fun startRecording() {
-                /* appui sur le bouton enregistrement : remise à zéro du compteur
-                                                        bouton play sur play (pas sur pause)
-                                                        départ  des deux chronos
-                                                        visuel de bouton de déclanchement
-                                                        arrêt de la lecture du son si toujours en cours
-
-                                                        enregistrement bloqué quand  téléchargements lancés
-                */
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    // Create a new instance of MediaRecorder with the current context as parameter
-                    recorder = MediaRecorder(this).apply {
-                        // Set the audio source to default
-                        setAudioSource(MediaRecorder.AudioSource.DEFAULT)
-                        // Set the output format to MPEG-4
-                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                        // Set the output file path
-                        setOutputFile(fileFullPath)
-                        // Set the audio encoder to HE_AAC
-                        setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
-                        // Bind the studio meter reading to the recorder
-                        binding.studioMeterReading
-                        binding.studioMeterTotalTime
-
-                        try {
-                            prepare()
-                        } catch (e: IOException) {
-                            Log.e(LOG_TAG, "prepare() failed")
-                        }
-
-                        start()
-                    }
-                } else {
-                    recorder = MediaRecorder().apply {
-                        setAudioSource(MediaRecorder.AudioSource.DEFAULT)
-                        setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                        setOutputFile(fileFullPath)
-                        setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
-                        binding.studioMeterReading
-                        binding.studioMeterTotalTime
-                        try {
-                            prepare()
-                        } catch (e: IOException) {
-                            Log.e(LOG_TAG, "prepare() failed")
-                        }
-
-                        start()
-                    }
-                }
-            }
-
-            private fun stopRecording() {
-                recorder?.apply {
-                    stop()
-                    release()
-                }
-                recorder = null
-            }
-
-            override fun onStop() {
-                super.onStop()
-                recorder?.release()
-                recorder = null
-                player?.release()
-                player = null
             }
         }
+
+    }
+
+    private fun onRecord(start: Boolean) = if (start) {
+        startRecording()
+    } else {
+        stopRecording()
+    }
+
+    private fun onPlay(start: Boolean) = if (start) {
+        startPlaying()
+    } else {
+        stopPlaying()
+    }
+    private fun startPlaying() {
+        player = MediaPlayer().apply {
+            try {
+                setDataSource(fileFullPath)
+                prepare()
+                start()
+                    startMeterProgressTime()
+                    CoroutineScope(Dispatchers.Main).launch {
+                        stopMeterProgressTimeWhenFinish()
+                    }
+
+            } catch (e: IOException) {
+                Log.e(LOG_TAG, "prepare() failed")
+            }
+        }
+    }
+
+    private fun pausePlaing(){
+        player?.pause()
+    }
+    private fun stopPlaying() {
+        stopMeterProgressTime()
+        player?.release()
+        player = null
+    }
+
+
+    private fun startTimeCounting() {
+        startTime = System.currentTimeMillis()
+        startMeterTotalTime()
+    }
+
+    private fun stopTimeCounting(){
+        stopTime = System.currentTimeMillis()
+    }
+
+    private fun getTotalRecordTimeLength(): Long {
+        return stopTime - startTime
+    }
+
+    private fun startMeterTotalTime(){
+        binding.studioMeterTotalTime.start()
+    }
+
+    private fun stopMeterTotalTime(){
+        binding.studioMeterTotalTime.stop()
+    }
+
+    private fun reinitializeMeterTotalTime(){
+        binding.studioMeterTotalTime.base= SystemClock.elapsedRealtime()
+    }
+
+    private var elapsedTime: Long = 0
+    private var isRunning: Boolean = false
+    private fun startMeterProgressTime(){
+        if(!isRunning){
+            binding.studioMeterProgressingTime.base = SystemClock.elapsedRealtime() - elapsedTime
+            binding.studioMeterProgressingTime.start()
+            isRunning = true
+        }
+    }
+    private fun stopMeterProgressTime(){
+        if(isRunning) {
+            elapsedTime = SystemClock.elapsedRealtime() - binding.studioMeterProgressingTime.base
+            binding.studioMeterProgressingTime.stop()
+            isRunning = false
+        }
+    }
+    private fun reinitializeMeterProgressTime() {
+        binding.studioMeterProgressingTime.base = SystemClock.elapsedRealtime()
+        stopMeterProgressTime()
+        elapsedTime = 0
+    }
+    suspend private fun stopMeterProgressTimeWhenFinish(){
+        while (binding.studioMeterProgressingTime.text != binding.studioMeterTotalTime.text) {
+            delay(100)
+        }
+        onPlay(start = false)
+        binding.studioPlayButton.setBackgroundResource(R.drawable.ic_play)
+    }
+
+    private fun startRecording() {
+        /* appui sur le bouton enregistrement : remise à zéro du compteur
+                                                départ  des deux chronos
+                                                visuel de bouton de déclanchement
+                                                arrêt de la lecture du son si toujours en cours
+
+                                                enregistrement bloqué quand  téléchargements lancés
+        */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // Create a new instance of MediaRecorder with the current context as parameter
+            recorder = MediaRecorder(this).apply {
+                // Set the audio source to default
+                setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+                // Set the output format to MPEG-4
+                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                // Set the output file path
+                setOutputFile(fileFullPath)
+                // Set the audio encoder to HE_AAC
+                setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+                startTimeCounting()
+                reinitializeMeterTotalTime()
+                startMeterTotalTime()
+
+                try {
+                    prepare()
+                } catch (e: IOException) {
+                    Log.e(LOG_TAG, "prepare() failed")
+                }
+
+                start()
+            }
+        } else {
+            recorder = MediaRecorder().apply {
+                setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                setOutputFile(fileFullPath)
+                setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC)
+                startTimeCounting()
+                reinitializeMeterTotalTime()
+                startMeterTotalTime()
+
+                try {
+                    prepare()
+                } catch (e: IOException) {
+                    Log.e(LOG_TAG, "prepare() failed")
+                }
+
+                start()
+            }
+        }
+    }
+
+    private fun stopRecording() {
+        recorder?.apply {
+            stop()
+            release()
+            stopTimeCounting()
+            stopMeterTotalTime()
+        }
+        recorder = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recorder?.release()
+        recorder = null
+        player?.release()
+        player = null
+        binding.studioMeterProgressingTime.stop()
+    }
+    override fun onStop() {
+        super.onStop()
+        recorder?.release()
+        recorder = null
+        player?.release()
+        player = null
+        binding.studioMeterProgressingTime.stop()
+    }
+}
 
 
 

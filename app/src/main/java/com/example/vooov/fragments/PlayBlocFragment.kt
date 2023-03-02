@@ -55,12 +55,8 @@ class PlayBlocFragment: Fragment() {
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         recordViewModel = ViewModelProvider(this).get(RecordsViewModel::class.java)
 
-
-
-
         // To other activities
-
-        binding.homeMainRecordRecord.setOnClickListener {
+        binding.homeMainRecordStudio.setOnClickListener {
             // Check if user is signed in.
             if (!CurrentUser(requireContext()).connected) {
                 LoginPopup(requireContext()).show()
@@ -114,21 +110,18 @@ class PlayBlocFragment: Fragment() {
 
                 CoroutineScope(Dispatchers.Main).launch {
                     userViewModel.fetchOneUser(record.artist_uuid)
-
                 }
+
                 userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
                     if(user !=null) {
                         binding.homeMainRecordArtistName.text = user.pseudo
                     } else {
                         Log.i(ContentValues.TAG, "user null")
-
                     }
                 })
             } else {
                 Log.i(ContentValues.TAG, "record null")
-
             }
-
         })
 
         // To the next record
@@ -156,21 +149,18 @@ class PlayBlocFragment: Fragment() {
 
                     CoroutineScope(Dispatchers.Main).launch {
                         userViewModel.fetchOneUser(record.artist_uuid)
-
                     }
+
                     userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
                         if(user !=null) {
                             binding.homeMainRecordArtistName.text = user.pseudo
                         } else {
                             Log.i(ContentValues.TAG, "user null")
-
                         }
                     })
                 } else {
                     Log.i(ContentValues.TAG, "record null")
-
                 }
-
             })
         }
 
@@ -211,12 +201,9 @@ class PlayBlocFragment: Fragment() {
                     })
                 } else {
                     Log.i(ContentValues.TAG, "record null")
-
                 }
-
             })
         }
-
         return view
     }
 }

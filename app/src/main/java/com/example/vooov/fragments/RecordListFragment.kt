@@ -67,8 +67,34 @@ class RecordListFragment: Fragment(), RecordAdapter.RecordAdapterListener {
     }
 
     override fun onRecordItemSelected(recordId: Int) {
-        val toSelectedRecordFromRecycler = Bundle()
-        toSelectedRecordFromRecycler.putInt("selectedRecord", recordId)
-        findNavController().navigate(R.id.recordPageFragment, toSelectedRecordFromRecycler)
+
+
+// Obtenir le gestionnaire de fragments
+        /*val fragmentManager = parentFragmentManager
+
+// Créer une instance du fragment de destination
+        val destinationFragment = fragmentManager.findFragmentById(R.id.play_bloc_fragment) as PlayBlocFragment*/
+
+        val toPlayBlocFragment = Bundle()
+        toPlayBlocFragment.putInt("selectedRecord", recordId)
+        PlayBlocFragment().arguments = toPlayBlocFragment
+// Commencer la transaction de fragments
+        /*val fragmentTransaction = fragmentManager.beginTransaction()
+
+// Ajouter le fragment de destination à la transaction
+        fragmentTransaction.add(R.id.play_bloc_fragment, destinationFragment)
+
+// Ajouter la transaction à la pile de fragments (optionnel)
+        fragmentTransaction.addToBackStack(null)
+
+// Terminer la transaction
+        fragmentTransaction
+            .replace(R.id.play_bloc_fragment, destinationFragment)
+            .commit()*/
+
+        val transaction = childFragmentManager.beginTransaction() //manipulation des fragments
+        transaction.replace(R.id.play_bloc_fragment_container,PlayBlocFragment())// on remplace le fragment
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
