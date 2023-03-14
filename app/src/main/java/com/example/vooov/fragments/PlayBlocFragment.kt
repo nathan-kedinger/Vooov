@@ -87,11 +87,12 @@ class PlayBlocFragment: Fragment() {
             if(record != null) {
                 binding.homeMainRecordTitle.text = record.title
                 val playButton : ImageButton = binding.homeMainRecordPlay
-
+                val seekBar = binding.homeMainSeekBar
+                val readingChronometer = binding.homeMainProgressingTime
                 playButton.setOnClickListener {
 
                     CoroutineScope(Dispatchers.Main).launch {
-                        RecordManager().onPlay(mStartPlaying, record.uuid, requireContext())
+                        RecordManager().onPlay(mStartPlaying, record.uuid, requireContext(), readingChronometer, seekBar)
                         PushedButtonView().changeImageButtonOnPush(
                             playButton,
                             mStartPlaying,
@@ -103,7 +104,6 @@ class PlayBlocFragment: Fragment() {
                         if(mainFragmentOn){
                             val arguments = Bundle()
                             arguments.putInt("mainFragment", currentRecordId)
-                            requireActivity().findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment, arguments)
                         }
                     }
                 }

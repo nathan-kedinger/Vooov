@@ -288,7 +288,7 @@ class StudioActivity : AppCompatActivity() {
 
                     val duration = player?.duration ?: 0
                     val time = duration * progress / 100
-                    binding.studioMeterProgressingTime.text = formatTime(time.toLong())
+                    binding.studioMeterProgressingTime.text = formatTime(time.toLong() )
                 }
             }
 
