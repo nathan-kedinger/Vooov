@@ -50,7 +50,7 @@ class MessageFragment : Fragment() {
 
         // Get conversation UUID, contact UUID, and self UUID from arguments
         val conversationUuid: String = arguments?.getString("toSendMessageFragment")!!
-        val contactUuid: String = arguments?.getString("toSendMessageContactUuid")!!
+        val contactId: Int = arguments?.getInt("toSendMessageContactUuid")!!
         val selfUuid = CurrentUser(requireContext()).readString("uuid")
 
         // Load all messages for the conversation
@@ -81,7 +81,7 @@ class MessageFragment : Fragment() {
                 if (selfUuid != null) {
                     Log.i(ContentValues.TAG, "Creating message with body: $bodyMessage")
                     messageViewModel.createMessage(
-                        contactUuid,
+                        contactId,
                         selfUuid,
                         bodyMessage,
                         conversationUuid
@@ -92,9 +92,9 @@ class MessageFragment : Fragment() {
                         "toSendMessageFragment",
                         conversationUuid
                     )
-                    toSendMessageArgs.putString(
+                    toSendMessageArgs.putInt(
                         "toSendMessageContactUuid",
-                        contactUuid
+                        contactId
                     )
                     findNavController().navigate(
                         R.id.action_messageFragment_self,

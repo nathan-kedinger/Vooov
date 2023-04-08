@@ -42,7 +42,7 @@ class MessageAdapter(
         val currentMessage: MessagesModel = messageList [position]
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentMessage.sender_id)
+            userViewModel.fetchOneUserById(currentMessage.sender_id)
         }
         userViewModel.user.observe(lifeCycleOwner, Observer { user ->
             if (user != null) {

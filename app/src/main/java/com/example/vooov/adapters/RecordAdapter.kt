@@ -59,7 +59,7 @@ class RecordAdapter(
         val currentRecord: RecordModel = recordList[position]
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentRecord.artist_id)
+            userViewModel.fetchOneUserById(currentRecord.artist_id)
         }
         userViewModel.user.observe(lifeCycleOwner, Observer { user ->
             if (user != null) {
@@ -69,8 +69,8 @@ class RecordAdapter(
         holder.title.text = currentRecord.title
         holder.number_of_plays.text = currentRecord.number_of_plays.toString()
         holder.number_of_moons.text = currentRecord.number_of_moons.toString()
-        holder.voice_style.text = currentRecord.voice_style_id
-        holder.kind.text = currentRecord.categories_id
+        holder.voice_style.text = currentRecord.voice_style_id.toString()
+        holder.kind.text = currentRecord.categories_id.toString()
 
         val currentRecordId = currentRecord.id
 

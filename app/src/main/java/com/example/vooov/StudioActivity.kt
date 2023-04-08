@@ -114,6 +114,7 @@ class StudioActivity : AppCompatActivity() {
             }
 
     fun publish(){
+        val recordVoiceId: Int =
         val repo = RecordsViewModel()
         val recordArtistId  = CurrentUser(this).id
         val recordTitle = binding.studioRecordName.text.toString()
@@ -138,7 +139,7 @@ class StudioActivity : AppCompatActivity() {
             updated_at
         )
 
-        // Call the createRecord function of the repo object with the record parameter
+        // Call createRecord function of the repo object with the record parameters
         repo.createRecord(record)
 
         // Launch a coroutine with the main dispatcher

@@ -14,14 +14,14 @@ import java.util.*
 class MessageViewModel: ViewModel() {
     private val repository = MessagesRepository()
 
-    suspend fun createMessage(contactUuid: String, selfUuid: String, body: String, conversationUuid: String){
+    suspend fun createMessage(contactId: Int, selfUuid: String, body: String, conversationUuid: String){
         val randomUuid = UUID.randomUUID().toString()
         val user1: Response<UserModel> = UserRepository().readOneUserData(selfUuid)
-        val user2: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
+        //val user2: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
         val message = MessagesModel(
             null,
             user1.body()?.id,
-            user2.body()?.id,
+            contactId,
             randomUuid,
             conversationUuid,
             body,

@@ -41,6 +41,7 @@ class ConversationsFragment (
         val recycler = binding.conversationsRecycler
 
         val userUuid = CurrentUser(requireContext()).readString("uuid")
+        val userId = CurrentUser(requireContext()).id
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
         messageViewModel = ViewModelProvider(this).get(MessageViewModel::class.java)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -65,7 +66,7 @@ class ConversationsFragment (
                         findNavController(),
                         viewLifecycleOwner,
                         conversationViewModel,
-                        userUuid
+                        userId
                     )
                 }
 
