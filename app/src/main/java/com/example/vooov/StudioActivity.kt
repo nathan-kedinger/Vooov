@@ -9,12 +9,10 @@ import android.media.MediaRecorder
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.SystemClock
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.app.ActivityCompat
 import com.example.vooov.data.model.RecordModel
 import com.example.vooov.databinding.ActivityStudioBinding
@@ -23,7 +21,6 @@ import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
 import kotlinx.coroutines.*
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -118,24 +115,24 @@ class StudioActivity : AppCompatActivity() {
 
     fun publish(){
         val repo = RecordsViewModel()
-        val recordArtistUUID  = CurrentUser(this).uuid
+        val recordArtistId  = CurrentUser(this).id
         val recordTitle = binding.studioRecordName.text.toString()
         val length = (getTotalRecordTimeLength() / 1000).toString().toInt()
-        val recordVoiceType = binding.studioVoiceType.selectedItem.toString()
-        val recordKind = binding.studioCategorie.selectedItem.toString()
+        val recordVoiceType = binding.studioVoiceType.selectedItem.toString().toInt()
+        val recordKind = binding.studioCategorie.selectedItem.toString().toInt()
         val description = ""
         val created_at = Date().toString()
         val updated_at = Date().toString()
         val record = RecordModel(
-            randomId,
             null,
-            recordArtistUUID,
+            recordArtistId,
+            recordKind,
+            recordVoiceType,
+            randomId,
             recordTitle,
             length,
             0,
             0,
-            recordVoiceType,
-            recordKind,
             description,
             created_at,
             updated_at

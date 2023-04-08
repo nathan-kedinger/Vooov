@@ -5,7 +5,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vooov.data.model.MessagesModel
+import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.MessagesRepository
+import com.example.vooov.repositories.UserRepository
+import retrofit2.Response
 import java.util.*
 
 class MessageViewModel: ViewModel() {
@@ -13,11 +16,14 @@ class MessageViewModel: ViewModel() {
 
     suspend fun createMessage(contactUuid: String, selfUuid: String, body: String, conversationUuid: String){
         val randomUuid = UUID.randomUUID().toString()
+        val user1: Response<UserModel> = UserRepository().readOneUserData(selfUuid)
+        val user2: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
         val message = MessagesModel(
+            null,
+            user1.body()?.id,
+            user2.body()?.id,
             randomUuid,
             conversationUuid,
-            selfUuid,
-            contactUuid,
             body,
             0,
             Date().toString()

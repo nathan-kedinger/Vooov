@@ -26,7 +26,7 @@ import java.io.IOException
 class RecordRepository {
 
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
-        .baseUrl("https://vooov-api.fr/")
+        .baseUrl("https://vooov.fr/public/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val create: RecordsRetrofitInterface = retrofit.create(RecordsRetrofitInterface::class.java)

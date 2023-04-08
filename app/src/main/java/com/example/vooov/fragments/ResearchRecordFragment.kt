@@ -9,10 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
-import com.example.vooov.adapters.RecordAdapter
 import com.example.vooov.adapters.SearchRecordAdapter
 import com.example.vooov.databinding.FragmentResearchRecordBinding
-import com.example.vooov.databinding.FragmentWalletBinding
 import com.example.vooov.viewModels.RecordsViewModel
 import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope

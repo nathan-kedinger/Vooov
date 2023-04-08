@@ -3,7 +3,6 @@ package com.example.vooov.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -43,7 +42,7 @@ class MessageAdapter(
         val currentMessage: MessagesModel = messageList [position]
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentMessage.sender)
+            userViewModel.fetchOneUser(currentMessage.sender_id)
         }
         userViewModel.user.observe(lifeCycleOwner, Observer { user ->
             if (user != null) {

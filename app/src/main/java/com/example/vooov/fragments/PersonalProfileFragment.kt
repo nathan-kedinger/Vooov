@@ -13,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.databinding.FragmentPersonalProfileBinding
-import com.example.vooov.databinding.FragmentWalletBinding
 import com.example.vooov.viewModels.CurrentUser
-import com.example.vooov.viewModels.RecordsViewModel
 import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -84,12 +82,15 @@ class PersonalProfileFragment (
             binding.personalProfilModify.setOnClickListener {
                 CoroutineScope(Dispatchers.Main).launch {
                     val currentUserModel = UserModel(
+                        null,
+                        user.email.trim(),
+                        "",
+                        user.password.trim(),
+                        0,
                         user.uuid.trim(),
                         user.pseudo.trim(),
                         user.name.trim(),
                         user.firstname.trim(),
-                        user.email.trim(),
-                        user.password.trim(),
                         user.birthday.trim(),
                         user.phone.trim(),
                         binding.personalProfilBiographieText.text.toString(),

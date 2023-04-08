@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
 import com.example.vooov.adapters.ConversationsAdapter
-import com.example.vooov.adapters.MessageAdapter
 import com.example.vooov.databinding.FragmentConversationsBinding
-import com.example.vooov.databinding.FragmentWalletBinding
 import com.example.vooov.viewModels.ConversationsViewModel
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.MessageViewModel

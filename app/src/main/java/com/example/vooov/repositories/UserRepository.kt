@@ -10,7 +10,7 @@ import java.io.IOException
 
 class UserRepository {
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
-        .baseUrl("https://vooov-api.fr/")
+        .baseUrl("https://vooov.fr/public/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -39,6 +39,16 @@ class UserRepository {
     suspend fun readOneUserData(userUuid: String?): Response<UserModel> {
         return try {
             readOne.getOneUser(userUuid)
+        } catch (e: Exception) {
+            throw IOException("Error fetching user", e)
+        }
+    }
+
+    private val readOneById: UsersRetrofitInterface = retrofit.create(UsersRetrofitInterface::class.java)
+
+    suspend fun readOneUserDataById(userId: Int?): Response<UserModel> {
+        return try {
+            readOne.getOneUserById(userId)
         } catch (e: Exception) {
             throw IOException("Error fetching user", e)
         }

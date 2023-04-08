@@ -7,18 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vooov.R
 import com.example.vooov.data.model.ConversationsModel
+import com.example.vooov.data.model.UserModel
 import com.example.vooov.fragments.ConversationsFragment
 import com.example.vooov.viewModels.ConversationsViewModel
-import com.example.vooov.viewModels.CurrentUser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.vooov.viewModels.UserViewModel
+import retrofit2.Response
 
 class ConversationsAdapter (
     val context: ConversationsFragment,
@@ -51,10 +48,11 @@ class ConversationsAdapter (
         holder.conversationName.text = currentConversation.title
         holder.lastMessage.text = currentConversation.updated_at
 
-        val sender = currentConversation.sender
-        val receiver = currentConversation.receiver
+        val sender: Response<UserModel> = UserViewModel().fetchOneUserById(currentConversation.sender_id)
+
+        val receiver = currentConversation.receiver_id
         lateinit var  contactUuid: String
-        if (sender == currentUserUuid){
+        if (sender.uuid == currentUserUuid){
             contactUuid = receiver
         } else {
             contactUuid = sender

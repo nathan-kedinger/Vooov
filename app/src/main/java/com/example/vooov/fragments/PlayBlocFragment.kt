@@ -1,7 +1,6 @@
 package com.example.vooov.fragments
 
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -109,7 +108,7 @@ class PlayBlocFragment: Fragment() {
                 }
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    userViewModel.fetchOneUser(record.artist_uuid)
+                    userViewModel.fetchOneUserById(record.artist_id)
                 }
 
                 userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
@@ -148,7 +147,7 @@ class PlayBlocFragment: Fragment() {
                     }
 
                     CoroutineScope(Dispatchers.Main).launch {
-                        userViewModel.fetchOneUser(record.artist_uuid)
+                        userViewModel.fetchOneUserById(record.artist_id)
                     }
 
                     userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
@@ -188,7 +187,7 @@ class PlayBlocFragment: Fragment() {
                     }
 
                     CoroutineScope(Dispatchers.Main).launch {
-                        userViewModel.fetchOneUser(record.artist_uuid)
+                        userViewModel.fetchOneUserById(record.artist_id)
 
                     }
                     userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->

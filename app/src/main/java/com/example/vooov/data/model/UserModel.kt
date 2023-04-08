@@ -1,12 +1,15 @@
 package com.example.vooov.data.model
 
 data class UserModel(
+    val id: Int? = null,
+    val email: String = "a@gt.fr",
+    val roles: String = "",
+    val password: String = "pass",
+    val is_verified: Int = 0,
     val uuid: String = "null",
     val pseudo: String = "Do",
     val name: String = "Doe",
     val firstname: String = "Jon",
-    val email: String = "a@gt.fr",
-    val password: String = "pass",
     val birthday: String = "01/01/2023",
     val phone: String = "0600000000",
     val description: String = "",

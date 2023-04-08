@@ -74,8 +74,8 @@ class RecordFragment (
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
             if(record != null) {
                 recordTitle.text = record.title
-                recordKind.text = record.kind
-                recordVoiceStyle.text = record.voice_style
+                recordKind.text = record.categories_id.toString()
+                recordVoiceStyle.text = record.voice_style_id.toString()
                 recordCreatedAt.text = record.created_at
                 recordNumberOfPlays.text = record.number_of_plays.toString()
                 recordNumberOfMoons.text = record.number_of_moons.toString()
@@ -84,7 +84,7 @@ class RecordFragment (
                 val context = requireContext()
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    userViewModel.fetchOneUser(record.artist_uuid)
+                    userViewModel.fetchOneUserById(record.artist_id)
                     // UI ProgressBar
                     progressBar.visibility = View.GONE
                     for (textView in textViewsToHide) {
@@ -124,12 +124,15 @@ class RecordFragment (
                                                 recordNumberOfMoons += amountOfMoonsToSend
 
                                                 val currentUserModel = UserModel(
+                                                    null,
+                                                    currentUser.email,
+                                                    currentUser.roles,
+                                                    currentUser.password,
+                                                    currentUser.is_verified,
                                                     currentUser.uuid,
                                                     currentUser.pseudo,
                                                     currentUser.name,
                                                     currentUser.firstname,
-                                                    currentUser.email,
-                                                    currentUser.password,
                                                     currentUser.birthday,
                                                     currentUser.phone,
                                                     currentUser.description,
@@ -142,12 +145,15 @@ class RecordFragment (
                                                 )
 
                                                 val otherUserModel = UserModel(
+                                                    null,
+                                                    currentUser.email,
+                                                    currentUser.roles,
+                                                    currentUser.password,
+                                                    currentUser.is_verified,
                                                     currentUser.uuid,
                                                     currentUser.pseudo,
                                                     currentUser.name,
                                                     currentUser.firstname,
-                                                    currentUser.email,
-                                                    currentUser.password,
                                                     currentUser.birthday,
                                                     currentUser.phone,
                                                     currentUser.description,
@@ -160,15 +166,15 @@ class RecordFragment (
                                                 )
 
                                                 val recordModel = RecordModel(
-                                                    record.uuid,
                                                     record.id,
-                                                    record.artist_uuid,
+                                                    record.artist_id,
+                                                    record.categories_id,
+                                                    record.voice_style_id,
+                                                    record.uuid,
                                                     record.title,
                                                     record.length,
                                                     record.number_of_plays,
                                                     recordNumberOfMoons,
-                                                    record.voice_style,
-                                                    record.kind,
                                                     record.description,
                                                     record.created_at,
                                                     record.updated_at
@@ -202,7 +208,7 @@ class RecordFragment (
 
                             binding.recordPageGoToArtist.setOnClickListener{
                                 val toArtistProfileArgs = Bundle()
-                                toArtistProfileArgs.putString("toArtistProfileFragment", user.uuid )
+                                toArtistProfileArgs.putString("toArtistProfileFragment", user.uuid)
                                 // Adding identifications and conversations crations code here
                                 findNavController().navigate(R.id.action_recordPageFragment_to_artistProfilFragment, toArtistProfileArgs)
                             }

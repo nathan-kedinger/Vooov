@@ -15,6 +15,7 @@ class CurrentUser(context: Context){
     val description = sharedPreferences.getString("description", "Un futur grand orateur?" )
     val url_profile_picture = sharedPreferences.getString("url_profile_picture", "" )
     val uuid = sharedPreferences.getString("uuid", "000" )
+    val id = sharedPreferences.getInt("id", 0)
     val connected = sharedPreferences.getBoolean("userConnected", false )
 
     //allow to register a string value in sharedPreferences

@@ -14,6 +14,9 @@ interface UsersRetrofitInterface {
         @GET("users/readOneByUuid.php")
         suspend fun getOneUser(@Query("uuid") uuid: String?): Response<UserModel>
 
+        @GET("users/readOneById.php")
+        suspend fun getOneUserById(@Query("id") id: Int?): Response<UserModel>
+
         @GET("users/readOneByMail.php")
         suspend fun getOneUserByMail(@Query("email") email: String): Response<UserModel>
 

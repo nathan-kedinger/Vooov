@@ -1,39 +1,28 @@
 package com.example.vooov
 
-import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
-import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.databinding.ActivitySignInBinding
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModels.UserViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2KtResult
 import com.lambdapioneer.argon2kt.Argon2Mode
-import de.mkammerer.argon2.Argon2Factory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.mindrot.jbcrypt.BCrypt
 import java.io.IOException
 import java.security.SecureRandom
-import java.text.SimpleDateFormat
-import java.time.Clock
-import java.time.LocalDateTime
 import java.util.*
 
 class SignInActivity : AppCompatActivity() {
@@ -107,12 +96,15 @@ class SignInActivity : AppCompatActivity() {
 
                                 // Création de l'utilisateur
                                 val newUser = UserModel(
+                                    null,
+                                    binding.registerMailTextInput.text.toString(),
+                                    "",
+                                    hash,
+                                    0,
                                     UUID.randomUUID().toString(),
                                     binding.registerNameTextInput.text.toString(),
                                     binding.registerPseudoTextInput.text.toString(),
                                     binding.registerFirstnameTextInput.text.toString(),
-                                    binding.registerMailTextInput.text.toString(),
-                                    hash,
                                     actualDateTime.toString(),
                                     "",
                                     "",

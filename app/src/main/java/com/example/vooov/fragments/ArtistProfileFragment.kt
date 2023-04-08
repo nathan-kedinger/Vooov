@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vooov.R
 import com.example.vooov.databinding.FragmentArtistProfileBinding
-import com.example.vooov.databinding.FragmentWalletBinding
 import com.example.vooov.viewModels.ConversationsViewModel
 import com.example.vooov.viewModels.CurrentUser
-import com.example.vooov.viewModels.RecordsViewModel
 import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

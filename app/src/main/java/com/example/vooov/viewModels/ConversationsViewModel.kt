@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vooov.data.model.ConversationsModel
-import com.example.vooov.data.model.MessagesModel
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.ConversationsRepository
 import com.example.vooov.repositories.UserRepository
@@ -21,9 +20,10 @@ class ConversationsViewModel : ViewModel() {
         val user2: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
 
         val conversation = ConversationsModel(
+            null,
+            user1.body()?.id,
+            user2.body()?.id,
             randomUuid,
-            selfUuid,
-            contactUuid,
             "${user1.body()?.pseudo} ${user2.body()?.pseudo}",
             Date().toString(),
             Date().toString()
@@ -39,7 +39,7 @@ class ConversationsViewModel : ViewModel() {
         }
     }
 
-    val conversationList = MutableLiveData<MutableList<ConversationsModel>>()
+    var conversationList = MutableLiveData<MutableList<ConversationsModel>>()
 
     suspend fun fetchConversations(selfUuid: String) {
         val response = repository.readConversationData(selfUuid)
@@ -53,11 +53,11 @@ class ConversationsViewModel : ViewModel() {
     suspend fun fetchOneConversation(contactUuid: String, selfUuid: String) {
         // Récupérer la liste de conversations
         fetchConversations(selfUuid)
-
+        var contact: Response<UserModel> = UserRepository().readOneUserData(contactUuid)
         // Trouver la conversation qui correspond à contactUuid
         conversationList.value?.let { list ->
             val filteredList = list.filter { conversation ->
-                (conversation.sender == contactUuid || conversation.receiver == contactUuid)
+                (conversation.sender_id == contact.body()?.id || conversation.receiver_id == contact.body()?.id)
             }
 
             if (filteredList.isNotEmpty()) {

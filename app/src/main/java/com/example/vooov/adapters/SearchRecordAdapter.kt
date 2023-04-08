@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vooov.R
 import com.example.vooov.data.model.RecordModel
-import com.example.vooov.fragments.RecordListFragment
 import com.example.vooov.fragments.ResearchRecordFragment
 import com.example.vooov.viewModels.UserViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -56,7 +55,7 @@ class SearchRecordAdapter(
         val currentRecord: RecordModel = recordList[position]
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentRecord.artist_uuid)
+            userViewModel.fetchOneUser(currentRecord.artist_id)
         }
         userViewModel.user.observe(lifeCycleOwner, Observer { user ->
             if (user != null) {
@@ -66,8 +65,8 @@ class SearchRecordAdapter(
         holder.title.text = currentRecord.title
         holder.number_of_plays.text = currentRecord.number_of_plays.toString()
         holder.number_of_moons.text = currentRecord.number_of_moons.toString()
-        holder.voice_style.text = currentRecord.voice_style
-        holder.kind.text = currentRecord.kind
+        holder.voice_style.text = currentRecord.voice_style_id
+        holder.kind.text = currentRecord.categories_id
 
         val currentRecordId = currentRecord.id
 

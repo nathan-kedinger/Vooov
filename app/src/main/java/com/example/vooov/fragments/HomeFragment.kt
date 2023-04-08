@@ -75,9 +75,11 @@ class HomeFragment (
 
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
             if(record != null) {
+
+
                 recordTitle.text = record.title
-                recordKind.text = record.kind
-                recordVoiceStyle.text = record.voice_style
+                recordKind.text = record.categories_id.toString()
+                recordVoiceStyle.text = record.voice_style_id.toString()
                 recordNumberOfPlay.text = record.number_of_plays.toString()
                 recordNumberOfMoons.text = record.number_of_moons.toString()
                 recordDescription.text = record.description
@@ -85,7 +87,7 @@ class HomeFragment (
                 val context = requireContext()
 
                 CoroutineScope(Dispatchers.Main).launch {
-                    userViewModel.fetchOneUser(record.artist_uuid)
+                    userViewModel.fetchOneUserById(record.artist_id)
                     // UI ProgressBar
                     progressBar.visibility = View.GONE
                     for (textView in textViewsToHide){

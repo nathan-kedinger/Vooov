@@ -2,10 +2,8 @@ package com.example.vooov.viewModels
 
 import android.content.ContentValues
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.repositories.UserRepository
 import kotlinx.coroutines.CoroutineScope
@@ -77,6 +75,32 @@ class UserViewModel: ViewModel() {
             if (response.isSuccessful) {
                 val responseData = response.body()
                 user.value = responseData ?: UserModel()
+            } else {
+                when (response.code()) {
+                    in 400..499 -> {
+                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
+                    }
+                    in 500..599 -> {
+                        Log.i(ContentValues.TAG, "${response.code()} Message: ${response.errorBody()?.string()}")
+                    }
+                    else -> {
+                        Log.i(ContentValues.TAG, "Une autre erreur")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(ContentValues.TAG, "Error fetching user", e)
+        }
+    }
+
+    val userById = MutableLiveData<UserModel>()
+
+    suspend fun fetchOneUserById(userId: Int?) {
+        try {
+            val response = repository.readOneUserDataById(userId)
+            if (response.isSuccessful) {
+                val responseData = response.body()
+                userById.value = responseData ?: UserModel()
             } else {
                 when (response.code()) {
                     in 400..499 -> {
