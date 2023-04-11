@@ -114,7 +114,6 @@ class StudioActivity : AppCompatActivity() {
             }
 
     fun publish(){
-        val recordVoiceId: Int =
         val repo = RecordsViewModel()
         val recordArtistId  = CurrentUser(this).id
         val recordTitle = binding.studioRecordName.text.toString()

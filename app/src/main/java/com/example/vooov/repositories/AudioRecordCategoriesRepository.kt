@@ -1,15 +1,13 @@
 package com.example.vooov.repositories
 
 import com.example.vooov.data.dataInterfaces.AudioRecordCategorieRetrofitInterface
-import com.example.vooov.data.dataInterfaces.VoiceStyleRetrofitInterface
 import com.example.vooov.data.model.AudioRecordCategoriesModel
-import com.example.vooov.data.model.VoiceStyleModel
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class AudioRecordRepository {
+class AudioRecordCategoriesRepository {
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
         .baseUrl("https://vooov.fr/public/")
         .addConverterFactory(GsonConverterFactory.create())
