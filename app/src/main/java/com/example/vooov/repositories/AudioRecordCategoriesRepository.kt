@@ -9,7 +9,7 @@ import java.io.IOException
 
 class AudioRecordCategoriesRepository {
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
-        .baseUrl("https://vooov.fr/public/")
+        .baseUrl("https://vooov.fr/public/api_vooov/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

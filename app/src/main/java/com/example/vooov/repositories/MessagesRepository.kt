@@ -11,7 +11,7 @@ import java.io.IOException
 
 class MessagesRepository {
     val retrofit = Retrofit.Builder()// Construction du client Retrofit
-        .baseUrl("https://vooov.fr/public/")
+        .baseUrl("https://vooov.fr/public/api_vooov/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

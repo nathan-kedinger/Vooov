@@ -1,8 +1,10 @@
 package com.example.vooov
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.findNavController
 import com.example.vooov.databinding.ActivityHomeBinding
 import com.example.vooov.fragments.PlayBlocFragment
@@ -88,6 +90,10 @@ class HomeActivity : AppCompatActivity() {
             mainFragmentOn = false
         }
         val currentUserId = CurrentUser(this).readString("uuid")
+
+        binding.homeMainOptions.setOnClickListener {
+            CurrentUser(this).logout()
+        }
 
     }
         override fun onStart() {

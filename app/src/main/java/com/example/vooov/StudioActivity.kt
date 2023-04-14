@@ -11,14 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.vooov.data.model.AudioRecordCategoriesModel
 import com.example.vooov.data.model.RecordModel
+import com.example.vooov.data.model.VoiceStyleModel
 import com.example.vooov.databinding.ActivityStudioBinding
 import com.example.vooov.repositories.RecordRepository
+import com.example.vooov.viewModels.AudioRecordCategoriesViewModel
 import com.example.vooov.viewModels.CurrentUser
 import com.example.vooov.viewModels.RecordsViewModel
+import com.example.vooov.viewModels.VoiceStyleViewModel
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.util.*
@@ -111,40 +117,79 @@ class StudioActivity : AppCompatActivity() {
                 publishButton.setOnClickListener {
                     publish()
                 }
+
+                loadCategories()
+                loadVoiceStyles()
             }
+
+    private fun loadCategories() {
+        val audioRecordCategoriesViewModel = AudioRecordCategoriesViewModel()
+        lifecycleScope.launch(Dispatchers.Main) {
+            audioRecordCategoriesViewModel.fetchAudioRecordCategories()
+            audioRecordCategoriesViewModel.audioRecordCategorieslist.observe(this@StudioActivity) { categories ->
+                setupSpinnerCategories(categories)
+            }
+        }
+    }
+
+    private fun setupSpinnerCategories(categories: List<AudioRecordCategoriesModel>) {
+        val spinner = binding.studioCategorie
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+    private fun loadVoiceStyles(){
+        val voiceStylesViewModel = VoiceStyleViewModel()
+        lifecycleScope.launch  (Dispatchers.Main){
+            voiceStylesViewModel.fetchVoiceStyles()
+            voiceStylesViewModel.voiceStylelist.observe(this@StudioActivity){ voiceStyle ->
+                setupSpinnerVoiceStyles(voiceStyle)
+            }
+        }
+    }
+
+    private fun setupSpinnerVoiceStyles(voiceStyles: List<VoiceStyleModel>){
+        val spinner = binding.studioVoiceType
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, voiceStyles)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
 
     fun publish(){
         val repo = RecordsViewModel()
         val recordArtistId  = CurrentUser(this).id
         val recordTitle = binding.studioRecordName.text.toString()
         val length = (getTotalRecordTimeLength() / 1000).toString().toInt()
-        val recordVoiceType = binding.studioVoiceType.selectedItem.toString().toInt()
-        val recordKind = binding.studioCategorie.selectedItem.toString().toInt()
+        val selectedVoiceType = binding.studioVoiceType.selectedItem as VoiceStyleModel
+        val recordVoiceType = selectedVoiceType.id
+        val selectedCategory = binding.studioCategorie.selectedItem as AudioRecordCategoriesModel
+        val recordCategory = selectedCategory.id
         val description = ""
         val created_at = Date().toString()
         val updated_at = Date().toString()
-        val record = RecordModel(
-            null,
-            recordArtistId,
-            recordKind,
-            recordVoiceType,
-            randomId,
-            recordTitle,
-            length,
-            0,
-            0,
-            description,
-            created_at,
-            updated_at
-        )
 
-        // Call createRecord function of the repo object with the record parameters
-        repo.createRecord(record)
 
         // Launch a coroutine with the main dispatcher
         CoroutineScope(Dispatchers.Main).launch {
             // Switch to the IO dispatcher
             withContext(Dispatchers.IO) {
+                val record = RecordModel(
+                    null,
+                    recordArtistId,
+                    recordCategory,
+                    recordVoiceType,
+                    randomId,
+                    recordTitle,
+                    length,
+                    0,
+                    0,
+                    description,
+                    created_at,
+                    updated_at
+                )
+
+                // Call createRecord function of the repo object with the record parameters
+                repo.createRecord(record)
                 // Call the uploadRecord function of the RecordRepository object with the fileFullPath and randomId parameters
                 RecordRepository().uploadRecord(fileFullPath, randomId)
                 startActivity(Intent(this@StudioActivity, StudioActivity::class.java))

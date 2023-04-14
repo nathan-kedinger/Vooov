@@ -16,7 +16,7 @@ class CurrentUser(context: Context){
     val url_profile_picture = sharedPreferences.getString("url_profile_picture", "" )
     val uuid = sharedPreferences.getString("uuid", "000" )
     val id = sharedPreferences.getInt("id", 0)
-    val connected = sharedPreferences.getBoolean("userConnected", false )
+    var connected = sharedPreferences.getBoolean("userConnected", false )
 
     //allow to register a string value in sharedPreferences
     fun saveString(key: String, value: String) = sharedPreferences.edit().putString(key, value).apply()
@@ -24,4 +24,8 @@ class CurrentUser(context: Context){
     fun saveConnection(key: String, value: Boolean) = sharedPreferences.edit().putBoolean(key, value).apply()
     //allow to get back a string value from sharedPreferences
     fun readString(key: String) = sharedPreferences.getString(key, null)
+    // Loging out the current user
+    fun logout() {
+        sharedPreferences.edit().clear().apply()
+    }
 }

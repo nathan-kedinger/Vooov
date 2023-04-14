@@ -18,7 +18,7 @@ import java.io.File
 class PicturesRepository {
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://vooov.fr/public/")
+        .baseUrl("https://vooov.fr/public/api_vooov/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
