@@ -92,7 +92,12 @@ class HomeActivity : AppCompatActivity() {
         val currentUserId = CurrentUser(this).readString("uuid")
 
         binding.homeMainOptions.setOnClickListener {
-            CurrentUser(this).logout()
+            // Check if user is signed in.
+            if (!CurrentUser(this).connected) {
+                LoginPopup(this).show()
+            } else {
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
         }
 
     }

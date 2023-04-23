@@ -69,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:entries="@array/category_category"
         app:layout_constraintBottom_toTopOf="@+id/studio_record_name"
         app:layout_constraintStart_toEndOf="@+id/studio_play_button"
         app:layout_constraintTop_toBottomOf="@+id/studio_forward_button" />
@@ -79,7 +78,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:entries="@array/category_voice_type"
         app:layout_constraintEnd_toEndOf="@+id/studio_rewind_button"
         app:layout_constraintTop_toTopOf="@+id/studio_categorie" />
 

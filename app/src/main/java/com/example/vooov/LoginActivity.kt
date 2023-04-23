@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.example.vooov.databinding.ActivityLoginBinding
 
 import com.example.vooov.data.model.LoggedInUserView
+import com.example.vooov.data.model.UserModel
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
 import com.example.vooov.viewModels.CurrentUser
@@ -25,6 +26,7 @@ import com.lambdapioneer.argon2kt.Argon2Mode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.mindrot.jbcrypt.BCrypt
 
 class LoginActivity : AppCompatActivity() {
 
@@ -43,24 +45,30 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        val sharedPreferences = this.getSharedPreferences("userSahredPreferences", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            this.getSharedPreferences("userSahredPreferences", Context.MODE_PRIVATE)
         val preferencesEditor = sharedPreferences.edit()
 
         val getCurrentUserConnected = sharedPreferences.getBoolean("userConnected", false)
         val getCurrentUserName = sharedPreferences.getString("name", "null")
 
+
+        binding.loginToRegister?.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+
+        }
         /*if ( getCurrentUserConnected != false && getCurrentUserConnected == false ){
             login.isEnabled
             Toast.makeText(this, getCurrentUserName, Toast.LENGTH_LONG).show()
 
         } else {*/
 
-            loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-                .get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
+            .get(LoginViewModel::class.java)
 
-            userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-           /* loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        /* loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
                 val loginState = it ?: return@Observer
 
                 // disable login button unless both username / password is valid
@@ -74,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             })*/
 
-            /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
                 val loginResult = it ?: return@Observer
 
                 loading.visibility = View.GONE
@@ -121,58 +129,65 @@ class LoginActivity : AppCompatActivity() {
                     false
                 }
             }*/
-
+        login.setOnClickListener {
             try {
-                login.setOnClickListener {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        userViewModel.fetchOneUser(username.text.toString())
-                        Log.i(ContentValues.TAG, username.text.toString())
-
-                    }
-
-                    userViewModel.user.observe(this@LoginActivity, Observer {
-                        val user = it ?:return@Observer
-
-                        if (user.password != null) {
-
-                            val argon2Kt = Argon2Kt()
-                            val verificationResult: Boolean = argon2Kt.verify(Argon2Mode.ARGON2_I, user.password, password.text.toString().toByteArray())
-                            if (verificationResult) {
-                                // Code pour enregistrer les informations de l'utilisateur dans les préférences
-                                CurrentUser(this).saveString("email", user.email)
-                                CurrentUser(this).saveString("pseudo", user.pseudo)
-                                CurrentUser(this).saveString("name", user.name)
-                                CurrentUser(this).saveString("firstname", user.firstname)
-                                CurrentUser(this).saveString("phone", user.phone)
-                                CurrentUser(this).saveString("description", user.description)
-                                CurrentUser(this).saveString("url_profile_ picture", user.url_profile_picture)
-                                CurrentUser(this).saveString("uuid", user.uuid)
-                                CurrentUser(this).saveConnection("userConnected", true)
-
-
-                                // Code pour démarrer une nouvelle activité et afficher un message de confirmation
-                                startActivity(Intent(this, HomeActivity::class.java))
-                                //loading.visibility = View.VISIBLE
-                                //loginViewModel.login(username.text.toString(), password.text.toString())
-                                Toast.makeText(applicationContext, "Connexion réussie!", Toast.LENGTH_LONG).show()
-                            } else {
-                                // Afficher un message d'erreur si la vérification échoue
-                                Toast.makeText(applicationContext, "Identifiants incorrects!", Toast.LENGTH_LONG).show()
-                            }
-                            Toast.makeText(applicationContext, "Utilisateur !", Toast.LENGTH_LONG).show()
-
-                        } else {
-                            // Afficher un message d'erreur si l'utilisateur n'est pas trouvé
-                            Toast.makeText(applicationContext, "Utilisateur non trouvé!", Toast.LENGTH_LONG).show()
-                        }
-                    })
+                CoroutineScope(Dispatchers.Main).launch {
+                    userViewModel.fetchOneUserByMail(username.text.toString())
+                    Log.i(ContentValues.TAG, username.text.toString())
                 }
+        // Observe le LiveData userViewModel.user ici
+        userViewModel.userByMail.observe(this@LoginActivity, Observer { user ->
+            if (user != null && user.password != null) {
+                // Vérifie si le mot de passe est correct
+                Log.i(ContentValues.TAG, user.toString())
+
+                //BCrypt
+                val verificationResult = BCrypt.checkpw(password.text.toString(), user.password)
+
+                // argon2
+                /*val argon2Kt = Argon2Kt()
+                val verificationResult: Boolean = argon2Kt.verify(
+                    Argon2Mode.ARGON2_I, user.password, password.text.toString().toByteArray()
+                )*/
+
+                if (verificationResult) {
+                    // Enregistrez les informations de l'utilisateur et démarrez la nouvelle activité
+                    saveUserData(user)
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    Toast.makeText(applicationContext, "Connexion réussie!", Toast.LENGTH_LONG)
+                        .show()
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Identifiants incorrects!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            } else {
+                Toast.makeText(applicationContext, "Utilisateur non trouvé!", Toast.LENGTH_LONG)
+                    .show()
+            }
+        })
             } catch (e: Exception) {
                 Log.e(ContentValues.TAG, "Message: ${e.message}")
             }
+        }
+    //}
+    }
 
-        //}
-
+    private fun saveUserData(user: UserModel) {
+        CurrentUser(this).apply {
+            saveString("email", user.email)
+            saveString("pseudo", user.pseudo)
+            saveString("name", user.name)
+            saveString("firstname", user.firstname)
+            saveString("phone", user.phone)
+            saveString("description", user.description)
+            saveString("url_profile_ picture", user.url_profile_picture)
+            saveString("uuid", user.uuid)
+            saveInt("id", user.id)
+            saveConnection("userConnected", true)
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

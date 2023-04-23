@@ -48,7 +48,7 @@ class UserRepository {
 
     suspend fun readOneUserDataById(userId: Int?): Response<UserModel> {
         return try {
-            readOne.getOneUserById(userId)
+            readOneById.getOneUserById(userId)
         } catch (e: Exception) {
             throw IOException("Error fetching user", e)
         }

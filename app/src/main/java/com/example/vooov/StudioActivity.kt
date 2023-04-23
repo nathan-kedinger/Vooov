@@ -127,32 +127,36 @@ class StudioActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main) {
             audioRecordCategoriesViewModel.fetchAudioRecordCategories()
             audioRecordCategoriesViewModel.audioRecordCategorieslist.observe(this@StudioActivity) { categories ->
+                // Log the voice styles list
+                Log.i("ContentValues", "Loaded Voice Styles: $categories")
                 setupSpinnerCategories(categories)
             }
         }
     }
 
     private fun setupSpinnerCategories(categories: List<AudioRecordCategoriesModel>) {
-        val spinner = binding.studioCategorie
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+        val CategoriesSpinner = binding.studioCategorie
+        val categoriesAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        categoriesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        CategoriesSpinner.adapter = categoriesAdapter
     }
     private fun loadVoiceStyles(){
         val voiceStylesViewModel = VoiceStyleViewModel()
         lifecycleScope.launch  (Dispatchers.Main){
             voiceStylesViewModel.fetchVoiceStyles()
             voiceStylesViewModel.voiceStylelist.observe(this@StudioActivity){ voiceStyle ->
+                // Log the voice styles list
+                Log.i("ContentValues", "Loaded Voice Styles: ${voiceStyle}")
                 setupSpinnerVoiceStyles(voiceStyle)
             }
         }
     }
 
     private fun setupSpinnerVoiceStyles(voiceStyles: List<VoiceStyleModel>){
-        val spinner = binding.studioVoiceType
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, voiceStyles)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+        val VoiceStyleSpinner = binding.studioVoiceType
+        val voiceStyleAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, voiceStyles)
+        voiceStyleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        VoiceStyleSpinner.adapter = voiceStyleAdapter
     }
 
     fun publish(){
@@ -161,6 +165,8 @@ class StudioActivity : AppCompatActivity() {
         val recordTitle = binding.studioRecordName.text.toString()
         val length = (getTotalRecordTimeLength() / 1000).toString().toInt()
         val selectedVoiceType = binding.studioVoiceType.selectedItem as VoiceStyleModel
+        Log.i(ContentValues.TAG, "Selected Voice Type: $selectedVoiceType")
+        Log.i(ContentValues.TAG, "Selected Voice Type ID: ${selectedVoiceType}")
         val recordVoiceType = selectedVoiceType.id
         val selectedCategory = binding.studioCategorie.selectedItem as AudioRecordCategoriesModel
         val recordCategory = selectedCategory.id
@@ -187,6 +193,7 @@ class StudioActivity : AppCompatActivity() {
                     created_at,
                     updated_at
                 )
+                Log.i(ContentValues.TAG, record.toString())
 
                 // Call createRecord function of the repo object with the record parameters
                 repo.createRecord(record)

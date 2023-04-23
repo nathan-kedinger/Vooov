@@ -40,6 +40,7 @@ class HomeFragment (
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         val view = binding.root
+        Log.i("ContentValues", "current user uuid: ${CurrentUser(requireContext()).uuid}")
 
         // ViewModels calls
         recordViewModel = ViewModelProvider(this).get(RecordsViewModel::class.java)
@@ -95,11 +96,12 @@ class HomeFragment (
                     }
                 }
 
-                userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
+                userViewModel.userById.observe(viewLifecycleOwner, Observer  { user ->
                     if(user !=null) {
                         //artistName is in a different db table
                         artistName.text = user.pseudo
-                        if(CurrentUser(context).readString("uuid") != "000"){
+                        Log.i("ContentValues", "curerrent user uuid: ${CurrentUser(context).uuid}")
+                        if(CurrentUser(context).uuid != "000"){
                             binding.homeRecordSendMessage.setOnClickListener{
                                 CoroutineScope(Dispatchers.Main).launch {
                                     conversationViewModel.fetchOneConversation(

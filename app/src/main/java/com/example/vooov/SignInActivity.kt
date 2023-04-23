@@ -15,14 +15,17 @@ import com.example.vooov.databinding.ActivitySignInBinding
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModels.UserViewModel
+import com.google.gson.Gson
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2KtResult
 import com.lambdapioneer.argon2kt.Argon2Mode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.mindrot.jbcrypt.BCrypt
 import java.io.IOException
 import java.security.SecureRandom
+import java.text.SimpleDateFormat
 import java.util.*
 
 class SignInActivity : AppCompatActivity() {
@@ -89,31 +92,44 @@ class SignInActivity : AppCompatActivity() {
                             } else {
                                 // Generate password salt and hash
                                 val password = binding.registerPasswordTextInput.text.toString()
-                                val salt = SecureRandom.getInstanceStrong().generateSeed(16)
+
+                               //Bcrypt
+                                val salt =  BCrypt.gensalt()
+                                val hash = BCrypt.hashpw(password, salt)
+
+                                //argon2
+                                /*val salt = SecureRandom.getInstanceStrong().generateSeed(16)
                                 val argon2Kt = Argon2Kt()
                                 val hashResult: Argon2KtResult = argon2Kt.hash(Argon2Mode.ARGON2_I, password.toByteArray(),salt,5, 65536)
-                                val hash = hashResult.encodedOutputAsString()
+                                val hash = hashResult.encodedOutputAsString()*/
+
+                                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                val currentDate = dateFormat.format(Date())
+
+                                val gson = Gson()
+                                val roles = listOf("ROLE_USER")
+                                val rolesJson = gson.toJson(roles)
 
                                 // Création de l'utilisateur
                                 val newUser = UserModel(
                                     null,
                                     binding.registerMailTextInput.text.toString(),
-                                    "",
+                                    rolesJson,
                                     hash,
                                     0,
                                     UUID.randomUUID().toString(),
                                     binding.registerNameTextInput.text.toString(),
                                     binding.registerPseudoTextInput.text.toString(),
                                     binding.registerFirstnameTextInput.text.toString(),
-                                    actualDateTime.toString(),
+                                    currentDate,
                                     "",
                                     "",
                                     0,
                                     1000,
                                     0,
                                     "logo_vooov_small.png",
-                                    actualDateTime.toString(),
-                                    actualDateTime.toString()
+                                    currentDate,
+                                    currentDate
                                 )
 
                                 userViewModel.createUser(newUser)

@@ -95,7 +95,7 @@ class RecordFragment (
                 userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
                     if(user !=null) {
                         recordArtistName.text = user.pseudo
-                        if(CurrentUser(context).readString("userConnecterd") != "000"){
+                        if(CurrentUser(context).uuid != "000"){
 
                             binding.recordPageSendMoon.setOnClickListener {
                                 val amountOfMoonsToSend = binding.recordPageMoonEditText.text.toString().toInt()
