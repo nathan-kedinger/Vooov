@@ -22,12 +22,14 @@ import kotlinx.coroutines.launch
 
 class SearchRecordAdapter(
     val context: ResearchRecordFragment,
-    val recordList: List<RecordModel>,
+    val recordList: MutableList<RecordModel>,
     val layoutId: Int,
     val lifeCycleOwner: LifecycleOwner,
     val navController: NavController,
     val userViewModel: UserViewModel,
 ) : RecyclerView.Adapter<SearchRecordAdapter.ViewHolder>() {
+
+    private var fullRecordList = ArrayList<RecordModel>().apply { addAll(recordList) }
 
     interface RecordAdapterListener{
         fun onRecordItemSelected(recordId: Int)
@@ -90,5 +92,18 @@ class SearchRecordAdapter(
 
     override fun getItemCount(): Int {
         return recordList.size
+    }
+
+    fun filter(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            fullRecordList
+        } else {
+            fullRecordList.filter { record ->
+                record.title.contains(query, ignoreCase = true)
+            }
+        }
+        recordList.clear()
+        recordList.addAll(filteredList)
+        notifyDataSetChanged()
     }
 }
