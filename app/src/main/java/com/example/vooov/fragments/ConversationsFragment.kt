@@ -50,7 +50,7 @@ class ConversationsFragment (
         // Adding recycler here. Going from items to the selected conversation
         CoroutineScope(Dispatchers.Main).launch {
             if (userUuid != null){
-                conversationViewModel.showAllUserConversations(userUuid, userUuid)
+                conversationViewModel.showAllUserConversations(userId, userId)
             }
         }
 

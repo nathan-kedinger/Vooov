@@ -46,9 +46,9 @@ class ConversationsRepository {
 
     private val readConversations: ConversationsRetrofitInterface = retrofit.create(ConversationsRetrofitInterface::class.java)
 
-    suspend fun readUserConversationsData(userUuid: String?, userUuidSame: String): Response<MutableList<ConversationsModel>>  {
+    suspend fun readUserConversationsData(userId: Int?, userIdSame: Int): Response<MutableList<ConversationsModel>>  {
         return try {
-            readConversations.getUserConversations(userUuid,userUuidSame)
+            readConversations.getUserConversations(userId, userIdSame)
         } catch (e: Exception) {
             throw IOException("Error fetching messages", e)
         }

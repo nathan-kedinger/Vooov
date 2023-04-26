@@ -1,6 +1,8 @@
 package com.example.vooov.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +40,7 @@ class ArtistProfileFragment (
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         conversationViewModel = ViewModelProvider(this).get(ConversationsViewModel::class.java)
 
-        val currentUserUuid: String = arguments?.getString("toArtistProfileFragment")!!
+        val currentUserUuid: Int = arguments?.getInt("toArtistProfileFragment")!!
 
 
         val artistProfileName = binding.artistProfilName
@@ -53,7 +55,7 @@ class ArtistProfileFragment (
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            userViewModel.fetchOneUser(currentUserUuid)
+            userViewModel.fetchOneUserById(currentUserUuid)
             // UI ProgressBar
             progressBar.visibility = View.GONE
             for (textView in textViewsToHide) {

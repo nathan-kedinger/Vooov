@@ -119,9 +119,9 @@ class HomeFragment (
                                                     "toSendMessageFragment",
                                                     conversation.uuid
                                                 )
-                                                toSendMessageArgs.putString(
+                                                toSendMessageArgs.putInt(
                                                     "toSendMessageContactUuid",
-                                                    user.uuid
+                                                    user.id!!
                                                 )
                                                 findNavController().navigate(
                                                     R.id.action_homeFragment_to_messageFragment,

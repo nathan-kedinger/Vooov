@@ -92,11 +92,15 @@ class RecordFragment (
                     }
                 }
 
-                userViewModel.user.observe(viewLifecycleOwner, Observer  { user ->
+                userViewModel.userById.observe(viewLifecycleOwner, Observer  { user ->
+                    Log.i(ContentValues.TAG, "targeted user : ${user.id}")
                     if(user !=null) {
                         recordArtistName.text = user.pseudo
-                        if(CurrentUser(context).uuid != "000"){
+                        Log.i(ContentValues.TAG, "Is user connected : ${CurrentUser(context).connected}")
+                        if(CurrentUser(context).connected){
+                            Log.i(ContentValues.TAG, "targeted user : ${user.id}")
 
+                            //Sending Moons
                             binding.recordPageSendMoon.setOnClickListener {
                                 val amountOfMoonsToSend = binding.recordPageMoonEditText.text.toString().toInt()
                                 val currentUserUuid = CurrentUser(context).readString("uuid")
@@ -206,9 +210,11 @@ class RecordFragment (
                                 builder.show()
                             }
 
+                            // To Artist profile fragment with targeted user uuid
                             binding.recordPageGoToArtist.setOnClickListener{
+                                Log.i(ContentValues.TAG, "recordPageGoToArtist clicked")
                                 val toArtistProfileArgs = Bundle()
-                                toArtistProfileArgs.putString("toArtistProfileFragment", user.uuid)
+                                toArtistProfileArgs.putInt("toArtistProfileFragment", user.id!!)
                                 // Adding identifications and conversations crations code here
                                 findNavController().navigate(R.id.action_recordPageFragment_to_artistProfilFragment, toArtistProfileArgs)
                             }
@@ -231,13 +237,13 @@ class RecordFragment (
         })
 
         // To other fragments
-
+/*
         binding.recordPageGoToArtist.setOnClickListener {
             // Adding identifications arguments here
 
             findNavController().navigate(R.id.action_recordPageFragment_to_artistProfilFragment)
 
-        }
+        }*/
 
         return view
 

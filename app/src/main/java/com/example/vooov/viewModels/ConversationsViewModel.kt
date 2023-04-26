@@ -79,8 +79,8 @@ class ConversationsViewModel : ViewModel() {
 
     val conversationsUserList = MutableLiveData<MutableList<ConversationsModel>>()
 
-    suspend fun showAllUserConversations(selfUuid: String, selfUuidSame: String){
-        val response = repository.readUserConversationsData(selfUuid, selfUuidSame)
+    suspend fun showAllUserConversations(selfId: Int, selfIdSame: Int){
+        val response = repository.readUserConversationsData(selfId, selfIdSame)
         if(response.isSuccessful){
             conversationsUserList.value = response.body()
             Log.i(ContentValues.TAG, "conversations récupérées")
