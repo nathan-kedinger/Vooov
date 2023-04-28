@@ -113,7 +113,7 @@ class RecordFragment (
                                 builder.setMessage("Etes-vous sûre de vouloir envoyer ces moons?")
 
                                 builder.setPositiveButton("Valider", DialogInterface.OnClickListener { dialog, which ->
-
+                                    // Updating profiles
                                     userViewModel.user.observe(viewLifecycleOwner, Observer { currentUser ->
                                         if (currentUser != null){
 
