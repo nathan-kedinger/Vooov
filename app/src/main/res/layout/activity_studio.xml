@@ -58,6 +58,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:textColor="@color/backgrounds"
+        android:textColorHint="@color/backgrounds"
         android:hint="@string/studio_record_name"
         android:layout_marginHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
