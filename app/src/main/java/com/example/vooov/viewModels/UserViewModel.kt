@@ -126,7 +126,7 @@ class UserViewModel: ViewModel() {
             val response = repository.readOneUserDataByMail(userMail)
             if (response.isSuccessful) {
                 val responseData = response.body()
-                userByMail.value = responseData ?: UserModel()
+                userByMail.postValue(responseData ?: UserModel())
             } else {
                 when (response.code()) {
                     in 400..499 -> {

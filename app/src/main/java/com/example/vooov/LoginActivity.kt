@@ -1,5 +1,6 @@
 package com.example.vooov
 
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -11,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import com.example.vooov.databinding.ActivityLoginBinding
@@ -45,9 +48,7 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        val sharedPreferences =
-            this.getSharedPreferences("userSahredPreferences", Context.MODE_PRIVATE)
-        val preferencesEditor = sharedPreferences.edit()
+        val sharedPreferences = this.getSharedPreferences("userSahredPreferences", Context.MODE_PRIVATE)
 
         val getCurrentUserConnected = sharedPreferences.getBoolean("userConnected", false)
         val getCurrentUserName = sharedPreferences.getString("name", "null")
@@ -57,21 +58,21 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
 
         }
-        /*if ( getCurrentUserConnected != false && getCurrentUserConnected == false ){
+        if (getCurrentUserConnected){
             login.isEnabled
             Toast.makeText(this, getCurrentUserName, Toast.LENGTH_LONG).show()
 
-        } else {*/
+        } else {
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        /* loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
                 val loginState = it ?: return@Observer
 
-                // disable login button unless both username / password is valid
+                //disable login button unless both username / password is valid
                 login.isEnabled = loginState.isDataValid
 
                 if (loginState.usernameError != null) {
@@ -80,9 +81,9 @@ class LoginActivity : AppCompatActivity() {
                 if (loginState.passwordError != null) {
                     password.error = getString(loginState.passwordError)
                 }
-            })*/
+            })
 
-        /*loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
                 val loginResult = it ?: return@Observer
 
                 loading.visibility = View.GONE
@@ -96,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_OK)
 
                 //Complete and destroy login activity once successful
-                //finish()
+                finish()
             })
 
             username.afterTextChanged {
@@ -128,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     false
                 }
-            }*/
+            }
         login.setOnClickListener {
             try {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -172,7 +173,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.e(ContentValues.TAG, "Message: ${e.message}")
             }
         }
-    //}
+    }
     }
 
     private fun saveUserData(user: UserModel) {

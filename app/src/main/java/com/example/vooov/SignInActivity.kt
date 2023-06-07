@@ -9,12 +9,14 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.widget.EditText
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.vooov.data.model.UserModel
 import com.example.vooov.databinding.ActivitySignInBinding
 import com.example.vooov.viewModelFactories.LoginViewModelFactory
 import com.example.vooov.viewModels.LoginViewModel
 import com.example.vooov.viewModels.UserViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.lambdapioneer.argon2kt.Argon2Kt
 import com.lambdapioneer.argon2kt.Argon2KtResult
@@ -83,11 +85,10 @@ class SignInActivity : AppCompatActivity() {
                         }
 
                         userViewModel.userByMail.observe(this, androidx.lifecycle.Observer { user->
-                            if (user.email != null) {
+                            if (user.email != null || user != null) {
 
-                                /*val snackbar: Snackbar =Snackbar.make(CoordinatorLayout(this),"Cette adresse email est déjà utilisée", Snackbar.LENGTH_LONG)
-                                snackbar.show()*/
-                                throw IOException(user.toString())
+                                val snackbar: Snackbar = Snackbar.make(CoordinatorLayout(this),"Cette adresse email est déjà utilisée", Snackbar.LENGTH_LONG)
+                                snackbar.show()
 
                             } else {
                                 // Generate password salt and hash

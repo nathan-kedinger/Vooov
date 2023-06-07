@@ -105,7 +105,6 @@ class HomeActivity : AppCompatActivity() {
             super.onStart()
         mainFragmentOn = true
         // Playing bloc. Here we manage to find targeted record
-
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val myFragment = PlayBlocFragment()

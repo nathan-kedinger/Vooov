@@ -22,7 +22,7 @@ class LoginDataSource {
 
     fun login(username: String, password: String): Result<LoggedInUser> {
         try {
-            val User = LoggedInUser("1","couille" )
+            val User = LoggedInUser("1","" )
 
             return Result.Success(User)
 

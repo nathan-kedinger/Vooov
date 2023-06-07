@@ -72,6 +72,7 @@ class PlayBlocFragment: Fragment() {
         } else {
             -1
         }
+
         if(selectedRecordFromRecycler != -1){
             currentRecordId = selectedRecordFromRecycler
             Log.i(ContentValues.TAG, currentRecordId.toString())
