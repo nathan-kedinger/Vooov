@@ -4,13 +4,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="15dp"
+    android:layout_margin="10dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/message_recycler_base"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey">
+        android:background="@color/blue_texts"
+        android:padding="10dp"
+        >
 
         <TextView
             android:id="@+id/message_item_sender"

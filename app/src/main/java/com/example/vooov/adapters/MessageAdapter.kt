@@ -1,5 +1,7 @@
 package com.example.vooov.adapters
 
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,8 +45,9 @@ class MessageAdapter(
 
         CoroutineScope(Dispatchers.Main).launch {
             userViewModel.fetchOneUserById(currentMessage.sender_id)
+            Log.i(ContentValues.TAG, currentMessage.sender_id.toString())
         }
-        userViewModel.user.observe(lifeCycleOwner, Observer { user ->
+        userViewModel.userById.observe(lifeCycleOwner, Observer { user ->
             if (user != null) {
                 holder.senderName.text = user.pseudo
             }

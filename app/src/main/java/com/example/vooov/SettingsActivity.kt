@@ -15,6 +15,9 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
+
         // To other activities
         binding.settingHome.setOnClickListener {
                 startActivity(Intent(this, HomeActivity::class.java))
