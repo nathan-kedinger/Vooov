@@ -78,11 +78,11 @@ class PlayBlocFragment: Fragment() {
             Log.i(ContentValues.TAG, currentRecordId.toString())
         }
 
-
         CoroutineScope(Dispatchers.Main).launch {
             recordViewModel.fetchOneRecord(currentRecordId)
         }
 
+        //Bind record data to view
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
             if(record != null) {
                 binding.homeMainRecordTitle.text = record.title

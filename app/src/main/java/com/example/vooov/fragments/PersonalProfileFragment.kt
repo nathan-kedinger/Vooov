@@ -68,7 +68,7 @@ class PersonalProfileFragment (
         CoroutineScope(Dispatchers.Main).launch {
             userViewModel.fetchOneUser(currentUser)
         }
-
+        // Bind personal datas with fields
         userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
             val userDescription = user.description
             personalProfileMyName.text = user.name
@@ -78,7 +78,7 @@ class PersonalProfileFragment (
             personalProfileFirstname.text = user.firstname
             personalProfileBiography.setText(userDescription)
 
-
+            // Modify personal description
             binding.personalProfilModify.setOnClickListener {
                 CoroutineScope(Dispatchers.Main).launch {
                     val currentUserModel = UserModel(
