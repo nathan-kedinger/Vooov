@@ -56,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
 
         binding.loginToRegister?.setOnClickListener {
             startActivity(Intent(this, SignInActivity::class.java))
-
         }
         if (getCurrentUserConnected){
             login.isEnabled

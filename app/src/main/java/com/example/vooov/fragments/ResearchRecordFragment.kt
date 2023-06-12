@@ -48,12 +48,12 @@ class ResearchRecordFragment (
             if (recordList != null) {
                 val navController = findNavController()
 
-
-                val sortedRecords = recordList.sortedBy { it.title }
+                // sortedBy send back a list, not a MutableList. That's why we use toMutableList
+                val sortedRecords = recordList.sortedBy { record -> record.title }.toMutableList()
 
                 recycler.adapter = SearchRecordAdapter(
                     this@ResearchRecordFragment,
-                    recordList,
+                    sortedRecords,
                     R.layout.items_records,
                     viewLifecycleOwner,
                     navController,

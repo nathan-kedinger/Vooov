@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
                 supportFragmentManager.setFragmentResultListener(
                     "currentRecordId",
                     this@HomeActivity
-                ) { _, result ->
+                ) {  _, result ->
                     val newRecordId = result.getInt("currentRecordId")
                     val toHomeFragment = Bundle()
                     toHomeFragment.putInt("mainFragment", newRecordId)
@@ -89,7 +89,6 @@ class HomeActivity : AppCompatActivity() {
             this.findNavController(R.id.nav_host_fragment).navigate(R.id.searchRecordFragment)
             mainFragmentOn = false
         }
-        val currentUserId = CurrentUser(this).readString("uuid")
 
         binding.homeMainOptions.setOnClickListener {
             // Check if user is signed in.
