@@ -84,7 +84,7 @@ class PersonalProfileFragment (
                     val currentUserModel = UserModel(
                         null,
                         user.email.trim(),
-                        "",
+                        user.roles.trim(),
                         user.password.trim(),
                         0,
                         user.uuid.trim(),

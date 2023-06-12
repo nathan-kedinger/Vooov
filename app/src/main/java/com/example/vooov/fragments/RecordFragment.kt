@@ -71,6 +71,7 @@ class RecordFragment (
             recordViewModel.fetchOneRecord(currentRecordId)
         }
 
+        // Bind record data to view
         recordViewModel.record.observe(viewLifecycleOwner, Observer { record ->
             if(record != null) {
                 recordTitle.text = record.title
